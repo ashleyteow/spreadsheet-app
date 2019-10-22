@@ -2,5 +2,6 @@
 /workspace.xml
 *.iml
 *.xml
-.idea/
 BeyondGoodProject.iml
+src/.DS_Store
+src/edu/.DS_Store
