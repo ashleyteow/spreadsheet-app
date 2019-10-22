@@ -15,6 +15,6 @@ public class BeyondGood {
       - evaluate all the cells, and
       - report any errors, or print the evaluated value of the requested cell.
     */
-    System.out.println("hellooo");
+    System.out.println("goodbye");
   }
 }
