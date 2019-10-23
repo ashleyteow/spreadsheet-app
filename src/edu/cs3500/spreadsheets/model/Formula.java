@@ -2,20 +2,17 @@ package edu.cs3500.spreadsheets.model;
 
 import edu.cs3500.spreadsheets.sexp.Sexp;
 
-public class Formula implements CellContents {
+public class Formula extends Value {
 
   private Sexp cellContent;
-  private Coord c1;
-  private Coord c2;
 
   // Value
-  public Formula(Sexp cellContent) {
-    this.cellContent = cellContent;
+  public Formula(String unprocessed) {
+    this.cellContent = convertToValue(unprocessed);
   }
 
-  @Override
-  public Sexp evaluate() {
-    return cellContent;
+  private Sexp convertToValue(String s) {
+    return null;
   }
 
 }

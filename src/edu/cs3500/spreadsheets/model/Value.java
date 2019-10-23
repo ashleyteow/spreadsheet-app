@@ -6,13 +6,8 @@ public class Value implements CellContents {
 
   private Sexp cellContent;
 
-  public Value(Sexp cellContent) {
-    this.cellContent = cellContent;
-  }
-
-  @Override
-  public Sexp evaluate() {
-    return cellContent;
+  public Value() {
+    //this.cellContent = cellContent;
   }
 
 }
