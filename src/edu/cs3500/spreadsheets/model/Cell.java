@@ -9,7 +9,6 @@ public class Cell {
 
   public Cell(Coord coord, CellContents unprocessedText) {
     this.coord = coord;
-    //this.cellContents = Parser.parse(unprocessedText);
   }
 
 
