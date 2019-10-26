@@ -11,4 +11,9 @@ public class Blank implements CellContents {
     this.cellContent = new SString("");
   }
 
+  @Override
+  public Sexp getContents() {
+    return this.cellContent;
+  }
+
 }

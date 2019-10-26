@@ -7,12 +7,12 @@ public class Formula extends Value {
   private Sexp cellContent;
 
   // Value
-  public Formula(String unprocessed) {
-    this.cellContent = convertToValue(unprocessed);
+  public Formula(Sexp cellContent) {
+    super(cellContent);
   }
 
-  private Sexp convertToValue(String s) {
-    return null;
-  }
+//  private Sexp convertToValue(String s) {
+//    return null;
+//  }
 
 }

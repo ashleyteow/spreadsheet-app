@@ -1,5 +1,6 @@
 import static org.junit.Assert.assertEquals;
 
+import edu.cs3500.spreadsheets.model.WorksheetReader;
 import edu.cs3500.spreadsheets.sexp.Parser;
 import edu.cs3500.spreadsheets.sexp.SNumber;
 import edu.cs3500.spreadsheets.sexp.SString;
@@ -14,11 +15,11 @@ public class TestParser {
 
   @Test
   public void testParser1() throws FileNotFoundException {
-    Scanner rd = new Scanner(
-        new File("/Users/gauri_dandi/Documents/Northeastern/2019-2020/CS 3500/"
-            + "BeyondGoodProject/testParse1"));
-    Sexp s = Parser.parse("3");
-    assertEquals(true, s instanceof SNumber);
+
+//    Sexp s = Parser.parse("\"hello\"");
+    Sexp s = Parser.parse("#comment \"hello\"");
+    System.out.println(s.getClass());
+//    assertEquals(true, s instanceof SString);
   }
 
 

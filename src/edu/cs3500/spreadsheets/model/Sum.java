@@ -5,8 +5,8 @@ import edu.cs3500.spreadsheets.sexp.Sexp;
 public class Sum implements Operation {
 
   @Override
-  public Sexp operate() {
-    return null;
+  public void operate() {
+    return;
   }
 
 }

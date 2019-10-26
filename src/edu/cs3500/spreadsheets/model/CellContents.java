@@ -4,6 +4,6 @@ import edu.cs3500.spreadsheets.sexp.Sexp;
 
 public interface CellContents {
 
-
+  Sexp getContents();
 
 }

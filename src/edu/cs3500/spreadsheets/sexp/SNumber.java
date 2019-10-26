@@ -34,6 +34,10 @@ public class SNumber implements Sexp {
     return Double.compare(sNumber.num, num) == 0;
   }
 
+  public double getNumber() {
+    return this.num;
+  }
+
   @Override
   public int hashCode() {
     return Objects.hash(num);
