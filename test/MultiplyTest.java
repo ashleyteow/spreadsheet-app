@@ -3,7 +3,7 @@ import static org.junit.Assert.*;
 import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Multiply;
-import edu.cs3500.spreadsheets.model.Operation;
+
 import java.util.ArrayList;
 import org.junit.Test;
 
