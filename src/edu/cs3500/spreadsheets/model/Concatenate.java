@@ -9,9 +9,13 @@ public class Concatenate implements Operation, SexpVisitor<String> {
   private String strResult;
   private ArrayList<Cell> cells;
 
-  private Concatenate(ArrayList<Cell> cells) {
+  public Concatenate(ArrayList<Cell> cells) {
     this.cells = cells;
     this.strResult = "";
+  }
+
+  public String getStr() {
+    return this.strResult;
   }
 
   @Override
