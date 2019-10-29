@@ -24,10 +24,10 @@ public class SumTest {
     cells.add(new Cell(new Coord(1,1), "hello"));
     cells.add(new Cell(new Coord(2,1), "3"));
     cells.add(new Cell(new Coord(2,1), "cake"));
-    cells.add(new Cell(new Coord(4, 2), "6"));
+    cells.add(new Cell(new Coord(5, 2), "6"));
     Sum sum = new Sum(cells);
     sum.operate();
-    assertEquals(9.0, sum.getSum(), 0.0001);
+    assertEquals(10.0, sum.getSum(), 0.0001);
   }
 
   @Test (expected = IllegalArgumentException.class)
