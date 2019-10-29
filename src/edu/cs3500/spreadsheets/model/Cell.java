@@ -22,7 +22,8 @@ public class Cell {
       this.cellContents = new Blank();
     }
     else if (unprocessedText.substring(0,1).equals("=")) {
-      this.cellContents = new Formula(Parser.parse(unprocessedText));
+      this.cellContents = new Formula(Parser.parse(unprocessedText.substring(1)));
+      System.out.println(this.cellContents);
     }
     else {
       this.cellContents = new Value(Parser.parse(unprocessedText));

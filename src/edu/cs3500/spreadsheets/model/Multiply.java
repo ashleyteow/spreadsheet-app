@@ -1,5 +1,6 @@
 package edu.cs3500.spreadsheets.model;
 
+import edu.cs3500.spreadsheets.sexp.SSymbol;
 import edu.cs3500.spreadsheets.sexp.Sexp;
 import edu.cs3500.spreadsheets.sexp.SexpVisitor;
 import java.util.ArrayList;
@@ -10,23 +11,23 @@ import java.util.List;
  */
 public class Multiply implements Operation, SexpVisitor<Double> {
   private double product;
-  private ArrayList<Cell> cells;
+  public static SSymbol name = new SSymbol("PRODUCT");
+
+  private Sexp vals;
 
   /**
    * Constructs a {@code Multiply} object from the given arraylist of
    * cells.
-   * @param cells arguments to be evaluated
+   * @param vals arguments to be evaluated
    */
-  public Multiply(ArrayList<Cell> cells) {
-    this.cells = cells;
+  public Multiply(Sexp vals) {
+    this.vals = vals;
     this.product = 1;
   }
 
   @Override
   public void operate() {
-    for (Cell c : cells) {
-      c.getCellContents().getContents().accept(this);
-    }
+    vals.accept(this);
   }
 
   /**

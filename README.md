@@ -10,3 +10,5 @@ Todo List:
 - direct or indirect cyclic inferences
 - main() method
 - thorough testing
+    - concatenate test
+    
