@@ -35,7 +35,7 @@ public class Formula extends Value {
 
     for (Sexp s : arguments) {
       if (s.equals(Multiply.name)) {
-
+        System.out.println("hello");
       }
     }
   }
