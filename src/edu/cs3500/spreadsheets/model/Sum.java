@@ -6,13 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Performs the sum operation for a formula.
+ * Performs the sum operation for a given formula in a cell.
  */
 public class Sum implements Operation, SexpVisitor<Double> {
-
   private double sum;
   private ArrayList<Cell> cells;
 
+  /**
+   * Constructs a {@code Sum} object from the given arraylist of
+   * cells.
+   * @param cells arguments to be evaluated
+   */
   public Sum(ArrayList<Cell> cells) {
     this.cells = cells;
     this.sum = 0;
@@ -25,6 +29,10 @@ public class Sum implements Operation, SexpVisitor<Double> {
     }
   }
 
+  /**
+   * Returns the result of this sum operation.
+   * @return total sum
+   */
   public double getSum() {
     return this.sum;
   }

@@ -7,6 +7,9 @@ import edu.cs3500.spreadsheets.model.Multiply;
 import java.util.ArrayList;
 import org.junit.Test;
 
+/**
+ * Tests multiply/product functionality.
+ */
 public class MultiplyTest {
 
   @Test

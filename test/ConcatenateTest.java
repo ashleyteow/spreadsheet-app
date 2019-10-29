@@ -32,4 +32,16 @@ public class ConcatenateTest {
     assertEquals("3469", concat.getStr());
   }
 
+  @Test
+  public void testSumWithNumbersAndStrings() {
+    ArrayList<Cell> cells = new ArrayList<Cell>();
+    cells.add(new Cell(new Coord(1,1), "hello"));
+    cells.add(new Cell(new Coord(2,1), "3"));
+    cells.add(new Cell(new Coord(2,1), "cake"));
+    cells.add(new Cell(new Coord(4, 2), "6"));
+    Concatenate concat = new Concatenate(cells);
+    concat.operate();
+    assertEquals("hello3cake6", concat.getStr());
+  }
+
 }

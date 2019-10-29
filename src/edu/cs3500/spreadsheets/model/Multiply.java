@@ -5,10 +5,18 @@ import edu.cs3500.spreadsheets.sexp.SexpVisitor;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Performs the product operation for a given formula in a cell.
+ */
 public class Multiply implements Operation, SexpVisitor<Double> {
   private double product;
   private ArrayList<Cell> cells;
 
+  /**
+   * Constructs a {@code Multiply} object from the given arraylist of
+   * cells.
+   * @param cells arguments to be evaluated
+   */
   public Multiply(ArrayList<Cell> cells) {
     this.cells = cells;
     this.product = 1;
@@ -21,6 +29,10 @@ public class Multiply implements Operation, SexpVisitor<Double> {
     }
   }
 
+  /**
+   * Returns the result of this multiply operation.
+   * @return total sum
+   */
   public double getProduct() {
     return this.product;
   }

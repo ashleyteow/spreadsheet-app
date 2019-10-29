@@ -5,15 +5,27 @@ import edu.cs3500.spreadsheets.sexp.SexpVisitor;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Performs the concatenate operation for a given formula in a cell.
+ */
 public class Concatenate implements Operation, SexpVisitor<String> {
   private String strResult;
   private ArrayList<Cell> cells;
 
+  /**
+   * Constructs a {@code Concatenate} object from the given arraylist of
+   * cells.
+   * @param cells arguments to be evaluated
+   */
   public Concatenate(ArrayList<Cell> cells) {
     this.cells = cells;
     this.strResult = "";
   }
 
+  /**
+   * Returns the result of this concatenate operation.
+   * @return total sum
+   */
   public String getStr() {
     return this.strResult;
   }
