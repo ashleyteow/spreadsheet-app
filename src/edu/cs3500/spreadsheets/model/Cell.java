@@ -8,7 +8,7 @@ import edu.cs3500.spreadsheets.sexp.Parser;
  * either a Blank, Value, or Formula.
  */
 public class Cell {
-  private Coord coord;
+  private final Coord coord;
   private CellContents cellContents;
 
   /**

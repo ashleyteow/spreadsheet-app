@@ -72,4 +72,18 @@ public class Worksheet {
     return this.cells;
   }
 
+/**
+ * Returns the cell at the specified coordinates.
+ * @param col  column of the desired cell
+ * @param row  row of the desired cell
+ * @return the cell at the given position, or <code>null</code> if no card is there
+ * @throws IllegalArgumentException if the coordinates are invalid
+ */
+  public Cell getCellAt(int col, int row) throws IllegalArgumentException {
+    if (col < 0 || row < 0 || col > this.getCells().size()
+        || row > this.getCells().size()) {
+      throw new IllegalArgumentException("Coordinates out of bound!");
+    }
+    return this.getCells().get(col).get(row);
+  }
 }
