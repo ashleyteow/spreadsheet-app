@@ -1,5 +1,6 @@
 package edu.cs3500.spreadsheets.model;
 
+import edu.cs3500.spreadsheets.sexp.SSymbol;
 import edu.cs3500.spreadsheets.sexp.Sexp;
 import edu.cs3500.spreadsheets.sexp.SexpVisitor;
 import java.util.ArrayList;
@@ -10,15 +11,16 @@ import java.util.List;
  */
 public class Concatenate implements Operation, SexpVisitor<String> {
   private String strResult;
-  private ArrayList<Cell> cells;
+  public static SSymbol name = new SSymbol("CONCAT");
+  private List<Sexp> vals;
 
   /**
    * Constructs a {@code Concatenate} object from the given arraylist of
    * cells.
-   * @param cells arguments to be evaluated
+   * @param vals arguments to be evaluated
    */
-  public Concatenate(ArrayList<Cell> cells) {
-    this.cells = cells;
+  public Concatenate(List<Sexp> vals) {
+    this.vals = vals;
     this.strResult = "";
   }
 
@@ -32,8 +34,8 @@ public class Concatenate implements Operation, SexpVisitor<String> {
 
   @Override
   public void operate() {
-    for (Cell c : cells) {
-      c.getCellContents().getContents().accept(this);
+    for (Sexp s : this.vals) {
+      s.accept(this);
     }
   }
 

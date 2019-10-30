@@ -18,4 +18,12 @@ public class WorksheetTest {
     testWorksheet.getCells();
   }
 
+  @Test
+  public void testReadingInput2() throws FileNotFoundException {
+    Worksheet testWorksheet = WorksheetReader.read(Worksheet.builder(),
+        new FileReader("/Users/gauri_dandi/Documents/Northeastern/2019-2020/"
+            + "CS 3500/HWK5/testParse2"));
+    testWorksheet.getCells();
+  }
+
 }
