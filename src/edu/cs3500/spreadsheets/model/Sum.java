@@ -1,5 +1,6 @@
 package edu.cs3500.spreadsheets.model;
 
+import edu.cs3500.spreadsheets.sexp.SSymbol;
 import edu.cs3500.spreadsheets.sexp.Sexp;
 import edu.cs3500.spreadsheets.sexp.SexpVisitor;
 import java.util.ArrayList;
@@ -10,22 +11,23 @@ import java.util.List;
  */
 public class Sum implements Operation, SexpVisitor<Double> {
   private double sum;
-  private ArrayList<Cell> cells;
+  public static SSymbol name = new SSymbol("SUM");
+  private List<Sexp> vals;
 
   /**
    * Constructs a {@code Sum} object from the given arraylist of
    * cells.
-   * @param cells arguments to be evaluated
+   * @param vals arguments to be evaluated
    */
-  public Sum(ArrayList<Cell> cells) {
-    this.cells = cells;
+  public Sum(List<Sexp> vals) {
+    this.vals = vals;
     this.sum = 0;
   }
 
   @Override
   public void operate() {
-    for (Cell c : cells) {
-      c.getCellContents().getContents().accept(this);
+    for (Sexp s : this.vals) {
+      s.accept(this);
     }
   }
 

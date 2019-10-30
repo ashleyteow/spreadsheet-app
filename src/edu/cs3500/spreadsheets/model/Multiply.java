@@ -13,21 +13,23 @@ public class Multiply implements Operation, SexpVisitor<Double> {
   private double product;
   public static SSymbol name = new SSymbol("PRODUCT");
 
-  private Sexp vals;
+  private List<Sexp> vals;
 
   /**
    * Constructs a {@code Multiply} object from the given arraylist of
    * cells.
    * @param vals arguments to be evaluated
    */
-  public Multiply(Sexp vals) {
+  public Multiply(List<Sexp> vals) {
     this.vals = vals;
     this.product = 1;
   }
 
   @Override
   public void operate() {
-    vals.accept(this);
+    for (Sexp s : this.vals) {
+      s.accept(this);
+    }
   }
 
   /**
