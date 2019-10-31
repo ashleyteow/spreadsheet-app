@@ -22,4 +22,9 @@ public class Blank implements CellContents {
     return this.cellContent;
   }
 
+  @Override
+  public String toString() {
+    return "";
+  }
+
 }

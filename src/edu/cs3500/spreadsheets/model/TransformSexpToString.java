@@ -4,16 +4,27 @@ import edu.cs3500.spreadsheets.sexp.Sexp;
 import edu.cs3500.spreadsheets.sexp.SexpVisitor;
 import java.util.List;
 
+/**
+ * Utility class to help transform Sexps into Strings so that its
+ * contents can be accessed.
+ */
 public class TransformSexpToString implements SexpVisitor<String> {
 
   private List<Sexp> s;
   private String strResults;
 
+  /**
+   * Constructs a {@code TransformSexpToString}.
+   * @param s list of {@code Sexp}
+   */
   public TransformSexpToString(List<Sexp> s) {
     this.s = s;
     this.strResults = "";
   }
 
+  /**
+   * Initiates the visitor pattern for {@code s}.
+   */
   public void transform() {
     for (Sexp sexp: s) {
       sexp.accept(this);

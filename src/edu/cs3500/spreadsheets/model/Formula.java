@@ -33,8 +33,6 @@ public class Formula extends Value {
     transform.transform();
     ArrayList<Sexp> arguments = transform.getList();
 
-
-
     for (int i = 0; i < arguments.size(); i++) {
       if (arguments.get(i).equals(Multiply.name)) {
         Multiply m = new Multiply(arguments.subList(i + 1, arguments.size()));
@@ -55,16 +53,13 @@ public class Formula extends Value {
         LessThan lt = new LessThan(arguments.subList(i + 1, arguments.size()));
         evaluatedCellContent = new Value(new SBoolean(lt.getResult())).evaluate();
       }
-//      else {
-//        evaluatedCellContent = new Value(arguments.get(i)).evaluate();
-//      }
     }
     return evaluatedCellContent;
-
   }
 
+  @Override
+  public String toString() {
+    return evaluatedCellContent.toString();
+  }
 
-//  public Value getEvaluatedCellContent() {
-//    return evaluatedCellContent;
-//  }
 }

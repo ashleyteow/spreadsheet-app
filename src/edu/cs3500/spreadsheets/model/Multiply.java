@@ -1,10 +1,8 @@
 package edu.cs3500.spreadsheets.model;
 
-import edu.cs3500.spreadsheets.sexp.SList;
 import edu.cs3500.spreadsheets.sexp.SSymbol;
 import edu.cs3500.spreadsheets.sexp.Sexp;
 import edu.cs3500.spreadsheets.sexp.SexpVisitor;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +10,7 @@ import java.util.List;
  */
 public class Multiply implements Operation, SexpVisitor<Double> {
   private double product;
-  public static SSymbol name = new SSymbol("PRODUCT");
+  public static final SSymbol name = new SSymbol("PRODUCT");
   private List<Sexp> vals;
 
   /**
@@ -58,17 +56,10 @@ public class Multiply implements Operation, SexpVisitor<Double> {
         s.operate();
         product *= s.getSum();
       }
-//      else if (l.get(i).equals(Multiply.name)) {
-//        Multiply m = new Multiply(l.subList(i+1, l.size()));
-//      }
-//      else if (l.get(i).equals(Concatenate.name)) {
-//
-//      }
-//      else if (l.get(i).equals(LessThan.name)) {
-//
-//      }
-      else {
-        l.get(i).accept(this);
+      else if (l.get(i).equals(Multiply.name)) {
+        Multiply m = new Multiply(l.subList(i+1, l.size()));
+        m.operate();
+        product *= m.getProduct();
       }
     }
     return product;

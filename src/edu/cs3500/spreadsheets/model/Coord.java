@@ -9,8 +9,13 @@ public class Coord {
   public final int row;
   public final int col;
 
+  /**
+   * Constructs a coordinate for a {@code Cell}.
+   * @param col column number
+   * @param row row number
+   */
   public Coord(int col, int row) {
-    if (row < 1 || col < 1) {
+    if (row < 0 || col < 0) {
       throw new IllegalArgumentException("Coordinates should be strictly positive");
     }
     this.row = row;

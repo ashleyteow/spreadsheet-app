@@ -1,8 +1,6 @@
 import static org.junit.Assert.*;
 
-import edu.cs3500.spreadsheets.model.Formula;
 import edu.cs3500.spreadsheets.model.Multiply;
-import edu.cs3500.spreadsheets.model.Value;
 import edu.cs3500.spreadsheets.sexp.SList;
 import edu.cs3500.spreadsheets.sexp.SNumber;
 import edu.cs3500.spreadsheets.sexp.SString;
@@ -57,6 +55,17 @@ public class MultiplyTest {
     prod.operate();
     assertEquals(24.0, prod.getProduct(), 0.0001);
   }
+
+  @Test
+  public void test3ProductWithLists() {
+    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
+    sexp.add(new SNumber(2));
+    sexp.add(new SList(new SSymbol("PRODUCT"), new SNumber(3), new SNumber(4), new SNumber(5)));
+    Multiply prod = new Multiply(sexp);
+    prod.operate();
+    assertEquals(120.0, prod.getProduct(), 0.0001);
+  }
+
 
   @Test
   public void testProductWithSymbols() {

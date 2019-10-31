@@ -1,8 +1,6 @@
 import static org.junit.Assert.*;
 
-import edu.cs3500.spreadsheets.model.Formula;
 import edu.cs3500.spreadsheets.model.Sum;
-import edu.cs3500.spreadsheets.model.Value;
 import edu.cs3500.spreadsheets.sexp.SBoolean;
 import edu.cs3500.spreadsheets.sexp.SList;
 import edu.cs3500.spreadsheets.sexp.SNumber;
@@ -12,6 +10,9 @@ import edu.cs3500.spreadsheets.sexp.Sexp;
 import java.util.ArrayList;
 import org.junit.Test;
 
+/**
+ * Tests addition/sum functionality.
+ */
 public class SumTest {
 
   @Test
@@ -50,6 +51,19 @@ public class SumTest {
     Sum sum = new Sum(sexp);
     sum.operate();
     assertEquals(17.6, sum.getSum(), 0.0001);
+  }
+
+  @Test
+  public void test4SumWithLists() {
+    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
+    sexp.add(new SNumber(1));
+    sexp.add(new SNumber(2));
+    sexp.add(new SNumber(4));
+    sexp.add(new SList(new SSymbol("PRODUCT"), new SNumber(4), new SNumber(6)));
+    sexp.add(new SList(new SSymbol("CONCAT"), new SString("OOD")));
+    Sum sum = new Sum(sexp);
+    sum.operate();
+    assertEquals(31.0, sum.getSum(), 0.0001);
   }
 
   @Test

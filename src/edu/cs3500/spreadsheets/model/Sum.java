@@ -1,6 +1,5 @@
 package edu.cs3500.spreadsheets.model;
 
-import edu.cs3500.spreadsheets.sexp.SList;
 import edu.cs3500.spreadsheets.sexp.SSymbol;
 import edu.cs3500.spreadsheets.sexp.Sexp;
 import edu.cs3500.spreadsheets.sexp.SexpVisitor;
@@ -11,7 +10,7 @@ import java.util.List;
  */
 public class Sum implements Operation, SexpVisitor<Double> {
   private double sum;
-  public static SSymbol name = new SSymbol("SUM");
+  public static final SSymbol name = new SSymbol("SUM");
   private List<Sexp> vals;
 
   /**
@@ -57,29 +56,14 @@ public class Sum implements Operation, SexpVisitor<Double> {
         s.operate();
         sum += s.getSum();
       }
-//      else if (l.get(i).equals(Multiply.name)) {
-//        Multiply m = new Multiply(l.subList(i+1, l.size()));
-//      }
-//      else if (l.get(i).equals(Concatenate.name)) {
-//
-//      }
-//      else if (l.get(i).equals(LessThan.name)) {
-//
-//      }
-      else {
-        l.get(i).accept(this);
+      else if (l.get(i).equals(Multiply.name)) {
+        Multiply m = new Multiply(l.subList(i+1, l.size()));
+        m.operate();
+        sum += m.getProduct();
       }
     }
     return sum;
   }
-
-//  @Override
-//  public Double visitSList(List<Sexp> l) {
-//    if (l.get(0).equals(Multiply.name) || l.get(0).equals(Sum.name)) {
-//      sum += new Formula(new SList(l.subList(1, l.size()))).evaluate().accept(this);
-//    }
-//    return sum;
-//  }
 
   @Override
   public Double visitSymbol(String s) {

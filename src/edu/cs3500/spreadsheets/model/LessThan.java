@@ -9,13 +9,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Performs the less than (<) operation for a given formula in a cell.
+ */
 public class LessThan implements Operation, SexpVisitor<Boolean> {
 
   private boolean result;
   private Map<Sexp, Double> test = new HashMap<>();
-  public static SSymbol name = new SSymbol("<");
+  public static final SSymbol name = new SSymbol("<");
   private List<Sexp> vals;
 
+  /**
+   * Constructs a {@code LessThan} object from the given arraylist of
+   * cells.
+   * @param vals arguments to be evaluated
+   */
   public LessThan(List<Sexp> vals) {
     this.vals = new ArrayList<>();
     for (int i = 0; i < 2; i++) {

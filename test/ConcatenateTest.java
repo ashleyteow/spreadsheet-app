@@ -39,6 +39,20 @@ public class ConcatenateTest {
   }
 
   @Test
+  public void testConcatWithMultipleFunctions() {
+    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
+    sexp.add(new SList(new SSymbol("CONCAT"),
+        new SList(new SSymbol("SUM"), new SNumber(1), new SNumber(5), new SNumber(7)),
+        new SList(new SSymbol("PRODUCT"), new SNumber(6), new SNumber(3)),
+        new SList(new SSymbol("CONCAT"), new SString("Hello "),
+            new SString("There"))));
+    Concatenate c = new Concatenate(sexp);
+    c.operate();
+    assertEquals("13.018.0Hello There", c.getStr());
+  }
+
+
+  @Test
   public void testConcatWithNumbersAndStrings() {
     ArrayList<Sexp> sexp = new ArrayList<Sexp>();
     sexp.add(new SString("I will be needing "));

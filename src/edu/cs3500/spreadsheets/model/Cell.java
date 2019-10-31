@@ -36,4 +36,23 @@ public class Cell {
   public CellContents getCellContents() {
     return this.cellContents;
   }
+
+  public Coord getCoord() {
+    return this.coord;
+  }
+
+  @Override
+  public String toString() {
+    return this.cellContents.toString();
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    if (!(other instanceof Cell)) {
+      return false;
+    }
+    Cell val = (Cell) other;
+    val.hashCode();
+    return val.cellContents.equals(((Cell) other).cellContents);
+  }
 }

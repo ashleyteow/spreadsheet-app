@@ -7,6 +7,9 @@ import edu.cs3500.spreadsheets.sexp.Sexp;
 import java.util.ArrayList;
 import org.junit.Test;
 
+/**
+ * Tests less than functionality.
+ */
 public class LessThanTest {
 
   @Test

@@ -4,15 +4,17 @@ import edu.cs3500.spreadsheets.model.WorksheetReader.WorksheetBuilder;
 import java.util.ArrayList;
 
 /**
- * Represents a single spreadsheet that contains a grid of cells. Uses composition to
- * build a worksheet.
+ * Represents a single spreadsheet that contains a grid of cells. Uses composition to build a
+ * worksheet.
  */
 public class Worksheet {
+
   private ArrayList<ArrayList<Cell>> cells;
 
   /**
    * Creates a new Builder object that is responsible for producing a new Worksheet.
-    * @return Builder object
+   *
+   * @return Builder object
    */
   public static Builder builder() {
     return new Builder(200);
@@ -22,11 +24,13 @@ public class Worksheet {
    * Helper class that fills in the grid of cells with its evaluated contents.
    */
   public static final class Builder implements WorksheetBuilder<Worksheet> {
+
     private ArrayList<ArrayList<Cell>> workSheetCells;
 
     /**
-     * Constructs a {@code Builder} object initalized with an initialCapacity to set
-     * default number of rows and columns in the spreadsheet.
+     * Constructs a {@code Builder} object initalized with an initialCapacity to set default number
+     * of rows and columns in the spreadsheet.
+     *
      * @param initialCapacity default number of rows / columns
      */
     private Builder(int initialCapacity) {
@@ -44,7 +48,7 @@ public class Worksheet {
     public WorksheetBuilder<Worksheet> createCell(int col, int row, String contents) {
       Coord coordinate = new Coord(col, row);
       Cell cell = new Cell(coordinate, contents);
-      workSheetCells.get(col-1).set(row-1, cell);
+      workSheetCells.get(col - 1).set(row - 1, cell);
       return this;
     }
 
@@ -56,8 +60,9 @@ public class Worksheet {
   }
 
   /**
-   * Constructs a {@code Worksheet} object with a given arraylist of cells
-   * that have been processed and evaluated through the Builder pattern.
+   * Constructs a {@code Worksheet} object with a given arraylist of cells that have been processed
+   * and evaluated through the Builder pattern.
+   *
    * @param cells all cells in this spreadsheet
    */
   private Worksheet(ArrayList<ArrayList<Cell>> cells) {
@@ -66,19 +71,21 @@ public class Worksheet {
 
   /**
    * Getter method to access this worksheet's grid of cells.
+   *
    * @return all cells in this spreadsheet
    */
   public ArrayList<ArrayList<Cell>> getCells() {
     return this.cells;
   }
 
-/**
- * Returns the cell at the specified coordinates.
- * @param col  column of the desired cell
- * @param row  row of the desired cell
- * @return the cell at the given position, or <code>null</code> if no card is there
- * @throws IllegalArgumentException if the coordinates are invalid
- */
+  /**
+   * Returns the cell at the specified coordinates.
+   *
+   * @param col column of the desired cell
+   * @param row row of the desired cell
+   * @return the cell at the given position, or <code>null</code> if no card is there
+   * @throws IllegalArgumentException if the coordinates are invalid
+   */
   public Cell getCellAt(int col, int row) throws IllegalArgumentException {
     if (col < 0 || row < 0 || col >= this.getCells().size()
         || row >= this.getCells().size()) {
@@ -87,6 +94,10 @@ public class Worksheet {
     return this.getCells().get(col).get(row);
   }
 
+  /**
+   * Verifies that all cells were created in the {@code Worksheet}.
+   * @return
+   */
   public boolean evaluateCells() {
     boolean valid = true;
     for (int i = 0; i < this.cells.size(); i++) {
