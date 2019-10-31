@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Sum implements Operation, SexpVisitor<Double> {
   private double sum;
-  public static final SSymbol name = new SSymbol("SUM");
+  public static final SSymbol NAME = new SSymbol("SUM");
   private List<Sexp> vals;
 
   /**
@@ -51,13 +51,13 @@ public class Sum implements Operation, SexpVisitor<Double> {
   @Override
   public Double visitSList(List<Sexp> l) {
     for (int i = 0; i < l.size(); i++) {
-      if (l.get(i).equals(Sum.name)) {
-        Sum s = new Sum(l.subList(i+1, l.size()));
+      if (l.get(i).equals(Sum.NAME)) {
+        Sum s = new Sum(l.subList(i + 1, l.size()));
         s.operate();
         sum += s.getSum();
       }
-      else if (l.get(i).equals(Multiply.name)) {
-        Multiply m = new Multiply(l.subList(i+1, l.size()));
+      else if (l.get(i).equals(Multiply.NAME)) {
+        Multiply m = new Multiply(l.subList(i + 1, l.size()));
         m.operate();
         sum += m.getProduct();
       }

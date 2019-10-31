@@ -1,4 +1,4 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import edu.cs3500.spreadsheets.model.Multiply;
 import edu.cs3500.spreadsheets.sexp.SList;

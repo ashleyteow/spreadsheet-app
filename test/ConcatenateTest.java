@@ -1,4 +1,4 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import edu.cs3500.spreadsheets.model.Concatenate;
 import edu.cs3500.spreadsheets.sexp.SBoolean;
@@ -10,6 +10,9 @@ import edu.cs3500.spreadsheets.sexp.Sexp;
 import java.util.ArrayList;
 import org.junit.Test;
 
+/**
+ * Tests all public methods for a concatenate function.
+ */
 public class ConcatenateTest {
 
   @Test

@@ -1,4 +1,4 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import edu.cs3500.spreadsheets.model.TransformSListToArrayList;
 import edu.cs3500.spreadsheets.sexp.SList;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 /**
- * Tests the transformation of an Sexp to an {@code ArrayList<Sexp>}
+ * Tests the transformation of an Sexp to an {@code ArrayList<Sexp>}.
  */
 public class TransformSexpTest {
 

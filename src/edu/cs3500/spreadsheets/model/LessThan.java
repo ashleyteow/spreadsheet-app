@@ -16,7 +16,7 @@ public class LessThan implements Operation, SexpVisitor<Boolean> {
 
   private boolean result;
   private Map<Sexp, Double> test = new HashMap<>();
-  public static final SSymbol name = new SSymbol("<");
+  public static final SSymbol NAME = new SSymbol("<");
   private List<Sexp> vals;
 
   /**

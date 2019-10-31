@@ -1,4 +1,4 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import edu.cs3500.spreadsheets.model.Sum;
 import edu.cs3500.spreadsheets.sexp.SBoolean;

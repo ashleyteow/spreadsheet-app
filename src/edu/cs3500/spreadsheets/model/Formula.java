@@ -34,22 +34,22 @@ public class Formula extends Value {
     ArrayList<Sexp> arguments = transform.getList();
 
     for (int i = 0; i < arguments.size(); i++) {
-      if (arguments.get(i).equals(Multiply.name)) {
+      if (arguments.get(i).equals(Multiply.NAME)) {
         Multiply m = new Multiply(arguments.subList(i + 1, arguments.size()));
         m.operate();
         evaluatedCellContent = new Value(new SNumber(m.getProduct())).evaluate();
       }
-      if (arguments.get(i).equals(Sum.name)) {
+      if (arguments.get(i).equals(Sum.NAME)) {
         Sum s = new Sum(arguments.subList(i + 1, arguments.size()));
         s.operate();
         evaluatedCellContent = new Value(new SNumber((s.getSum()))).evaluate();
       }
-      if (arguments.get(i).equals(Concatenate.name)) {
+      if (arguments.get(i).equals(Concatenate.NAME)) {
         Concatenate c = new Concatenate(arguments.subList(i + 1, arguments.size()));
         c.operate();
         evaluatedCellContent = new Value(new SString((c.getStr()))).evaluate();
       }
-      if (arguments.get(i).equals(LessThan.name)) {
+      if (arguments.get(i).equals(LessThan.NAME)) {
         LessThan lt = new LessThan(arguments.subList(i + 1, arguments.size()));
         evaluatedCellContent = new Value(new SBoolean(lt.getResult())).evaluate();
       }

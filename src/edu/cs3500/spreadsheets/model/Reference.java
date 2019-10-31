@@ -24,4 +24,8 @@ public class Reference extends Formula {
     this.finalVals = new ArrayList<>();
   }
 
+  private ArrayList<Sexp> getFinalVals() {
+    return this.finalVals;
+  }
+
 }

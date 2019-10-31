@@ -1,4 +1,4 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
@@ -10,6 +10,9 @@ import edu.cs3500.spreadsheets.sexp.SString;
 import edu.cs3500.spreadsheets.sexp.SSymbol;
 import org.junit.Test;
 
+/**
+ * Tests all formulas for a {@code Cell}.
+ */
 public class FormulaTest {
 
   @Test
@@ -37,7 +40,8 @@ public class FormulaTest {
   @Test
   public void testValidProductFormula2() {
     Formula formula = new Formula(new SList(new SSymbol("PRODUCT"),
-        new SNumber(2), new SList(new SSymbol("SUM"), new SNumber(3), new SNumber(4), new SNumber(5))));
+        new SNumber(2), new SList(new SSymbol("SUM"), new SNumber(3),
+        new SNumber(4), new SNumber(5))));
     assertEquals(new SNumber(24.0), formula.evaluate());
   }
 
@@ -50,7 +54,8 @@ public class FormulaTest {
 
   @Test
   public void testValidLessThanFormula() {
-    Formula formula = new Formula(new SList(new SSymbol("<"), new SNumber(5), new SNumber(3)));
+    Formula formula = new Formula(new SList(new SSymbol("<"),
+        new SNumber(5), new SNumber(3)));
     assertEquals(new SBoolean(false), formula.evaluate());
   }
 

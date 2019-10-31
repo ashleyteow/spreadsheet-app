@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Represents a single spreadsheet that contains a grid of cells. Uses composition to build a
  * worksheet.
  */
-public class Worksheet {
+public class Worksheet implements IWorksheet {
 
   private ArrayList<ArrayList<Cell>> cells;
 
@@ -69,23 +69,12 @@ public class Worksheet {
     this.cells = cells;
   }
 
-  /**
-   * Getter method to access this worksheet's grid of cells.
-   *
-   * @return all cells in this spreadsheet
-   */
+  @Override
   public ArrayList<ArrayList<Cell>> getCells() {
     return this.cells;
   }
 
-  /**
-   * Returns the cell at the specified coordinates.
-   *
-   * @param col column of the desired cell
-   * @param row row of the desired cell
-   * @return the cell at the given position, or <code>null</code> if no card is there
-   * @throws IllegalArgumentException if the coordinates are invalid
-   */
+  @Override
   public Cell getCellAt(int col, int row) throws IllegalArgumentException {
     if (col < 0 || row < 0 || col >= this.getCells().size()
         || row >= this.getCells().size()) {
@@ -94,10 +83,7 @@ public class Worksheet {
     return this.getCells().get(col).get(row);
   }
 
-  /**
-   * Verifies that all cells were created in the {@code Worksheet}.
-   * @return
-   */
+  @Override
   public boolean evaluateCells() {
     boolean valid = true;
     for (int i = 0; i < this.cells.size(); i++) {

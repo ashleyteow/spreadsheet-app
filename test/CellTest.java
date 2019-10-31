@@ -1,4 +1,4 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import edu.cs3500.spreadsheets.model.Blank;
 import edu.cs3500.spreadsheets.model.Cell;
@@ -17,6 +17,9 @@ import java.io.FileReader;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Tests all public methods for a {@code Cell} object.
+ */
 public class CellTest {
   private Worksheet testWorksheet;
 

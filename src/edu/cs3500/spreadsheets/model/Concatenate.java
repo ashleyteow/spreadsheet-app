@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Concatenate implements Operation, SexpVisitor<String> {
   private String strResult;
-  public static final SSymbol name = new SSymbol("CONCAT");
+  public static final SSymbol NAME = new SSymbol("CONCAT");
   private List<Sexp> vals;
 
   /**
@@ -56,23 +56,23 @@ public class Concatenate implements Operation, SexpVisitor<String> {
   @Override
   public String visitSList(List<Sexp> l) {
     for (int i = 0; i < l.size(); i++) {
-      if (l.get(i).equals(Sum.name)) {
-        Sum s = new Sum(l.subList(i+1, l.size()));
+      if (l.get(i).equals(Sum.NAME)) {
+        Sum s = new Sum(l.subList(i + 1, l.size()));
         s.operate();
         strResult += s.getSum();
       }
-      else if (l.get(i).equals(Multiply.name)) {
-        Multiply m = new Multiply(l.subList(i+1, l.size()));
+      else if (l.get(i).equals(Multiply.NAME)) {
+        Multiply m = new Multiply(l.subList(i + 1, l.size()));
         m.operate();
         strResult += m.getProduct();
       }
-      else if (l.get(i).equals(Concatenate.name)) {
-        Concatenate c = new Concatenate(l.subList(i+1, l.size()));
+      else if (l.get(i).equals(Concatenate.NAME)) {
+        Concatenate c = new Concatenate(l.subList(i + 1, l.size()));
         c.operate();
         strResult += c.getStr();
       }
-      else if (l.get(i).equals(LessThan.name)) {
-        LessThan lt = new LessThan(l.subList(i+1, l.size()));
+      else if (l.get(i).equals(LessThan.NAME)) {
+        LessThan lt = new LessThan(l.subList(i + 1, l.size()));
         lt.operate();
         strResult += lt.getResult();
       }

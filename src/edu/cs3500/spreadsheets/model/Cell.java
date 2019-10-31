@@ -1,6 +1,7 @@
 package edu.cs3500.spreadsheets.model;
 
 import edu.cs3500.spreadsheets.sexp.Parser;
+import java.util.Objects;
 
 /**
  * Represents a single cell in a {@code Worksheet}. A cell has a coordinate
@@ -54,5 +55,10 @@ public class Cell {
     Cell val = (Cell) other;
     val.hashCode();
     return val.cellContents.equals(((Cell) other).cellContents);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(cellContents);
   }
 }

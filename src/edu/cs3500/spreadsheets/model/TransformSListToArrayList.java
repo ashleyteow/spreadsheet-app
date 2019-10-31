@@ -15,15 +15,26 @@ public class TransformSListToArrayList implements SexpVisitor<ArrayList<Sexp>> {
   private Sexp s;
   private ArrayList<Sexp> list;
 
+  /**
+   * Constructs a {@code TransformSListToArrayList} object.
+   * @param s S-exp
+   */
   public TransformSListToArrayList(Sexp s) {
     this.s = s;
     this.list = new ArrayList<Sexp>();
   }
 
+  /**
+   * Initiates the visitor pattern for {@code s}.
+   */
   public void transform() {
     s.accept(this);
   }
 
+  /**
+   * Getter method for this list.
+   * @return arraylist of s-expressions
+   */
   public ArrayList<Sexp> getList() {
     ArrayList<Sexp> copyList = new ArrayList<Sexp>();
     for (Sexp s : list) {
