@@ -6,5 +6,5 @@ Todo List:
 - Less than function class
 - direct or indirect cyclic inferences
 - main() method
-- thorough testing
+- remaining tests
     
