@@ -91,7 +91,6 @@ public class Parser {
                 } else {
                   // restore the original delimiter pattern
                   scan.useDelimiter(delim);
-                  System.out.println("Delimiter:" + delim);
                   return new SString(sb.toString());
                 }
                 break;

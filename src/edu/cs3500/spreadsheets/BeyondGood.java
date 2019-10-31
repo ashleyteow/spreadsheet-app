@@ -48,8 +48,7 @@ public class BeyondGood {
     int cellCol = Coord.colNameToIndex(cellName.substring(0, 1));
     int cellRow = Integer.parseInt(cellName.substring(1));
 
-    Cell cell = worksheet.getCellAt(cellCol, cellRow);
-    System.out.println(cell.getCellContents().toString());
-
+    Cell cell = worksheet.getCellAt(cellCol - 1, cellRow - 1);
+    System.out.println(cell.getCellContents());
   }
 }

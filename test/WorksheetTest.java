@@ -18,8 +18,8 @@ public class WorksheetTest {
         new FileReader("/Users/gauri_dandi/Documents/Northeastern/2019-2020/"
             + "CS 3500/HWK5/testParse1"));
     //testWorksheet.getCells();
-    System.out.println(testWorksheet.getCellAt(0, 0)
-        .getCellContents().evaluate().toString());
+//    System.out.println(testWorksheet.getCellAt(0, 0)
+//        .getCellContents().evaluate().toString());
   }
 
   @Test

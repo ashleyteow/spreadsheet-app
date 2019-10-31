@@ -12,7 +12,7 @@ public class TransformSexpTest {
         new SNumber(3), new SList(new SSymbol("SUM"), new SNumber(3), new SNumber(4)));
     TransformSListToArrayList transform = new TransformSListToArrayList(list);
     transform.transform();
-    System.out.println(transform.getList());
+    //System.out.println(transform.getList());
   }
 
   @Test
@@ -20,7 +20,7 @@ public class TransformSexpTest {
     SList list = new SList(new SSymbol("SUM"), new SSymbol("A1:A4"));
     TransformSListToArrayList transform = new TransformSListToArrayList(list);
     transform.transform();
-    System.out.println(transform.getList());
+    //System.out.println(transform.getList());
   }
 
 }

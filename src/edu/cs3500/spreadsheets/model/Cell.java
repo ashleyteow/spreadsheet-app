@@ -23,6 +23,7 @@ public class Cell {
     }
     else if (unprocessedText.substring(0,1).equals("=")) {
       this.cellContents = new Formula(Parser.parse(unprocessedText.substring(1)));
+      System.out.println("here");
       System.out.println(this.cellContents);
     }
     else {

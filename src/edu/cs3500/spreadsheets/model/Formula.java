@@ -52,9 +52,13 @@ public class Formula extends Value {
         LessThan lt = new LessThan(arguments.subList(i + 1, arguments.size()));
         evaluatedCellContent = new Value(new SBoolean(lt.getResult())).evaluate();
       }
+      else {
+        System.out.println(arguments.get(i));
+      }
     }
     return evaluatedCellContent;
   }
+
 
 //  public Value getEvaluatedCellContent() {
 //    return evaluatedCellContent;

@@ -30,6 +30,11 @@ public class Value implements CellContents {
   }
 
   @Override
+  public String toString() {
+    return this.cellContent.toString();
+  }
+
+  @Override
   public int hashCode() {
     return Objects.hash(cellContent);
   }
