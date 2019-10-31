@@ -1,52 +1,104 @@
 import static org.junit.Assert.*;
 
-import edu.cs3500.spreadsheets.model.Cell;
-import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Formula;
-import edu.cs3500.spreadsheets.model.Multiply;
 import edu.cs3500.spreadsheets.model.Sum;
 import edu.cs3500.spreadsheets.model.Value;
+import edu.cs3500.spreadsheets.sexp.SBoolean;
 import edu.cs3500.spreadsheets.sexp.SList;
 import edu.cs3500.spreadsheets.sexp.SNumber;
+import edu.cs3500.spreadsheets.sexp.SString;
 import edu.cs3500.spreadsheets.sexp.SSymbol;
+import edu.cs3500.spreadsheets.sexp.Sexp;
 import java.util.ArrayList;
 import org.junit.Test;
 
 public class SumTest {
-//  @Test
-//  public void testSumWithOnlyNumbers() {
-//    ArrayList<Cell> cells = new ArrayList<Cell>();
-//    cells.add(new Cell(new Coord(1,1), "87"));
-//    cells.add(new Cell(new Coord(2,1), "3"));
-//    Sum sum = new Sum(cells);
-//    sum.operate();
-//    assertEquals(90.0, sum.getSum(), 0.0001);
-//  }
-//
-//  @Test
-//  public void testSumWithNumbersAndStrings() {
-//    ArrayList<Cell> cells = new ArrayList<Cell>();
-//    cells.add(new Cell(new Coord(1,1), "hello"));
-//    cells.add(new Cell(new Coord(2,1), "3"));
-//    cells.add(new Cell(new Coord(2,1), "cake"));
-//    cells.add(new Cell(new Coord(5, 2), "6"));
-//    Sum sum = new Sum(cells);
-//    sum.operate();
-//    assertEquals(10.0, sum.getSum(), 0.0001);
-//  }
-//
-//  @Test (expected = IllegalArgumentException.class)
-//  public void testSumWithInvalidSexp() {
-//    ArrayList<Cell> cells = new ArrayList<>();
-//    cells.add(new Cell(new Coord(2, 4), "\"|hello"));
-//    cells.add(new Cell(new Coord(4, 5), "5"));
-//    cells.add(new Cell(new Coord(5, 6), "5"));
-//    Sum sum = new Sum(cells);
-//    sum.operate();
-//  }
 
   @Test
-  public void testFormula() {
+  public void testSumWithString() {
+    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
+    sexp.add(new SString("3"));
+    sexp.add(new SString("4"));
+    sexp.add(new SString("6"));
+    Sum s = new Sum(sexp);
+    s.operate();
+    assertEquals(0, s.getSum(),0.0001);
+  }
+
+  @Test
+  public void testSumWithOnlyNumbers() {
+    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
+    sexp.add(new SNumber(2.5));
+    sexp.add(new SNumber(6));
+    sexp.add(new SNumber(8));
+    sexp.add(new SNumber(1.1));
+    Sum sum = new Sum(sexp);
+    sum.operate();
+    assertEquals(17.6, sum.getSum(), 0.0001);
+  }
+
+  @Test
+  public void testSumWithNumbersAndStrings() {
+    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
+    sexp.add(new SNumber(2.5));
+    sexp.add(new SNumber(6));
+    sexp.add(new SNumber(8));
+    sexp.add(new SString("3"));
+    sexp.add(new SString("4"));
+    sexp.add(new SString("6"));
+    sexp.add(new SNumber(1.1));
+    Sum sum = new Sum(sexp);
+    sum.operate();
+    assertEquals(17.6, sum.getSum(), 0.0001);
+  }
+
+  @Test
+  public void testSumWithBooleans() {
+    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
+    sexp.add(new SNumber(2.5));
+    sexp.add(new SNumber(6));
+    sexp.add(new SBoolean(true));
+    Sum sum = new Sum(sexp);
+    sum.operate();
+    assertEquals(8.5, sum.getSum(), 0.0001);
+  }
+
+  @Test
+  public void testSumWithLists() {
+    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
+    sexp.add(new SList(new SNumber(2.5), new SNumber(9)));
+    Sum sum = new Sum(sexp);
+    sum.operate();
+    assertEquals(11.5, sum.getSum(), 0.0001);
+  }
+
+  @Test
+  public void testSumWithSymbols() {
+    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
+    sexp.add(new SSymbol("PRODUCT"));
+    sexp.add(new SNumber(6));
+    sexp.add(new SNumber(2));
+    Sum sum = new Sum(sexp);
+    sum.operate();
+    assertEquals(8, sum.getSum(), 0.0001);
+  }
+
+  @Test
+  public void testSumWithLists2() {
+    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
+    sexp.add(new SList(new SNumber(2.5), new SNumber(9)));
+    sexp.add(new SNumber(2));
+    sexp.add(new SNumber(5));
+    sexp.add(new SString("hello"));
+    sexp.add(new SSymbol("SUM"));
+    sexp.add(new SBoolean(true));
+    Sum sum = new Sum(sexp);
+    sum.operate();
+    assertEquals(18.5, sum.getSum(), 0.0001);
+  }
+
+  @Test
+  public void testSumFormula() {
     Formula formula = new Formula(new SList(new SSymbol("PRODUCT"),
         new SNumber(3), new SList(new SSymbol("SUM"), new SNumber(2), new SNumber(4))));
     formula.evaluate();

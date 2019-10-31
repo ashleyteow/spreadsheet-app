@@ -5,6 +5,10 @@ import edu.cs3500.spreadsheets.sexp.SexpVisitor;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Utility class to help transform SLists into ArrayLists so that its
+ * contents can be accessed.
+ */
 public class TransformSexp implements SexpVisitor<ArrayList<Sexp>> {
 
   private Sexp s;

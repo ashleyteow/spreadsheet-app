@@ -1,16 +1,18 @@
 package edu.cs3500.spreadsheets.model;
 
+import edu.cs3500.spreadsheets.sexp.SNumber;
 import edu.cs3500.spreadsheets.sexp.SSymbol;
 import edu.cs3500.spreadsheets.sexp.Sexp;
 import edu.cs3500.spreadsheets.sexp.SexpVisitor;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LessThan implements Operation, SexpVisitor<Boolean> {
 
   private boolean result;
-  private Sexp first;
-  private Sexp second;
+  private Map<Sexp, Double> test = new HashMap<>();
   public static SSymbol name = new SSymbol("<");
   private List<Sexp> vals;
 
@@ -20,14 +22,13 @@ public class LessThan implements Operation, SexpVisitor<Boolean> {
       this.vals.add(vals.get(i));
     }
     this.result = false;
-    this.first = this.vals.get(0);
-    this.second = this.vals.get(1);
   }
 
   @Override
   public void operate() {
-    first.accept(this);
-    second.accept(this);
+    for (Sexp s : this.vals) {
+      s.accept(this);
+    }
   }
 
   public boolean getResult() {
@@ -41,7 +42,11 @@ public class LessThan implements Operation, SexpVisitor<Boolean> {
 
   @Override
   public Boolean visitNumber(double d) {
-    return null;
+    Sexp sp = new SNumber(d);
+    if (!test.containsKey(sp)) {
+      test.put(sp, d);
+    }
+    return d < test.get(sp);
   }
 
   @Override

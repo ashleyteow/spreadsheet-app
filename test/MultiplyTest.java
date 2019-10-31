@@ -1,12 +1,11 @@
 import static org.junit.Assert.*;
 
-import edu.cs3500.spreadsheets.model.Cell;
-import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Formula;
 import edu.cs3500.spreadsheets.model.Multiply;
-
+import edu.cs3500.spreadsheets.model.Value;
 import edu.cs3500.spreadsheets.sexp.SList;
 import edu.cs3500.spreadsheets.sexp.SNumber;
+import edu.cs3500.spreadsheets.sexp.SString;
 import edu.cs3500.spreadsheets.sexp.SSymbol;
 import edu.cs3500.spreadsheets.sexp.Sexp;
 import java.util.ArrayList;
@@ -24,37 +23,59 @@ public class MultiplyTest {
     sexp.add(new SNumber(3));
     Multiply prod = new Multiply(sexp);
     prod.operate();
-    assertEquals(261.0, prod.getProduct(), 0.0001);
+    assertEquals(12.0, prod.getProduct(), 0.0001);
   }
 
-//  @Test
-//  public void testProductWithNumbersAndStrings() {
-//    ArrayList<Cell> cells = new ArrayList<Cell>();
-//    cells.add(new Cell(new Coord(1,1), "hello"));
-//    cells.add(new Cell(new Coord(2,1), "3"));
-//    cells.add(new Cell(new Coord(2,1), "cake"));
-//    cells.add(new Cell(new Coord(4, 2), "6"));
-//    Multiply prod = new Multiply(cells);
-//    prod.operate();
-//    assertEquals(18.0, prod.getProduct(), 0.0001);
-//  }
-//
-//  @Test (expected = IllegalArgumentException.class)
-//  public void testProductWithInvalidSexp() {
-//    ArrayList<Cell> cells = new ArrayList<>();
-//    cells.add(new Cell(new Coord(2, 4), "\"|hello"));
-//    cells.add(new Cell(new Coord(4, 5), "5"));
-//    cells.add(new Cell(new Coord(5, 6), "5"));
-//    Multiply prod = new Multiply(cells);
-//    prod.operate();
-//  }
+  @Test
+  public void testProductWithNumbersAndStrings() {
+    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
+    sexp.add(new SString("hello"));
+    sexp.add(new SNumber(3));
+    sexp.add(new SString("cake"));
+    sexp.add(new SNumber(6));
+    Multiply prod = new Multiply(sexp);
+    prod.operate();
+    assertEquals(18.0, prod.getProduct(), 0.0001);
+  }
+
+  @Test
+  public void testProductWithLists() {
+    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
+    sexp.add(new SList(new SString("hello"), new SNumber(3),
+        new SString("cake"), new SNumber(6)));
+    Multiply prod = new Multiply(sexp);
+    prod.operate();
+    assertEquals(18.0, prod.getProduct(), 0.0001);
+  }
+
+  @Test
+  public void testProductWithSymbols() {
+    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
+    sexp.add(new SSymbol("SUM"));
+    sexp.add(new SNumber(3));
+    Multiply prod = new Multiply(sexp);
+    prod.operate();
+    assertEquals(3.0, prod.getProduct(), 0.0001);
+  }
+
+  @Test
+  public void testProductWithLists2() {
+    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
+    sexp.add(new SList(new SString("hello"), new SNumber(3),
+        new SString("cake"), new SNumber(6)));
+    sexp.add(new SNumber(2));
+    sexp.add(new SString("bread"));
+    Multiply prod = new Multiply(sexp);
+    prod.operate();
+    assertEquals(36.0, prod.getProduct(), 0.0001);
+  }
 
   @Test
   public void testFormula() {
     Formula formula = new Formula(new SList(new SSymbol("PRODUCT"),
         new SNumber(3), new SList(new SSymbol("PRODUCT"), new SNumber(2), new SNumber(4))));
     formula.evaluate();
-    System.out.println(formula.getEvaluatedCellContent());
+    assertEquals(new Value(new SNumber(24)), formula.getEvaluatedCellContent());
   }
 
 }

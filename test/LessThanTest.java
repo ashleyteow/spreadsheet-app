@@ -12,8 +12,8 @@ public class LessThanTest {
   @Test
   public void testLessThanNumbers() {
     ArrayList<Sexp> sexp = new ArrayList<Sexp>();
-    sexp.add(new SNumber(4));
     sexp.add(new SNumber(3));
+    sexp.add(new SNumber(4));
     LessThan lt = new LessThan(sexp);
     lt.operate();
     assertEquals(false, lt.getResult());
