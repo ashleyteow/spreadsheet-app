@@ -84,6 +84,16 @@ public class Worksheet implements IWorksheet {
   }
 
   @Override
+  public void deleteCellAt(int col, int row) {
+    this.cells.get(col).set(row, new Cell(new Coord(col, row), ""));
+  }
+
+  @Override
+  public void editCellAt(int col, int row, String newContents) {
+    this.cells.get(col).set(row, new Cell(new Coord(col, row), newContents));
+  }
+
+  @Override
   public boolean evaluateCells() {
     boolean valid = true;
     for (int i = 0; i < this.cells.size(); i++) {
