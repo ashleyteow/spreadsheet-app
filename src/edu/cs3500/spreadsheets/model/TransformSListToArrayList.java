@@ -9,12 +9,12 @@ import java.util.List;
  * Utility class to help transform SLists into ArrayLists so that its
  * contents can be accessed.
  */
-public class TransformSexp implements SexpVisitor<ArrayList<Sexp>> {
+public class TransformSListToArrayList implements SexpVisitor<ArrayList<Sexp>> {
 
   private Sexp s;
   private ArrayList<Sexp> list;
 
-  public TransformSexp(Sexp s) {
+  public TransformSListToArrayList(Sexp s) {
     this.s = s;
     this.list = new ArrayList<Sexp>();
   }

@@ -3,6 +3,7 @@ package edu.cs3500.spreadsheets.model;
 import edu.cs3500.spreadsheets.sexp.SSymbol;
 import edu.cs3500.spreadsheets.sexp.Sexp;
 import edu.cs3500.spreadsheets.sexp.SexpVisitor;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,7 +12,6 @@ import java.util.List;
 public class Multiply implements Operation, SexpVisitor<Double> {
   private double product;
   public static SSymbol name = new SSymbol("PRODUCT");
-
   private List<Sexp> vals;
 
   /**

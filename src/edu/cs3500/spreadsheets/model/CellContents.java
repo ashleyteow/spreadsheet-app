@@ -13,6 +13,6 @@ public interface CellContents {
    * Returns the S-Expression value of this cell's contents.
    * @return S-expression
    */
-  Sexp getContents();
+  Sexp evaluate();
 
 }

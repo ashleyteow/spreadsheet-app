@@ -13,7 +13,8 @@ import java.util.ArrayList;
  */
 public class Formula extends Value {
 
-  private Value evaluatedCellContent;
+  private Sexp evaluatedCellContent;
+  private ArrayList<Sexp> vals;
 
   /**
    * Constructs a {@code Formula} object.
@@ -26,8 +27,8 @@ public class Formula extends Value {
   /**
    * Updates the cellContent to be the evaluated value of this formula.
    */
-  public void evaluate() {
-    TransformSexp transform = new TransformSexp(cellContent);
+  public Sexp evaluate() {
+    TransformSListToArrayList transform = new TransformSListToArrayList(cellContent);
     transform.transform();
     ArrayList<Sexp> arguments = transform.getList();
 
@@ -35,26 +36,27 @@ public class Formula extends Value {
       if (arguments.get(i).equals(Multiply.name)) {
         Multiply m = new Multiply(arguments.subList(i + 1, arguments.size()));
         m.operate();
-        evaluatedCellContent = new Value(new SNumber(m.getProduct()));
+        evaluatedCellContent = new Value(new SNumber(m.getProduct())).evaluate();
       }
       if (arguments.get(i).equals(Sum.name)) {
         Sum s = new Sum(arguments.subList(i + 1, arguments.size()));
         s.operate();
-        evaluatedCellContent = new Value(new SNumber((s.getSum())));
+        evaluatedCellContent = new Value(new SNumber((s.getSum()))).evaluate();
       }
       if (arguments.get(i).equals(Concatenate.name)) {
         Concatenate c = new Concatenate(arguments.subList(i + 1, arguments.size()));
         c.operate();
-        evaluatedCellContent = new Value(new SString((c.getStr())));
+        evaluatedCellContent = new Value(new SString((c.getStr()))).evaluate();
       }
       if (arguments.get(i).equals(LessThan.name)) {
         LessThan lt = new LessThan(arguments.subList(i + 1, arguments.size()));
-        evaluatedCellContent = new Value(new SBoolean(lt.getResult()));
+        evaluatedCellContent = new Value(new SBoolean(lt.getResult())).evaluate();
       }
     }
-  }
-
-  public Value getEvaluatedCellContent() {
     return evaluatedCellContent;
   }
+
+//  public Value getEvaluatedCellContent() {
+//    return evaluatedCellContent;
+//  }
 }

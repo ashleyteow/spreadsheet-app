@@ -80,10 +80,23 @@ public class Worksheet {
  * @throws IllegalArgumentException if the coordinates are invalid
  */
   public Cell getCellAt(int col, int row) throws IllegalArgumentException {
-    if (col < 0 || row < 0 || col > this.getCells().size()
-        || row > this.getCells().size()) {
+    if (col < 0 || row < 0 || col >= this.getCells().size()
+        || row >= this.getCells().size()) {
       throw new IllegalArgumentException("Coordinates out of bound!");
     }
     return this.getCells().get(col).get(row);
   }
+
+  public boolean evaluateCells() {
+    boolean valid = true;
+    for (int i = 0; i < this.cells.size(); i++) {
+      for (int j = 0; j < this.cells.get(i).size(); j++) {
+        if (this.cells.get(i).get(j) == null) {
+          valid = false;
+        }
+      }
+    }
+    return valid;
+  }
+
 }
