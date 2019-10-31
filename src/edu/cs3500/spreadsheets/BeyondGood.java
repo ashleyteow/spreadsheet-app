@@ -4,7 +4,6 @@ import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Worksheet;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
-import edu.cs3500.spreadsheets.model.WorksheetReader.WorksheetBuilder;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
@@ -17,12 +16,6 @@ public class BeyondGood {
    * @param args any command-line arguments
    */
   public static void main(String[] args) {
-    /*
-      TODO: For now, look in the args array to obtain a filename and a cell name,
-      - read the file and build a model from it, 
-      - evaluate all the cells, and
-      - report any errors, or print the evaluated value of the requested cell.
-    */
     String fileName;
     String cellName = "";
     FileReader readFile;
@@ -49,6 +42,7 @@ public class BeyondGood {
     int cellRow = Integer.parseInt(cellName.substring(1));
 
     Cell cell = worksheet.getCellAt(cellCol - 1, cellRow - 1);
-    System.out.println(cell.getCellContents());
+    cell.getCellContents().evaluate();
+//    System.out.println(cell.getCellContents());
   }
 }

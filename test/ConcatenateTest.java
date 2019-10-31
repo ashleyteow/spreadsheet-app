@@ -1,103 +1,92 @@
-//import static org.junit.Assert.*;
-//
-//import edu.cs3500.spreadsheets.model.Concatenate;
-//import edu.cs3500.spreadsheets.model.Formula;
-//import edu.cs3500.spreadsheets.model.Value;
-//import edu.cs3500.spreadsheets.sexp.SBoolean;
-//import edu.cs3500.spreadsheets.sexp.SList;
-//import edu.cs3500.spreadsheets.sexp.SNumber;
-//import edu.cs3500.spreadsheets.sexp.SString;
-//import edu.cs3500.spreadsheets.sexp.SSymbol;
-//import edu.cs3500.spreadsheets.sexp.Sexp;
-//import java.util.ArrayList;
-//import org.junit.Test;
-//
-//public class ConcatenateTest {
-//
-//  @Test
-//  public void testConcatWithString() {
-//    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
-//    sexp.add(new SString("hello"));
-//    sexp.add(new SString(" "));
-//    sexp.add(new SString("i"));
-//    sexp.add(new SString(" "));
-//    sexp.add(new SString("am"));
-//    sexp.add(new SString(" "));
-//    sexp.add(new SString("ashley"));
-//    Concatenate c = new Concatenate(sexp);
-//    c.operate();
-//    assertEquals("hello iam ashley", c.getStr());
-//  }
-//
-//  @Test
-//  public void testConcatWithNumbers() {
-//    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
-//    sexp.add(new SNumber(3));
-//    sexp.add(new SString(", "));
-//    sexp.add(new SNumber(4));
-//    Concatenate c = new Concatenate(sexp);
-//    c.operate();
-//    assertEquals("3.0, 4.0", c.getStr());
-//  }
-//
-//  @Test
-//  public void testConcatWithNumbersAndStrings() {
-//    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
-//    sexp.add(new SString("I will be needing "));
-//    sexp.add(new SNumber(4.5));
-//    sexp.add(new SString(" grams of sugar."));
-//
-//    Concatenate c = new Concatenate(sexp);
-//    c.operate();
-//    assertEquals("I will be needing 4.5 grams of sugar.", c.getStr());
-//  }
-//
-//  @Test
-//  public void testConcatWithBooleans() {
-//    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
-//    sexp.add(new SString("2+2 = 4 : "));
-//    sexp.add(new SBoolean(true));
-//    Concatenate c = new Concatenate(sexp);
-//    c.operate();
-//    assertEquals("2+2 = 4 : TRUE", c.getStr());
-//  }
-//
-//  @Test
-//  public void testConcatWithLists() {
-//    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
-//    sexp.add(new SList(new SString("2+2 = 4 : "), new SBoolean(true)));
-//    Concatenate c = new Concatenate(sexp);
-//    c.operate();
-//    assertEquals("2+2 = 4 : TRUE", c.getStr());
-//  }
-//
-//  @Test
-//  public void testConcatWithSymbols() {
-//    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
-//    sexp.add(new SSymbol("SYMBOL1 "));
-//    sexp.add(new SSymbol("SYMBOL2"));
-//    Concatenate c = new Concatenate(sexp);
-//    c.operate();
-//    assertEquals("SYMBOL1 SYMBOL2", c.getStr());
-//  }
-//
-//  @Test
-//  public void testConcatWithLists2() {
-//    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
-//    sexp.add(new SList(new SString("2+2 = 4 : "), new SBoolean(true)));
-//    sexp.add(new SString("\n"));
-//    sexp.add(new SList(new SString("3+4 = 6 : "), new SBoolean(false)));
-//    Concatenate c = new Concatenate(sexp);
-//    c.operate();
-//    assertEquals("2+2 = 4 : TRUE\n3+4 = 6 : FALSE", c.getStr());
-//  }
-//
-//  @Test
-//  public void testFormula() {
-//    Formula formula = new Formula(new SList(new SSymbol("CONCAT"),
-//        new SString("Hello"), new SString(" "), new SString("World")));
-//    formula.evaluate();
-//    assertEquals(new Value(new SString("Hello World")), formula.getEvaluatedCellContent());
-//  }
-//
-//}
+import static org.junit.Assert.*;
+
+import edu.cs3500.spreadsheets.model.Concatenate;
+import edu.cs3500.spreadsheets.sexp.SBoolean;
+import edu.cs3500.spreadsheets.sexp.SList;
+import edu.cs3500.spreadsheets.sexp.SNumber;
+import edu.cs3500.spreadsheets.sexp.SString;
+import edu.cs3500.spreadsheets.sexp.SSymbol;
+import edu.cs3500.spreadsheets.sexp.Sexp;
+import java.util.ArrayList;
+import org.junit.Test;
+
+public class ConcatenateTest {
+
+  @Test
+  public void testConcatWithString() {
+    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
+    sexp.add(new SString("hello"));
+    sexp.add(new SString(" "));
+    sexp.add(new SString("i"));
+    sexp.add(new SString(" "));
+    sexp.add(new SString("am"));
+    sexp.add(new SString(" "));
+    sexp.add(new SString("ashley"));
+    Concatenate c = new Concatenate(sexp);
+    c.operate();
+    assertEquals("hello i am ashley", c.getStr());
+  }
+
+  @Test
+  public void testConcatWithNumbers() {
+    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
+    sexp.add(new SNumber(3));
+    sexp.add(new SString(", "));
+    sexp.add(new SNumber(4));
+    Concatenate c = new Concatenate(sexp);
+    c.operate();
+    assertEquals("3.0, 4.0", c.getStr());
+  }
+
+  @Test
+  public void testConcatWithNumbersAndStrings() {
+    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
+    sexp.add(new SString("I will be needing "));
+    sexp.add(new SNumber(4.5));
+    sexp.add(new SString(" grams of sugar."));
+
+    Concatenate c = new Concatenate(sexp);
+    c.operate();
+    assertEquals("I will be needing 4.5 grams of sugar.", c.getStr());
+  }
+
+  @Test
+  public void testConcatWithBooleans() {
+    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
+    sexp.add(new SString("2+2 = 4 : "));
+    sexp.add(new SBoolean(true));
+    Concatenate c = new Concatenate(sexp);
+    c.operate();
+    assertEquals("2+2 = 4 : TRUE", c.getStr());
+  }
+
+  @Test
+  public void testConcatWithLists() {
+    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
+    sexp.add(new SList(new SString("2+2 = 4 : "), new SBoolean(true)));
+    Concatenate c = new Concatenate(sexp);
+    c.operate();
+    assertEquals("2+2 = 4 : TRUE", c.getStr());
+  }
+
+  @Test
+  public void testConcatWithSymbols() {
+    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
+    sexp.add(new SSymbol("SYMBOL1 "));
+    sexp.add(new SSymbol("SYMBOL2"));
+    Concatenate c = new Concatenate(sexp);
+    c.operate();
+    assertEquals("SYMBOL1 SYMBOL2", c.getStr());
+  }
+
+  @Test
+  public void testConcatWithLists2() {
+    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
+    sexp.add(new SList(new SString("2+2 = 4 : "), new SBoolean(true)));
+    sexp.add(new SString("\n"));
+    sexp.add(new SList(new SString("3+4 = 6 : "), new SBoolean(false)));
+    Concatenate c = new Concatenate(sexp);
+    c.operate();
+    assertEquals("2+2 = 4 : TRUE\n3+4 = 6 : FALSE", c.getStr());
+  }
+}

@@ -1,5 +1,6 @@
 package edu.cs3500.spreadsheets.model;
 
+import edu.cs3500.spreadsheets.sexp.SNumber;
 import edu.cs3500.spreadsheets.sexp.Sexp;
 import edu.cs3500.spreadsheets.sexp.SexpVisitor;
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class TransformSListToArrayList implements SexpVisitor<ArrayList<Sexp>> {
 
   @Override
   public ArrayList<Sexp> visitNumber(double d) {
+    list.add(new SNumber(d));
     return list;
   }
 

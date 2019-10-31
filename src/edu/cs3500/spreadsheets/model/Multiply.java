@@ -1,5 +1,6 @@
 package edu.cs3500.spreadsheets.model;
 
+import edu.cs3500.spreadsheets.sexp.SList;
 import edu.cs3500.spreadsheets.sexp.SSymbol;
 import edu.cs3500.spreadsheets.sexp.Sexp;
 import edu.cs3500.spreadsheets.sexp.SexpVisitor;
@@ -51,8 +52,24 @@ public class Multiply implements Operation, SexpVisitor<Double> {
 
   @Override
   public Double visitSList(List<Sexp> l) {
-    for (Sexp s : l) {
-      s.accept(this);
+    for (int i = 0; i < l.size(); i++) {
+      if (l.get(i).equals(Sum.name)) {
+        Sum s = new Sum(l.subList(i+1, l.size()));
+        s.operate();
+        product *= s.getSum();
+      }
+//      else if (l.get(i).equals(Multiply.name)) {
+//        Multiply m = new Multiply(l.subList(i+1, l.size()));
+//      }
+//      else if (l.get(i).equals(Concatenate.name)) {
+//
+//      }
+//      else if (l.get(i).equals(LessThan.name)) {
+//
+//      }
+      else {
+        l.get(i).accept(this);
+      }
     }
     return product;
   }

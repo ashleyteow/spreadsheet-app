@@ -97,18 +97,4 @@ public class SumTest {
     assertEquals(18.5, sum.getSum(), 0.0001);
   }
 
-  @Test
-  public void testSumFormula() {
-    Formula formula = new Formula(new SList(new SSymbol("PRODUCT"),
-        new SNumber(3), new SList(new SSymbol("SUM"), new SNumber(2), new SNumber(4))));
-    assertEquals(new Value(new SNumber(18)), formula.evaluate());
-  }
-
-  @Test
-  public void testSumFormula2() {
-    Formula formula = new Formula(new SList(new SSymbol("PRODUCT"),
-        new SNumber(3), new SList(new SSymbol("SUM"), new SSymbol("A1"), new SSymbol("A2"))));
-    assertEquals(new Value(new SNumber(18)), formula.evaluate());
-  }
-
 }

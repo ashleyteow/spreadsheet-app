@@ -22,6 +22,7 @@ public class Formula extends Value {
    */
   public Formula(Sexp cellContent) {
     super(cellContent);
+    this.evaluatedCellContent = this.evaluate();
   }
 
   /**
@@ -31,6 +32,8 @@ public class Formula extends Value {
     TransformSListToArrayList transform = new TransformSListToArrayList(cellContent);
     transform.transform();
     ArrayList<Sexp> arguments = transform.getList();
+
+
 
     for (int i = 0; i < arguments.size(); i++) {
       if (arguments.get(i).equals(Multiply.name)) {
@@ -52,11 +55,12 @@ public class Formula extends Value {
         LessThan lt = new LessThan(arguments.subList(i + 1, arguments.size()));
         evaluatedCellContent = new Value(new SBoolean(lt.getResult())).evaluate();
       }
-      else {
-        System.out.println(arguments.get(i));
-      }
+//      else {
+//        evaluatedCellContent = new Value(arguments.get(i)).evaluate();
+//      }
     }
     return evaluatedCellContent;
+
   }
 
 
