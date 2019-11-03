@@ -2,6 +2,9 @@ package edu.cs3500.spreadsheets.model;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a Worksheet interface.
+ */
 public interface IWorksheet {
 
   /**
@@ -23,9 +26,19 @@ public interface IWorksheet {
 
   /**
    * Verifies that all cells were created in the {@code Worksheet}.
-   *
    * @return true if all cells were evaluated correctly
    */
   boolean evaluateCells();
+
+  /**
+   * Adds a new Cell to this {@code Worksheet}.
+   * @param location location of where to put this cell in the worksheet
+   * @param content unprocessed text to be evaluated
+   * @throws IllegalArgumentException if the location given is an invalid position to place Cell
+   */
+  void addCell(Coord location, String content) throws IllegalArgumentException;
+
+
+
 
 }
