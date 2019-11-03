@@ -53,6 +53,9 @@ public class Formula extends Value {
         LessThan lt = new LessThan(arguments.subList(i + 1, arguments.size()));
         evaluatedCellContent = new Value(new SBoolean(lt.getResult())).evaluate();
       }
+      else {
+        throw new IllegalArgumentException("invalid formula type");
+      }
     }
     return evaluatedCellContent;
   }
