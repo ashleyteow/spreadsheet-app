@@ -12,15 +12,6 @@ public class Worksheet implements IWorksheet {
   private ArrayList<ArrayList<Cell>> cells;
 
   /**
-   * Creates a new Builder object that is responsible for producing a new Worksheet.
-   *
-   * @return Builder object
-   */
-  public static Builder builder() {
-    return new Builder(200);
-  }
-
-  /**
    * Helper class that fills in the grid of cells with its evaluated contents.
    */
   public static final class Builder implements WorksheetBuilder<Worksheet> {
@@ -54,9 +45,17 @@ public class Worksheet implements IWorksheet {
 
     @Override
     public Worksheet createWorksheet() {
-      // calling this method should also *i believe* fill in whitespace
       return new Worksheet(workSheetCells);
     }
+  }
+
+  /**
+   * Creates a new Builder object that is responsible for producing a new Worksheet.
+   *
+   * @return Builder object
+   */
+  public static Builder builder() {
+    return new Builder(200);
   }
 
   /**
@@ -80,7 +79,20 @@ public class Worksheet implements IWorksheet {
         || row >= this.getCells().size()) {
       throw new IllegalArgumentException("Coordinates out of bound!");
     }
-    return this.getCells().get(col).get(row);
+    return new Cell(new Coord(col, row), this.getCells().get(col).get(row).getCellContents());
+  }
+
+  @Override
+  public void addCell(Coord location, String content) throws IllegalArgumentException {
+    if (location == null) {
+      throw new IllegalArgumentException("Location cannot be null!");
+    }
+
+  }
+
+  @Override
+  public CellContents evaluateSingleCell(Coord location) throws IllegalArgumentException {
+    return null;
   }
 
   @Override
@@ -105,5 +117,4 @@ public class Worksheet implements IWorksheet {
     }
     return valid;
   }
-
 }

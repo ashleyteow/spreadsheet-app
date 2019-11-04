@@ -1,6 +1,7 @@
 import static org.junit.Assert.assertEquals;
 
 import edu.cs3500.spreadsheets.model.Sum;
+import edu.cs3500.spreadsheets.sexp.Parser;
 import edu.cs3500.spreadsheets.sexp.SBoolean;
 import edu.cs3500.spreadsheets.sexp.SList;
 import edu.cs3500.spreadsheets.sexp.SNumber;

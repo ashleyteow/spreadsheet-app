@@ -23,6 +23,17 @@ public class Coord {
   }
 
   /**
+   * Determines whether this coord is valid based on the worksheet's max row index and
+   * max column index.
+   * @param maxRow maximum row of a {@code Worksheet}
+   * @param maxCol maximum column of a {@code Worksheet}
+   * @return true if this is valid, false otherwise
+   */
+  public boolean validCoord(int maxRow, int maxCol) {
+    return row < maxRow && row >= 0 && col < maxCol && col >= 0;
+  }
+
+  /**
    * Converts from the A-Z column naming system to a 1-indexed numeric value.
    * @param name the column name
    * @return the corresponding column index

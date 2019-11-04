@@ -20,6 +20,11 @@ public class Value implements CellContents {
   }
 
   @Override
+  public Sexp evaluate() {
+    return this.cellContent;
+  }
+
+  @Override
   public boolean equals(Object other) {
     if (!(other instanceof Value)) {
       return false;
@@ -37,10 +42,5 @@ public class Value implements CellContents {
   @Override
   public int hashCode() {
     return Objects.hash(cellContent);
-  }
-
-  @Override
-  public Sexp evaluate() {
-    return this.cellContent;
   }
 }

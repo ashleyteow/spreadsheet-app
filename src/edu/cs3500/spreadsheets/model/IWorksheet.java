@@ -26,7 +26,6 @@ public interface IWorksheet {
 
   /**
    * Removes the cell at the specified coordinates.
-   *
    * @param col int
    * @param row int
    */
@@ -34,7 +33,6 @@ public interface IWorksheet {
 
   /**
    * Edits the contents of the cell at the specified coordinates.
-   *
    * @param col int
    * @param row int
    * @param newContents the new contents of the {@code Cell} as an unprocessed String
@@ -55,7 +53,11 @@ public interface IWorksheet {
    */
   void addCell(Coord location, String content) throws IllegalArgumentException;
 
-
-
-
+  /**
+   * Evaluates the contents of the cell located at the given location
+   * @param location location of where the cell is
+   * @return evaluated content of this cell (Value, Blank, Formula)
+   * @throws IllegalArgumentException if the location given is invalid
+   */
+  CellContents evaluateSingleCell(Coord location) throws IllegalArgumentException;
 }

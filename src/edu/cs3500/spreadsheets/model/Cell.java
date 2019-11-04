@@ -8,9 +8,10 @@ import java.util.Objects;
  * that locates where it is in the grid of cells and it has cell contents:
  * either a Blank, Value, or Formula.
  */
-public class Cell {
+public class Cell implements ICell {
   private final Coord coord;
   private CellContents cellContents;
+  private String rawContent;
 
   /**
    * Constructs a {@code Cell} object.
@@ -18,7 +19,11 @@ public class Cell {
    * @param unprocessedText raw, unprocessed String input
    */
   public Cell(Coord coord, String unprocessedText) {
+    if (coord == null) {
+      throw new IllegalArgumentException("Coordinate cannot be null!");
+    }
     this.coord = coord;
+    this.rawContent = "";
     if (unprocessedText.length() == 0) {
       this.cellContents = new Blank();
     }
@@ -31,15 +36,50 @@ public class Cell {
   }
 
   /**
-   * Getter method for this cells' contents.
-   * @return {@code CellContents} object
+   * Copy constructor for testing / copy purposes
+   * @param coord location of the cell
+   * @param cellContents evaluated content of cell
    */
+  public Cell(Coord coord, CellContents cellContents) {
+    if (coord == null) {
+      throw new IllegalArgumentException("Coordinate cannot be null!");
+    }
+    this.coord = coord;
+    this.cellContents = cellContents;
+  }
+
+  @Override
+  public CellContents evaluate() {
+    return null;
+//    return this.cellContents.evaluate();
+  }
+
+  @Override
   public CellContents getCellContents() {
     return this.cellContents;
   }
 
+  @Override
+  public String getRawValue() {
+    return this.rawContent;
+  }
+
+  @Override
   public Coord getCoord() {
     return this.coord;
+  }
+
+  @Override
+  public void setCellContent(String contents) {
+    if (contents.length() == 0) {
+      this.cellContents = new Blank();
+    }
+    else if (contents.substring(0,1).equals("=")) {
+      this.cellContents = new Formula(Parser.parse(contents.substring(1)));
+    }
+    else {
+      this.cellContents = new Value(Parser.parse(contents));
+    }
   }
 
   @Override
