@@ -8,15 +8,22 @@ import java.util.ArrayList;
  * worksheet.
  */
 public class Worksheet implements IWorksheet {
-
   private ArrayList<ArrayList<Cell>> cells;
 
   /**
-   * Helper class that fills in the grid of cells with its evaluated contents.
+   * Creates a new Builder object that is responsible for producing a new Worksheet.
+   * @return Builder object
+   */
+  public static Builder builder() {
+    return new Builder(200);
+  }
+
+  /**
+   * Helper class that builds a {@code Worksheet}.
    */
   public static final class Builder implements WorksheetBuilder<Worksheet> {
-
     private ArrayList<ArrayList<Cell>> workSheetCells;
+    Worksheet worksheet = new Worksheet();
 
     /**
      * Constructs a {@code Builder} object initalized with an initialCapacity to set default number
@@ -29,7 +36,7 @@ public class Worksheet implements IWorksheet {
       for (int col = 0; col < initialCapacity; col++) {
         ArrayList<Cell> row = new ArrayList<>(initialCapacity);
         for (int rowNum = 0; rowNum < initialCapacity; rowNum++) {
-          row.add(new Cell(new Coord(col + 1, rowNum + 1), ""));
+          row.add(new Cell(new Coord(col + 1, rowNum + 1), "", worksheet));
         }
         workSheetCells.add(row);
       }
@@ -38,71 +45,66 @@ public class Worksheet implements IWorksheet {
     @Override
     public WorksheetBuilder<Worksheet> createCell(int col, int row, String contents) {
       Coord coordinate = new Coord(col, row);
-      Cell cell = new Cell(coordinate, contents);
+      Cell cell = new Cell(coordinate, contents, worksheet);
       workSheetCells.get(col - 1).set(row - 1, cell);
       return this;
     }
 
     @Override
     public Worksheet createWorksheet() {
-      return new Worksheet(workSheetCells);
+      for (ArrayList<Cell> a : workSheetCells) {
+        for (Cell c : a) {
+          worksheet.editCellAt(c.getCoord(), c.getRawValue());
+        }
+      }
+      return worksheet;
     }
-  }
-
-  /**
-   * Creates a new Builder object that is responsible for producing a new Worksheet.
-   *
-   * @return Builder object
-   */
-  public static Builder builder() {
-    return new Builder(200);
-  }
-
-  /**
-   * Constructs a {@code Worksheet} object with a given arraylist of cells that have been processed
-   * and evaluated through the Builder pattern.
-   *
-   * @param cells all cells in this spreadsheet
-   */
-  private Worksheet(ArrayList<ArrayList<Cell>> cells) {
-    this.cells = cells;
   }
 
   @Override
   public ArrayList<ArrayList<Cell>> getCells() {
-    return this.cells;
-  }
-
-  @Override
-  public Cell getCellAt(int col, int row) throws IllegalArgumentException {
-    if (col < 0 || row < 0 || col >= this.getCells().size()
-        || row >= this.getCells().size()) {
-      throw new IllegalArgumentException("Coordinates out of bound!");
+    // TODO: test to see if this returns a copy
+    ArrayList<ArrayList<Cell>> copyCells = new ArrayList<>();
+    for (int col = 0; col < this.cells.size(); col++) {
+      copyCells.add(new ArrayList<Cell>());
+      for (int row = 0; row < this.cells.size(); row++) {
+        copyCells.get(col).add(this.cells.get(col).get(row));
+      }
     }
-    return new Cell(new Coord(col, row), this.getCells().get(col).get(row).getCellContents());
+    return copyCells;
   }
 
   @Override
-  public void addCell(Coord location, String content) throws IllegalArgumentException {
-    if (location == null) {
-      throw new IllegalArgumentException("Location cannot be null!");
+  public Cell getCellAt(Coord coord) throws IllegalArgumentException {
+    if (invalidCoord(coord)) {
+      throw new IllegalArgumentException("Coordinate is invalid!");
     }
-
+    return this.getCells().get(coord.col).get(coord.row);
   }
 
   @Override
-  public CellContents evaluateSingleCell(Coord location) throws IllegalArgumentException {
-    return null;
+  public String getCellRaw(Coord coord) {
+    try {
+      return this.cells.get(coord.col).get(coord.row).getRawValue();
+    } catch (NullPointerException e) {
+      return new Cell(coord).getRawValue();
+    }
   }
 
   @Override
-  public void deleteCellAt(int col, int row) {
-    this.cells.get(col).set(row, new Cell(new Coord(col, row), ""));
+  public CellContents evaluateSingleCell(Coord coord) throws IllegalArgumentException {
+    if (invalidCoord(coord)) {
+      throw new IllegalArgumentException("Coordinate is invalid!");
+    }
+    return this.cells.get(coord.col).get(coord.row).getCellValue();
   }
 
   @Override
-  public void editCellAt(int col, int row, String newContents) {
-    this.cells.get(col).set(row, new Cell(new Coord(col, row), newContents));
+  public void editCellAt(Coord coord, String newContents) throws IllegalArgumentException {
+    if (invalidCoord(coord)) {
+      throw new IllegalArgumentException("Coordinate is invalid!");
+    }
+    this.cells.get(coord.col).get(coord.row).setCellContent(newContents, this);
   }
 
   @Override
@@ -116,5 +118,16 @@ public class Worksheet implements IWorksheet {
       }
     }
     return valid;
+  }
+
+  /**
+   * Determines whether the given coordinate is not in the boundaries of this sheet.
+   *
+   * @param coord location of the cell
+   * @return true if coord is out of bounds/invalid, false otherwise
+   */
+  private boolean invalidCoord(Coord coord) {
+    return coord.col < 0 || coord.col > this.cells.size()
+        || coord.row < 0 || coord.row > this.cells.size();
   }
 }

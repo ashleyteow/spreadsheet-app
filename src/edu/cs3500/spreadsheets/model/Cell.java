@@ -12,27 +12,28 @@ public class Cell implements ICell {
   private final Coord coord;
   private CellContents cellContents;
   private String rawContent;
+  private final Worksheet worksheet;
 
   /**
    * Constructs a {@code Cell} object.
    * @param coord {@code Coordinate} object representing location of cell
    * @param unprocessedText raw, unprocessed String input
    */
-  public Cell(Coord coord, String unprocessedText) {
+  public Cell(Coord coord, String unprocessedText, Worksheet worksheet) {
     if (coord == null) {
       throw new IllegalArgumentException("Coordinate cannot be null!");
     }
     this.coord = coord;
+    this.rawContent = unprocessedText;
+    this.worksheet = worksheet;
+    this.cellContents = evaluate(worksheet);
+  }
+
+  public Cell(Coord coord) {
+    this.coord = coord;
+    this.cellContents = new ValueBlank();
     this.rawContent = "";
-    if (unprocessedText.length() == 0) {
-      this.cellContents = new Blank();
-    }
-    else if (unprocessedText.substring(0,1).equals("=")) {
-      this.cellContents = new Formula(Parser.parse(unprocessedText.substring(1)));
-    }
-    else {
-      this.cellContents = new Value(Parser.parse(unprocessedText));
-    }
+    this.worksheet = new Worksheet();
   }
 
   /**
@@ -46,17 +47,7 @@ public class Cell implements ICell {
     }
     this.coord = coord;
     this.cellContents = cellContents;
-  }
-
-  @Override
-  public CellContents evaluate() {
-    return null;
-//    return this.cellContents.evaluate();
-  }
-
-  @Override
-  public CellContents getCellContents() {
-    return this.cellContents;
+    this.worksheet = new Worksheet();
   }
 
   @Override
@@ -65,40 +56,52 @@ public class Cell implements ICell {
   }
 
   @Override
+  public Value getCellValue() {
+    return null;
+  }
+
+  @Override
   public Coord getCoord() {
     return this.coord;
   }
 
   @Override
-  public void setCellContent(String contents) {
-    if (contents.length() == 0) {
-      this.cellContents = new Blank();
+  public void setCellContent(String contents, IWorksheet worksheet) {
+    this.rawContent = contents;
+    this.cellContents = evaluate(worksheet);
+  }
+
+  private CellContents evaluate(IWorksheet worksheet) {
+    if (rawContent.length() == 0) {
+      return new ValueBlank();
     }
-    else if (contents.substring(0,1).equals("=")) {
-      this.cellContents = new Formula(Parser.parse(contents.substring(1)));
-    }
-    else {
-      this.cellContents = new Value(Parser.parse(contents));
+    if (rawContent.charAt(0) == '=') {
+      return Parser.parse(this.rawContent.substring(1)).accept(new Evaluator(coord, worksheet));
+    } else {
+      return Parser.parse(this.rawContent).accept(new Evaluator(coord, worksheet));
     }
   }
 
   @Override
   public String toString() {
-    return this.cellContents.toString();
+    return getCellValue().toString();
   }
 
   @Override
   public boolean equals(Object other) {
+    if (other == this) {
+      return true;
+    }
     if (!(other instanceof Cell)) {
       return false;
     }
-    Cell val = (Cell) other;
-    val.hashCode();
-    return val.cellContents.equals(((Cell) other).cellContents);
+    Cell otherCell = (Cell) other;
+
+    return (this.rawContent.equals(otherCell.rawContent) && this.coord.equals(otherCell.coord));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cellContents);
+    return 17 * this.rawContent.hashCode() * this.coord.hashCode();
   }
 }

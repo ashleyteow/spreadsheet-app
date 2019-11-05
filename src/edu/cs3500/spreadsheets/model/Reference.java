@@ -1,31 +1,69 @@
 package edu.cs3500.spreadsheets.model;
 
-import edu.cs3500.spreadsheets.sexp.Sexp;
 import java.util.ArrayList;
 
 /**
  * Represents a region of cells in a {@code Worksheet}.
  */
-public class Reference extends Formula {
-
-  private Coord c1;
-  private Coord c2;
-  public final Worksheet w;
-  private ArrayList<Sexp> finalVals;
+public class Reference implements CellContents {
+  private final ArrayList<Coord> referencedCells;
+  private final Worksheet worksheet;
+  private Coord thisCellLoc;
 
   /**
-   * Constructs a {@code Reference} object.
-   *
-   * @param cellContent S-expression
+   * Constructs a {@code Reference} object representing a referenced region of cells.
+   * @param firstCoord location of the cell referenced before colon
+   * @param secondCoord location of the cell referenced after colon
+   * @param thisCell location of cell that holds the reference (this cell)
+   * @param worksheet worksheet model
    */
-  public Reference(Sexp cellContent, Coord c1, Coord c2, Worksheet w) {
-    super(cellContent);
-    this.w = w;
-    this.finalVals = new ArrayList<>();
+  public Reference(Coord firstCoord, Coord secondCoord, Coord thisCell, Worksheet worksheet) {
+    this.referencedCells = new ArrayList<>();
+    this.worksheet = worksheet;
+
+
   }
 
-  private ArrayList<Sexp> getFinalVals() {
-    return this.finalVals;
+  /**
+   * Constructs a {@code Reference} object representing a single referenced cell.
+   * @param referencedCell cell that is being referenced
+   * @param thisCell location of cell that holds the reference (this cell)
+   * @param worksheet worksheet model
+   */
+  public Reference(Coord referencedCell, Coord thisCell, Worksheet worksheet) {
+    this.thisCellLoc = thisCell;
+    this.worksheet = worksheet;
+    this.referencedCells = new ArrayList<>();
+    if (!cyclePresent(referencedCell)) {
+      this.referencedCells.add(referencedCell);
+    }
   }
 
+  /**
+   * Determines whether a cell at the given coordinates initiates a cyclic reference.
+   * @param coord location of cell to check
+   * @return true if there is a cyclic reference, false otherwise
+   */
+  private boolean cyclePresent(Coord coord) {
+
+  }
+
+  @Override
+  public Value getVal() {
+    return null;
+  }
+
+  @Override
+  public void flatten(ArrayList<Value> args) {
+    for (Coord c: this.referencedCells) {
+      if (worksheet.getCells().containsKey(c)) {
+        args.add(worksheet.getCellAt(c).getCellValue());
+      }
+    }
+  }
+
+  @Override
+  public String toString() {
+    return getVal().toString();
+  }
 }

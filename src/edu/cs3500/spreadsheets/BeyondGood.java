@@ -42,6 +42,6 @@ public class BeyondGood {
     int cellRow = Integer.parseInt(cellName.substring(1));
 
     Cell cell = worksheet.getCellAt(cellCol - 1, cellRow - 1);
-    System.out.println(cell.getCellContents().evaluate());
+//    System.out.println(cell.getCellContents().evaluate());
   }
 }
