@@ -2,6 +2,7 @@ package edu.cs3500.spreadsheets.model;
 
 import edu.cs3500.spreadsheets.model.WorksheetReader.WorksheetBuilder;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a single spreadsheet that contains a grid of cells. Uses composition to build a
@@ -10,52 +11,38 @@ import java.util.ArrayList;
 public class Worksheet implements IWorksheet {
   private ArrayList<ArrayList<Cell>> cells;
 
-  /**
-   * Creates a new Builder object that is responsible for producing a new Worksheet.
-   * @return Builder object
-   */
-  public static Builder builder() {
-    return new Builder(200);
+  public Worksheet(int initialCapacity) {
+    this.cells = new ArrayList<>(initialCapacity);
+    for (int col = 0; col < initialCapacity; col++) {
+      ArrayList<Cell> row = new ArrayList<>(initialCapacity);
+      for (int rowNum = 0; rowNum < initialCapacity; rowNum++) {
+        // intializes all cells with ValueBlank
+        row.add(new Cell(new Coord(col + 1, rowNum + 1), "", this));
+      }
+      cells.add(row);
+    }
   }
 
   /**
    * Helper class that builds a {@code Worksheet}.
    */
   public static final class Builder implements WorksheetBuilder<Worksheet> {
-    private ArrayList<ArrayList<Cell>> workSheetCells;
-    Worksheet worksheet = new Worksheet();
+    private ArrayList<Cell> workSheetCells = new ArrayList<>();
+    Worksheet worksheet = new Worksheet(200);
 
-    /**
-     * Constructs a {@code Builder} object initalized with an initialCapacity to set default number
-     * of rows and columns in the spreadsheet.
-     *
-     * @param initialCapacity default number of rows / columns
-     */
-    private Builder(int initialCapacity) {
-      workSheetCells = new ArrayList<>(initialCapacity);
-      for (int col = 0; col < initialCapacity; col++) {
-        ArrayList<Cell> row = new ArrayList<>(initialCapacity);
-        for (int rowNum = 0; rowNum < initialCapacity; rowNum++) {
-          row.add(new Cell(new Coord(col + 1, rowNum + 1), "", worksheet));
-        }
-        workSheetCells.add(row);
-      }
-    }
 
     @Override
     public WorksheetBuilder<Worksheet> createCell(int col, int row, String contents) {
       Coord coordinate = new Coord(col, row);
       Cell cell = new Cell(coordinate, contents, worksheet);
-      workSheetCells.get(col - 1).set(row - 1, cell);
+      workSheetCells.add(cell);
       return this;
     }
 
     @Override
     public Worksheet createWorksheet() {
-      for (ArrayList<Cell> a : workSheetCells) {
-        for (Cell c : a) {
-          worksheet.editCellAt(c.getCoord(), c.getRawValue());
-        }
+      for (Cell c : workSheetCells) {
+        worksheet.editCellAt(c.getCoord(), c.getRawValue());
       }
       return worksheet;
     }
@@ -129,5 +116,14 @@ public class Worksheet implements IWorksheet {
   private boolean invalidCoord(Coord coord) {
     return coord.col < 0 || coord.col > this.cells.size()
         || coord.row < 0 || coord.row > this.cells.size();
+  }
+
+  public static List<Cell> flattenCells(ArrayList<ArrayList<Cell>> grid) {
+    List<Cell> allCells = new ArrayList<>();
+
+    for (List<Cell> l : grid) {
+      allCells.addAll(l);
+    }
+    return allCells;
   }
 }

@@ -1,7 +1,6 @@
 package edu.cs3500.spreadsheets.model;
 
 import edu.cs3500.spreadsheets.sexp.Parser;
-import java.util.Objects;
 
 /**
  * Represents a single cell in a {@code Worksheet}. A cell has a coordinate
@@ -33,7 +32,7 @@ public class Cell implements ICell {
     this.coord = coord;
     this.cellContents = new ValueBlank();
     this.rawContent = "";
-    this.worksheet = new Worksheet();
+    this.worksheet = new Worksheet(200);
   }
 
   /**
@@ -47,7 +46,7 @@ public class Cell implements ICell {
     }
     this.coord = coord;
     this.cellContents = cellContents;
-    this.worksheet = new Worksheet();
+    this.worksheet = new Worksheet(200);
   }
 
   @Override
@@ -57,7 +56,7 @@ public class Cell implements ICell {
 
   @Override
   public Value getCellValue() {
-    return null;
+    return this.cellContents.getVal();
   }
 
   @Override
@@ -66,12 +65,12 @@ public class Cell implements ICell {
   }
 
   @Override
-  public void setCellContent(String contents, IWorksheet worksheet) {
+  public void setCellContent(String contents, Worksheet worksheet) {
     this.rawContent = contents;
     this.cellContents = evaluate(worksheet);
   }
 
-  private CellContents evaluate(IWorksheet worksheet) {
+  private CellContents evaluate(Worksheet worksheet) {
     if (rawContent.length() == 0) {
       return new ValueBlank();
     }

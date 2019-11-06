@@ -8,13 +8,6 @@ import edu.cs3500.spreadsheets.model.ValueBlank;
 import edu.cs3500.spreadsheets.model.ValueBoolean;
 import edu.cs3500.spreadsheets.model.ValueDouble;
 import edu.cs3500.spreadsheets.model.ValueString;
-import edu.cs3500.spreadsheets.sexp.Parser;
-import edu.cs3500.spreadsheets.sexp.SBoolean;
-import edu.cs3500.spreadsheets.sexp.SList;
-import edu.cs3500.spreadsheets.sexp.SNumber;
-import edu.cs3500.spreadsheets.sexp.SString;
-import edu.cs3500.spreadsheets.sexp.SSymbol;
-import edu.cs3500.spreadsheets.sexp.Sexp;
 import java.util.ArrayList;
 import org.junit.Test;
 
@@ -24,41 +17,60 @@ import org.junit.Test;
 public class SumTest {
 
   @Test
-  public void testSumTestOne() {
-    Value addObj1 = new ValueDouble(1.0);
-    Value addObj2 = new ValueDouble(2.0);
+  public void testSumTestWithAllTypes() {
+    Value num1 = new ValueDouble(1.0);
+    Value num2 = new ValueDouble(6.0);
+    Value blank = new ValueBlank();
+    Value bool = new ValueBoolean(false);
+    Value str = new ValueString("hello");
+
     ArrayList<Value> cells = new ArrayList<>();
+    Operation sum = new Sum();
+    cells.add(num1);
+    cells.add(num2);
+    cells.add(blank);
+    cells.add(bool);
+    cells.add(str);
 
-    Value blankObj = new ValueBlank();
-    Value boolObj = new ValueBoolean(false);
-    Value stringObj = new ValueString("hello");
-
-    Operation addOp = new Sum();
-    cells.add(addObj1);
-    cells.add(addObj2);
-
-    cells.add(blankObj);
-
-    cells.add(boolObj);
-
-    cells.add(stringObj);
-
-    Value returned = addOp.apply(cells);
-    assertTrue(returned instanceof ValueDouble);
-    assertEquals(returned.toString(), "3.000000");
+    Value computedVal = sum.apply(cells);
+    assertTrue(computedVal instanceof ValueDouble);
+    assertEquals("7.000000", computedVal.toString());
   }
 
-//  @Test
-//  public void testSumWithString() {
-//    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
-//    sexp.add(new SString("3"));
-//    sexp.add(new SString("4"));
-//    sexp.add(new SString("6"));
-//    Sum s = new Sum(sexp);
-//    s.operate();
-//    assertEquals(0, s.getSum(),0.0001);
-//  }
-//
+  @Test
+  public void testSumWithString() {
+    Value str1 = new ValueString("3");
+    Value str2 = new ValueString("4");
+    Value str3 = new ValueString("6");
+
+    ArrayList<Value> cells = new ArrayList<>();
+    Operation sum = new Sum();
+    cells.add(str1);
+    cells.add(str2);
+    cells.add(str3);
+
+    Value computedVal = sum.apply(cells);
+    assertTrue(computedVal instanceof ValueDouble);
+    assertEquals("13.000000" ,computedVal.toString());
+  }
+
+  @Test
+  public void test2SumWithString() {
+    Value str1 = new ValueString("3");
+    Value str2 = new ValueString("4");
+    Value str3 = new ValueString("ignore this text");
+
+    ArrayList<Value> cells = new ArrayList<>();
+    Operation sum = new Sum();
+    cells.add(str1);
+    cells.add(str2);
+    cells.add(str3);
+
+    Value computedVal = sum.apply(cells);
+    assertTrue(computedVal instanceof ValueDouble);
+    assertEquals("7.000000" ,computedVal.toString());
+  }
+
 //  @Test
 //  public void testSumWithOnlyNumbers() {
 //    ArrayList<Sexp> sexp = new ArrayList<Sexp>();

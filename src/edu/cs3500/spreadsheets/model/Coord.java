@@ -23,6 +23,32 @@ public class Coord {
   }
 
   /**
+   * Constructs a coordinate for a {@code Cell}, to be used in main method for user input.
+   * @param coord user-inputted coordinate
+   */
+  public Coord(String coord) {
+    String columnName = "";
+    String rowNum = "";
+    boolean isDigit = false;
+
+    for (int i = 0; i < coord.length(); i++) {
+      if (Character.isDigit(coord.charAt(i))) {
+        isDigit = true;
+        rowNum += String.valueOf(coord.charAt(i));
+      }
+      else if (isDigit && Character.isAlphabetic(coord.charAt(i))) {
+        throw new IllegalArgumentException("Invalid coordinate!");
+      }
+      else {
+        // only column names
+        columnName += coord.charAt(i);
+      }
+    }
+    this.row = Integer.valueOf(rowNum);
+    this.col = Coord.colNameToIndex(columnName);
+  }
+
+  /**
    * Determines whether this coord is valid based on the worksheet's max row index and
    * max column index.
    * @param maxRow maximum row of a {@code Worksheet}

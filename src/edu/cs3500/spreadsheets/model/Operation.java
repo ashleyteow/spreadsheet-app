@@ -9,10 +9,10 @@ import java.util.List;
  */
 public interface Operation {
 
+  /**
+   * Responsible for executing the given operation on its arguments.
+   * @param vals arguments to be evaluated
+   * @return evaluated value after function has been executed
+   */
   Value apply(List<Value> vals);
-//  /**
-//   * Performs an operation on a cell in some manner.
-//   */
-//  void operate();
-
 }

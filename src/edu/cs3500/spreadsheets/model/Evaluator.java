@@ -5,12 +5,20 @@ import edu.cs3500.spreadsheets.sexp.SexpVisitor;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Helper class that transforms S-expressions into Cells with evaluated contents.
+ */
 public class Evaluator implements SexpVisitor<CellContents> {
   HashMap<String, Operation> operations;
   Coord coord;
-  IWorksheet worksheet;
+  Worksheet worksheet;
 
-  public Evaluator(Coord coord, IWorksheet worksheet) {
+  /**
+   * Default constructor for a {@code Evaluator} object.
+   * @param coord location of cell
+   * @param worksheet worksheet model
+   */
+  public Evaluator(Coord coord, Worksheet worksheet) {
     this.worksheet = worksheet;
     this.coord = coord;
     operations = new HashMap<String, Operation>();
@@ -32,24 +40,18 @@ public class Evaluator implements SexpVisitor<CellContents> {
 
   @Override
   public CellContents visitSList(List<Sexp> l) {
+    // TODO: ??
     return null;
   }
 
   @Override
   public CellContents visitSymbol(String s) {
-    // TODO : implement references before implementing this method
-    if (s.contains(":")) {
-      int colonIdx = s.indexOf(":");
-      return new ValueBlank();
-//      try {
-//        return new Reference(new Coord(Integer.parseInt(s.substring(0, colonIdx)),
-//            new Coord(Integer.parseInt(s.substring(colonIdx + 1))), coord, worksheet);
-//      } catch (NumberFormatException e) {
-//        return new ValueString(s);
-//      }
-    }
-    else {
-      return new ValueBlank();
+    if (!s.contains(":")) {
+      return new Reference(new Coord(s), coord, worksheet);
+    } else {
+      int colonIndex = s.indexOf(":");
+      return new Reference(new Coord(s.substring(0, colonIndex)),
+          new Coord(s.substring(colonIndex + 1)), coord, worksheet);
     }
   }
 

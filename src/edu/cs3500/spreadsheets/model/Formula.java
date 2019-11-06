@@ -20,6 +20,10 @@ public class Formula implements CellContents {
     return this.operation.apply(flatten());
   }
 
+  /**
+   * TODO: javadoc
+   * @return
+   */
   private ArrayList<Value> flatten() {
     ArrayList<Value> vals = new ArrayList<>();
     for (CellContents c: this.args) {

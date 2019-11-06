@@ -21,7 +21,7 @@ public class Reference implements CellContents {
     this.referencedCells = new ArrayList<>();
     this.worksheet = worksheet;
 
-
+    // TODO figure out the math to find all cells from firstCoord to secondCoord
   }
 
   /**
@@ -45,7 +45,8 @@ public class Reference implements CellContents {
    * @return true if there is a cyclic reference, false otherwise
    */
   private boolean cyclePresent(Coord coord) {
-
+    // TODO: implement
+    return false;
   }
 
   @Override
@@ -56,7 +57,7 @@ public class Reference implements CellContents {
   @Override
   public void flatten(ArrayList<Value> args) {
     for (Coord c: this.referencedCells) {
-      if (worksheet.getCells().containsKey(c)) {
+      if (Worksheet.flattenCells(worksheet.getCells()).contains(worksheet.getCellAt(c))) {
         args.add(worksheet.getCellAt(c).getCellValue());
       }
     }
