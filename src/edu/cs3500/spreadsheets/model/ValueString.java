@@ -43,7 +43,7 @@ public class ValueString extends Value {
   }
 
   @Override
-  public void flatten(ArrayList<Value> args) {
+  public void populateArgs(ArrayList<Value> args) {
     args.add(this);
   }
 }

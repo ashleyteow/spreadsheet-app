@@ -16,8 +16,9 @@ public interface CellContents {
   Value getVal();
 
   /**
-   * Helper function for the {@link Formula} flatten method.
-   * @param args list of args to process from formula.
+   * Converts / updates a {@code Formula}'s arraylist of values to be evaluated. This is a
+   * helper function that simply adds its value to the arraylist of args.
+   * @param args args to pass to a formula
    */
-  void flatten(ArrayList<Value> args);
+  void populateArgs(ArrayList<Value> args);
 }

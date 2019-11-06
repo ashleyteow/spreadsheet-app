@@ -30,6 +30,7 @@ public class Concatenate implements Operation, CellContentsVisitor<String> {
   @Override
   public String visitError(ValueError v) {
     return null;
+    // TODO: don't know if we should throw exceptions here??
   }
 
   @Override

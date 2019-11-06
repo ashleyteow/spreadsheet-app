@@ -2,6 +2,8 @@ package edu.cs3500.spreadsheets.model;
 
 import edu.cs3500.spreadsheets.sexp.Sexp;
 import edu.cs3500.spreadsheets.sexp.SexpVisitor;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -10,6 +12,8 @@ import java.util.List;
 public class Evaluator implements SexpVisitor<CellContents> {
   Coord coord;
   Worksheet worksheet;
+  HashMap<String, Operation> operations = new HashMap<>();
+
 
   /**
    * Default constructor for a {@code Evaluator} object.
@@ -19,6 +23,10 @@ public class Evaluator implements SexpVisitor<CellContents> {
   public Evaluator(Coord coord, Worksheet worksheet) {
     this.worksheet = worksheet;
     this.coord = coord;
+    operations.put("SUM", new Sum());
+    operations.put("PRODUCT", new Multiply());
+    operations.put("<", new LessThan());
+    operations.put("CONCAT", new Concatenate());
   }
 
   @Override
@@ -33,8 +41,13 @@ public class Evaluator implements SexpVisitor<CellContents> {
 
   @Override
   public CellContents visitSList(List<Sexp> l) {
-    // TODO: ??
-    return null;
+    ArrayList<CellContents> contents = new ArrayList<>();
+    String operationName = l.get(0).toString();
+    for (int i = 1; i < l.size(); i++) {
+      CellContents c = l.get(i).accept(this);
+      contents.add(c);
+    }
+    return new Formula(operations.get(operationName), contents);
   }
 
   @Override

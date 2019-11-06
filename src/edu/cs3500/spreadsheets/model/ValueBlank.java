@@ -14,7 +14,7 @@ public class ValueBlank extends Value {
   }
 
   @Override
-  public void flatten(ArrayList<Value> args) {
+  public void populateArgs(ArrayList<Value> args) {
     // nothing to flatten if this is a blank valued cell
   }
 }
