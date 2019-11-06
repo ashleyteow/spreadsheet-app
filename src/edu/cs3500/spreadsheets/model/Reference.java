@@ -45,7 +45,11 @@ public class Reference implements CellContents {
    * @return true if there is a cyclic reference, false otherwise
    */
   private boolean cyclePresent(Coord coord) {
-    // TODO: implement this before starting view
+    // TODO: check if this works
+    String otherCellRawVal = worksheet.getCellAt(coord).getRawValue();
+    if (otherCellRawVal.charAt(0) == '=' && otherCellRawVal.contains(this.thisCellLoc.toString())) {
+      return true;
+    }
     return false;
   }
 
