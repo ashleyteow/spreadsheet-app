@@ -118,6 +118,11 @@ public class Worksheet implements IWorksheet {
         || coord.row < 0 || coord.row > this.cells.size();
   }
 
+  /**
+   * TODO: javadoc
+   * @param grid
+   * @return
+   */
   public static List<Cell> flattenCells(ArrayList<ArrayList<Cell>> grid) {
     List<Cell> allCells = new ArrayList<>();
 

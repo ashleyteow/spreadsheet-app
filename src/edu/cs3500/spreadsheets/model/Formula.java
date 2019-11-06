@@ -7,8 +7,8 @@ import java.util.ArrayList;
  * intends to process.
  */
 public class Formula implements CellContents {
-  private final Operation operation;
   private ArrayList<CellContents> args;
+  private final Operation operation;
 
   public Formula(Operation o, ArrayList<CellContents> contents) {
     this.operation = o;
