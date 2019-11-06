@@ -2,14 +2,12 @@ package edu.cs3500.spreadsheets.model;
 
 import edu.cs3500.spreadsheets.sexp.Sexp;
 import edu.cs3500.spreadsheets.sexp.SexpVisitor;
-import java.util.HashMap;
 import java.util.List;
 
 /**
  * Helper class that transforms S-expressions into Cells with evaluated contents.
  */
 public class Evaluator implements SexpVisitor<CellContents> {
-  HashMap<String, Operation> operations;
   Coord coord;
   Worksheet worksheet;
 
@@ -21,11 +19,6 @@ public class Evaluator implements SexpVisitor<CellContents> {
   public Evaluator(Coord coord, Worksheet worksheet) {
     this.worksheet = worksheet;
     this.coord = coord;
-    operations = new HashMap<String, Operation>();
-    operations.put("SUM", new Sum());
-    operations.put("PRODUCT", new Multiply());
-    operations.put("CONCAT", new Concatenate());
-    operations.put("<", new LessThan());
   }
 
   @Override
