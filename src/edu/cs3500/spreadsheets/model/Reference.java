@@ -40,7 +40,6 @@ public class Reference implements CellContents {
         }
       }
     }
-
   }
 
   /**
@@ -70,6 +69,10 @@ public class Reference implements CellContents {
 //      return true;
 //    }
 //    return false;
+//    return false;
+    if (this.referencedCells.contains(coord) || this.thisCellLoc.equals(coord)) {
+      throw new IllegalArgumentException("there cannot be cyclic references");
+    }
     return false;
   }
 
@@ -79,12 +82,9 @@ public class Reference implements CellContents {
       return worksheet.getCellAt(referencedCells.get(0)).getCellValue();
     }
     else {
-      // iterate through referencedCells
-      // have arraylist<ssymbol> and add getCellAt(coord) to the list as an ssymbol
-      // the arraylist accepts a visitor
       ArrayList<Sexp> coords = new ArrayList<>();
-      for (int i = 0; i < referencedCells.size(); i++) {
-        coords.add(new SSymbol(referencedCells.get(i).toString()));
+      for (Sexp s : coords) {
+        coords.add(new SSymbol(s.toString()));
       }
       SList list = new SList(coords);
       return list.accept(new Evaluator(this.thisCellLoc, this.worksheet)).getVal();

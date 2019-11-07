@@ -4,3 +4,4 @@ C1 =(< (SUM 7 8) (PRODUCT 7 8))
 D1 =4
 E3 3
 F1 true
+G1 =G1

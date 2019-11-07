@@ -29,8 +29,8 @@ public class SList implements Sexp {
 
   @Override
   public String toString() {
-    return "(" + this.contents.stream().map(Sexp::toString).collect(Collectors
-        .joining(" ")) + ")";
+    return "(" + this.contents.stream().map(Sexp::toString)
+        .collect(Collectors .joining(" ")) + ")";
   }
 
   @Override
