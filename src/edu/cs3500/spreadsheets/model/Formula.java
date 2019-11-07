@@ -1,9 +1,4 @@
 package edu.cs3500.spreadsheets.model;
-
-import edu.cs3500.spreadsheets.sexp.SBoolean;
-import edu.cs3500.spreadsheets.sexp.SNumber;
-import edu.cs3500.spreadsheets.sexp.SString;
-import edu.cs3500.spreadsheets.sexp.Sexp;
 import java.util.ArrayList;
 
 /**
@@ -11,58 +6,39 @@ import java.util.ArrayList;
  * Value class. This class is responsible for processing the operation the user
  * intends to process.
  */
-public class Formula extends Value {
+public class Formula implements CellContents {
+  private ArrayList<CellContents> args;
+  private final Operation operation;
 
-  private Sexp evaluatedCellContent;
-  private ArrayList<Sexp> vals;
+  public Formula(Operation o, ArrayList<CellContents> contents) {
+    this.operation = o;
+    this.args = contents;
+  }
 
-  /**
-   * Constructs a {@code Formula} object.
-   * @param cellContent S-expression
-   */
-  public Formula(Sexp cellContent) {
-    super(cellContent);
-    this.evaluatedCellContent = this.evaluate();
+  @Override
+  public Value getVal() {
+    return this.operation.apply(populateArgs());
   }
 
   /**
-   * Updates the cellContent to be the evaluated value of this formula.
+   * Prepares the arraylist of values to pass to the apply method for the appropriate function.
+   * @return args to execute the appropriate operation
    */
-  public Sexp evaluate() {
-    TransformSListToArrayList transform = new TransformSListToArrayList(cellContent);
-    transform.transform();
-    ArrayList<Sexp> arguments = transform.getList();
-
-    for (int i = 0; i < arguments.size(); i++) {
-      if (arguments.get(i).equals(Multiply.NAME)) {
-        Multiply m = new Multiply(arguments.subList(i + 1, arguments.size()));
-        m.operate();
-        evaluatedCellContent = new Value(new SNumber(m.getProduct())).evaluate();
-      }
-      if (arguments.get(i).equals(Sum.NAME)) {
-        Sum s = new Sum(arguments.subList(i + 1, arguments.size()));
-        s.operate();
-        evaluatedCellContent = new Value(new SNumber((s.getSum()))).evaluate();
-      }
-      if (arguments.get(i).equals(Concatenate.NAME)) {
-        Concatenate c = new Concatenate(arguments.subList(i + 1, arguments.size()));
-        c.operate();
-        evaluatedCellContent = new Value(new SString((c.getStr()))).evaluate();
-      }
-      if (arguments.get(i).equals(LessThan.NAME)) {
-        LessThan lt = new LessThan(arguments.subList(i + 1, arguments.size()));
-        evaluatedCellContent = new Value(new SBoolean(lt.getResult())).evaluate();
-      }
-      else {
-        throw new IllegalArgumentException("invalid formula type");
-      }
+  private ArrayList<Value> populateArgs() {
+    ArrayList<Value> vals = new ArrayList<>();
+    for (CellContents c: this.args) {
+      c.populateArgsHelp(vals);
     }
-    return evaluatedCellContent;
+    return vals;
+  }
+
+  @Override
+  public void populateArgsHelp(ArrayList<Value> args) {
+    args.add(getVal());
   }
 
   @Override
   public String toString() {
-    return evaluatedCellContent.toString();
+    return getVal().toString();
   }
-
 }
