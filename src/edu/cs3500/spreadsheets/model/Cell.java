@@ -1,64 +1,109 @@
 package edu.cs3500.spreadsheets.model;
 
 import edu.cs3500.spreadsheets.sexp.Parser;
-import java.util.Objects;
 
 /**
  * Represents a single cell in a {@code Worksheet}. A cell has a coordinate
  * that locates where it is in the grid of cells and it has cell contents:
  * either a Blank, Value, or Formula.
  */
-public class Cell {
+public class Cell implements ICell {
   private final Coord coord;
   private CellContents cellContents;
+  private String rawContent;
+  private final Worksheet worksheet;
 
   /**
    * Constructs a {@code Cell} object.
    * @param coord {@code Coordinate} object representing location of cell
    * @param unprocessedText raw, unprocessed String input
    */
-  public Cell(Coord coord, String unprocessedText) {
+  public Cell(Coord coord, String unprocessedText, Worksheet worksheet) {
+    if (coord == null) {
+      throw new IllegalArgumentException("Coordinate cannot be null!");
+    }
     this.coord = coord;
-    if (unprocessedText.length() == 0) {
-      this.cellContents = new Blank();
-    }
-    else if (unprocessedText.substring(0,1).equals("=")) {
-      this.cellContents = new Formula(Parser.parse(unprocessedText.substring(1)));
-    }
-    else {
-      this.cellContents = new Value(Parser.parse(unprocessedText));
-    }
+    this.rawContent = unprocessedText;
+    this.worksheet = worksheet;
+    this.cellContents = evaluate(worksheet);
+  }
+
+  public Cell(Coord coord) {
+    this.coord = coord;
+    this.cellContents = new ValueBlank();
+    this.rawContent = "";
+    this.worksheet = new Worksheet();
   }
 
   /**
-   * Getter method for this cells' contents.
-   * @return {@code CellContents} object
+   * Copy constructor for testing / copy purposes
+   * @param coord location of the cell
+   * @param cellContents evaluated content of cell
    */
-  public CellContents getCellContents() {
-    return this.cellContents;
+  public Cell(Coord coord, CellContents cellContents) {
+    if (coord == null) {
+      throw new IllegalArgumentException("Coordinate cannot be null!");
+    }
+    this.coord = coord;
+    this.cellContents = cellContents;
+    this.worksheet = new Worksheet();
   }
 
+  @Override
+  public String getRawValue() {
+    return this.rawContent;
+  }
+
+  @Override
+  public Value getCellValue() {
+    return this.cellContents.getVal();
+  }
+
+  @Override
   public Coord getCoord() {
     return this.coord;
   }
 
   @Override
+  public void setCellContent(String contents, Worksheet worksheet) {
+    this.rawContent = contents;
+    this.cellContents = evaluate(worksheet);
+  }
+
+  private CellContents evaluate(Worksheet worksheet) {
+    if (rawContent.length() == 0) {
+      return new ValueBlank();
+    }
+    if (rawContent.charAt(0) == '=') {
+      return Parser.parse(this.rawContent.substring(1)).accept(new Evaluator(coord, worksheet));
+    } else {
+      return Parser.parse(this.rawContent).accept(new Evaluator(coord, worksheet));
+    }
+  }
+
+  @Override
   public String toString() {
-    return this.cellContents.toString();
+    if (this.cellContents == null) {
+      return "";
+    }
+    return getCellValue().toString();
   }
 
   @Override
   public boolean equals(Object other) {
+    if (other == this) {
+      return true;
+    }
     if (!(other instanceof Cell)) {
       return false;
     }
-    Cell val = (Cell) other;
-    val.hashCode();
-    return val.cellContents.equals(((Cell) other).cellContents);
+    Cell otherCell = (Cell) other;
+
+    return (this.rawContent.equals(otherCell.rawContent) && this.coord.equals(otherCell.coord));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cellContents);
+    return 17 * this.rawContent.hashCode() * this.coord.hashCode();
   }
 }

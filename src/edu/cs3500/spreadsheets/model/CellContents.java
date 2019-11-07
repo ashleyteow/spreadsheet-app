@@ -1,6 +1,6 @@
 package edu.cs3500.spreadsheets.model;
 
-import edu.cs3500.spreadsheets.sexp.Sexp;
+import java.util.ArrayList;
 
 /**
  * This represents the actual cell contents: this can either be a
@@ -10,9 +10,15 @@ import edu.cs3500.spreadsheets.sexp.Sexp;
 public interface CellContents {
 
   /**
-   * Returns the S-Expression value of this cell's contents.
-   * @return S-expression
+   * Returns the evaluated value of this cell's contents.
+   * @return value of this cell
    */
-  Sexp evaluate();
+  Value getVal();
 
+  /**
+   * Converts / updates a {@code Formula}'s arraylist of values to be evaluated. This is a
+   * helper function that simply adds its value to the arraylist of args.
+   * @param args args to pass to a formula
+   */
+  void populateArgsHelp(ArrayList<Value> args);
 }

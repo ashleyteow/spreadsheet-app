@@ -2,108 +2,143 @@ package edu.cs3500.spreadsheets.model;
 
 import edu.cs3500.spreadsheets.model.WorksheetReader.WorksheetBuilder;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a single spreadsheet that contains a grid of cells. Uses composition to build a
  * worksheet.
  */
 public class Worksheet implements IWorksheet {
+//  private ArrayList<ArrayList<Cell>> cells;
+    private HashMap<Coord, Cell> cells;
 
-  private ArrayList<ArrayList<Cell>> cells;
+    public Worksheet() {
+      this.cells  = new HashMap<>();
+    }
+//  public Worksheet(int initialCapacity) {
+//    this.cells = new ArrayList<>(initialCapacity);
+//    for (int col = 0; col < initialCapacity; col++) {
+//      ArrayList<Cell> row = new ArrayList<>(initialCapacity);
+//      for (int rowNum = 0; rowNum < initialCapacity; rowNum++) {
+//        // intializes all cells with ValueBlank
+//        row.add(new Cell(new Coord(col + 1, rowNum + 1), "", this));
+//      }
+//      cells.add(row);
+//    }
+//  }
 
   /**
-   * Creates a new Builder object that is responsible for producing a new Worksheet.
-   *
-   * @return Builder object
-   */
-  public static Builder builder() {
-    return new Builder(200);
-  }
-
-  /**
-   * Helper class that fills in the grid of cells with its evaluated contents.
+   * Helper class that builds a {@code Worksheet}.
    */
   public static final class Builder implements WorksheetBuilder<Worksheet> {
+    private ArrayList<Cell> workSheetCells = new ArrayList<>();
+//    Worksheet worksheet = new Worksheet(200);
+      Worksheet worksheet = new Worksheet();
 
-    private ArrayList<ArrayList<Cell>> workSheetCells;
-
-    /**
-     * Constructs a {@code Builder} object initalized with an initialCapacity to set default number
-     * of rows and columns in the spreadsheet.
-     *
-     * @param initialCapacity default number of rows / columns
-     */
-    private Builder(int initialCapacity) {
-      workSheetCells = new ArrayList<>(initialCapacity);
-      for (int col = 0; col < initialCapacity; col++) {
-        ArrayList<Cell> row = new ArrayList<>(initialCapacity);
-        for (int rowNum = 0; rowNum < initialCapacity; rowNum++) {
-          row.add(new Cell(new Coord(col + 1, rowNum + 1), ""));
-        }
-        workSheetCells.add(row);
-      }
-    }
 
     @Override
     public WorksheetBuilder<Worksheet> createCell(int col, int row, String contents) {
       Coord coordinate = new Coord(col, row);
-      Cell cell = new Cell(coordinate, contents);
-      workSheetCells.get(col - 1).set(row - 1, cell);
+      Cell cell = new Cell(coordinate, contents, worksheet);
+      workSheetCells.add(cell);
       return this;
     }
 
     @Override
     public Worksheet createWorksheet() {
-      // calling this method should also *i believe* fill in whitespace
-      return new Worksheet(workSheetCells);
+      for (Cell c : workSheetCells) {
+        worksheet.addCellAt(c.getCoord(), c.getRawValue());
+      }
+      return worksheet;
     }
+  }
+
+  @Override
+  public ArrayList<Cell> getCells() {
+    // TODO: test to see if this returns a copy
+    ArrayList<Cell> copy = new ArrayList<>();
+
+    for (Cell c : cells.values()) {
+      copy.add(c);
+    }
+
+    return copy;
+  }
+
+  @Override
+  public Cell getCellAt(Coord coord) throws IllegalArgumentException {
+//    if (invalidCoord(coord)) {
+//      throw new IllegalArgumentException("Coordinate is invalid!");
+//    }
+    return this.cells.get(coord);
+  }
+
+  @Override
+  public String getCellRaw(Coord coord) {
+    try {
+      return this.cells.get(coord).getRawValue();
+    } catch (NullPointerException e) {
+      return new Cell(coord).getRawValue();
+    }
+  }
+
+  @Override
+  public CellContents evaluateSingleCell(Coord coord) throws IllegalArgumentException {
+//    if (invalidCoord(coord)) {
+//      throw new IllegalArgumentException("Coordinate is invalid!");
+//    }
+    return this.cells.get(coord).getCellValue();
+  }
+
+  @Override
+  public void editCellAt(Coord coord, String newContents) throws IllegalArgumentException {
+//    if (invalidCoord(coord)) {
+//      throw new IllegalArgumentException("Coordinate is invalid!");
+//    }
+    this.cells.get(coord).setCellContent(newContents, this);
+  }
+
+  public void addCellAt(Coord coord, String newContents) throws IllegalArgumentException {
+    this.cells.put(coord, new Cell(coord, newContents, this));
+  }
+
+//  @Override
+//  public boolean evaluateCells() {
+//    boolean valid = true;
+//    for (int i = 0; i < this.cells.size(); i++) {
+//      for (int j = 0; j < this.cells.get(i).size(); j++) {
+//        if (this.cells.get(i).get(j) == null) {
+//          valid = false;
+//        }
+//      }
+//    }
+//    return valid;
+//  }
+
+  /**
+   * Determines whether the given coordinate is not in the boundaries of this sheet.
+   *
+   * @param coord location of the cell
+   * @return true if coord is out of bounds/invalid, false otherwise
+   */
+  private boolean invalidCoord(Coord coord) {
+    return coord.col < 0 || coord.col > this.cells.size()
+        || coord.row < 0 || coord.row > this.cells.size();
   }
 
   /**
-   * Constructs a {@code Worksheet} object with a given arraylist of cells that have been processed
-   * and evaluated through the Builder pattern.
-   *
-   * @param cells all cells in this spreadsheet
+   * TODO: javadoc
+   * @param grid
+   * @return
    */
-  private Worksheet(ArrayList<ArrayList<Cell>> cells) {
-    this.cells = cells;
-  }
+  public static List<Cell> flattenCells(HashMap<Coord, Cell> grid) {
+    List<Cell> allCells = new ArrayList<>();
 
-  @Override
-  public ArrayList<ArrayList<Cell>> getCells() {
-    return this.cells;
-  }
-
-  @Override
-  public Cell getCellAt(int col, int row) throws IllegalArgumentException {
-    if (col < 0 || row < 0 || col >= this.getCells().size()
-        || row >= this.getCells().size()) {
-      throw new IllegalArgumentException("Coordinates out of bound!");
+    for (Cell c : grid.values()) {
+      allCells.add(c);
     }
-    return this.getCells().get(col).get(row);
+    return allCells;
   }
-
-  @Override
-  public void deleteCellAt(int col, int row) {
-    this.cells.get(col).set(row, new Cell(new Coord(col, row), ""));
-  }
-
-  @Override
-  public void editCellAt(int col, int row, String newContents) {
-    this.cells.get(col).set(row, new Cell(new Coord(col, row), newContents));
-  }
-
-  @Override
-  public boolean evaluateCells() {
-    boolean valid = true;
-    for (int i = 0; i < this.cells.size(); i++) {
-      for (int j = 0; j < this.cells.get(i).size(); j++) {
-        if (this.cells.get(i).get(j) == null) {
-          valid = false;
-        }
-      }
-    }
-    return valid;
-  }
-
 }

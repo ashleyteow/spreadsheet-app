@@ -12,40 +12,43 @@ public interface IWorksheet {
    *
    * @return all cells in this spreadsheet
    */
-  ArrayList<ArrayList<Cell>> getCells();
+  ArrayList<Cell> getCells();
 
   /**
    * Returns the cell at the specified coordinates.
    *
-   * @param col column of the desired cell
-   * @param row row of the desired cell
+   * @param coord location of the cell
    * @return the cell at the given position, or <code>null</code> if no card is there
    * @throws IllegalArgumentException if the coordinates are invalid
    */
-  Cell getCellAt(int col, int row);
+  ICell getCellAt(Coord coord);
 
   /**
-   * Removes the cell at the specified coordinates.
-   *
-   * @param col int
-   * @param row int
+   * Returns the raw contents of the cell at the specified coordinates.
+   * @param coord location of the cell
+   * @return the cell at the given position, or <code>null</code> if no card is there
+   * @throws IllegalArgumentException if the coordinates are invalid
    */
-  void deleteCellAt(int col, int row);
+  String getCellRaw(Coord coord);
 
   /**
    * Edits the contents of the cell at the specified coordinates.
-   *
-   * @param col int
-   * @param row int
+   * @param coord location of the cell
    * @param newContents the new contents of the {@code Cell} as an unprocessed String
    */
-  void editCellAt(int col, int row, String newContents);
+  void editCellAt(Coord coord, String newContents);
+
+//  /**
+//   * Verifies that all cells were created in the {@code Worksheet}.
+//   * @return true if all cells were evaluated correctly
+//   */
+//  boolean evaluateCells();
 
   /**
-   * Verifies that all cells were created in the {@code Worksheet}.
-   *
-   * @return true if all cells were evaluated correctly
+   * Evaluates the contents of the cell located at the given location
+   * @param coord location of where the cell is
+   * @return evaluated content of this cell (Value, Blank, Formula)
+   * @throws IllegalArgumentException if the location given is invalid
    */
-  boolean evaluateCells();
-
+  CellContents evaluateSingleCell(Coord coord) throws IllegalArgumentException;
 }
