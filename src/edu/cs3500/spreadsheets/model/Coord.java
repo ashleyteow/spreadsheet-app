@@ -44,7 +44,7 @@ public class Coord {
         columnName += coord.charAt(i);
       }
     }
-    this.row = Integer.valueOf(rowNum);
+    this.row = Integer.parseInt(rowNum);
     this.col = Coord.colNameToIndex(columnName);
   }
 

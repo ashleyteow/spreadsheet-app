@@ -20,5 +20,5 @@ public interface CellContents {
    * helper function that simply adds its value to the arraylist of args.
    * @param args args to pass to a formula
    */
-  void populateArgs(ArrayList<Value> args);
+  void populateArgsHelp(ArrayList<Value> args);
 }

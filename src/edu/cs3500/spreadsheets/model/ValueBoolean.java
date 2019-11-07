@@ -45,7 +45,7 @@ public class ValueBoolean extends Value {
   }
 
   @Override
-  public void populateArgs(ArrayList<Value> args) {
+  public void populateArgsHelp(ArrayList<Value> args) {
     args.add(this);
   }
 }

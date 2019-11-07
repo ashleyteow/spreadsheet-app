@@ -2,33 +2,40 @@ package edu.cs3500.spreadsheets.model;
 
 import edu.cs3500.spreadsheets.model.WorksheetReader.WorksheetBuilder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a single spreadsheet that contains a grid of cells. Uses composition to build a
  * worksheet.
  */
 public class Worksheet implements IWorksheet {
-  private ArrayList<ArrayList<Cell>> cells;
+//  private ArrayList<ArrayList<Cell>> cells;
+    private HashMap<Coord, Cell> cells;
 
-  public Worksheet(int initialCapacity) {
-    this.cells = new ArrayList<>(initialCapacity);
-    for (int col = 0; col < initialCapacity; col++) {
-      ArrayList<Cell> row = new ArrayList<>(initialCapacity);
-      for (int rowNum = 0; rowNum < initialCapacity; rowNum++) {
-        // intializes all cells with ValueBlank
-        row.add(new Cell(new Coord(col + 1, rowNum + 1), "", this));
-      }
-      cells.add(row);
+    public Worksheet() {
+      this.cells  = new HashMap<>();
     }
-  }
+//  public Worksheet(int initialCapacity) {
+//    this.cells = new ArrayList<>(initialCapacity);
+//    for (int col = 0; col < initialCapacity; col++) {
+//      ArrayList<Cell> row = new ArrayList<>(initialCapacity);
+//      for (int rowNum = 0; rowNum < initialCapacity; rowNum++) {
+//        // intializes all cells with ValueBlank
+//        row.add(new Cell(new Coord(col + 1, rowNum + 1), "", this));
+//      }
+//      cells.add(row);
+//    }
+//  }
 
   /**
    * Helper class that builds a {@code Worksheet}.
    */
   public static final class Builder implements WorksheetBuilder<Worksheet> {
     private ArrayList<Cell> workSheetCells = new ArrayList<>();
-    Worksheet worksheet = new Worksheet(200);
+//    Worksheet worksheet = new Worksheet(200);
+      Worksheet worksheet = new Worksheet();
 
 
     @Override
@@ -42,37 +49,36 @@ public class Worksheet implements IWorksheet {
     @Override
     public Worksheet createWorksheet() {
       for (Cell c : workSheetCells) {
-        worksheet.editCellAt(c.getCoord(), c.getRawValue());
+        worksheet.addCellAt(c.getCoord(), c.getRawValue());
       }
       return worksheet;
     }
   }
 
   @Override
-  public ArrayList<ArrayList<Cell>> getCells() {
+  public ArrayList<Cell> getCells() {
     // TODO: test to see if this returns a copy
-    ArrayList<ArrayList<Cell>> copyCells = new ArrayList<>();
-    for (int col = 0; col < this.cells.size(); col++) {
-      copyCells.add(new ArrayList<Cell>());
-      for (int row = 0; row < this.cells.size(); row++) {
-        copyCells.get(col).add(this.cells.get(col).get(row));
-      }
+    ArrayList<Cell> copy = new ArrayList<>();
+
+    for (Cell c : cells.values()) {
+      copy.add(c);
     }
-    return copyCells;
+
+    return copy;
   }
 
   @Override
   public Cell getCellAt(Coord coord) throws IllegalArgumentException {
-    if (invalidCoord(coord)) {
-      throw new IllegalArgumentException("Coordinate is invalid!");
-    }
-    return this.getCells().get(coord.col).get(coord.row);
+//    if (invalidCoord(coord)) {
+//      throw new IllegalArgumentException("Coordinate is invalid!");
+//    }
+    return this.cells.get(coord);
   }
 
   @Override
   public String getCellRaw(Coord coord) {
     try {
-      return this.cells.get(coord.col).get(coord.row).getRawValue();
+      return this.cells.get(coord).getRawValue();
     } catch (NullPointerException e) {
       return new Cell(coord).getRawValue();
     }
@@ -80,32 +86,36 @@ public class Worksheet implements IWorksheet {
 
   @Override
   public CellContents evaluateSingleCell(Coord coord) throws IllegalArgumentException {
-    if (invalidCoord(coord)) {
-      throw new IllegalArgumentException("Coordinate is invalid!");
-    }
-    return this.cells.get(coord.col).get(coord.row).getCellValue();
+//    if (invalidCoord(coord)) {
+//      throw new IllegalArgumentException("Coordinate is invalid!");
+//    }
+    return this.cells.get(coord).getCellValue();
   }
 
   @Override
   public void editCellAt(Coord coord, String newContents) throws IllegalArgumentException {
-    if (invalidCoord(coord)) {
-      throw new IllegalArgumentException("Coordinate is invalid!");
-    }
-    this.cells.get(coord.col).get(coord.row).setCellContent(newContents, this);
+//    if (invalidCoord(coord)) {
+//      throw new IllegalArgumentException("Coordinate is invalid!");
+//    }
+    this.cells.get(coord).setCellContent(newContents, this);
   }
 
-  @Override
-  public boolean evaluateCells() {
-    boolean valid = true;
-    for (int i = 0; i < this.cells.size(); i++) {
-      for (int j = 0; j < this.cells.get(i).size(); j++) {
-        if (this.cells.get(i).get(j) == null) {
-          valid = false;
-        }
-      }
-    }
-    return valid;
+  public void addCellAt(Coord coord, String newContents) throws IllegalArgumentException {
+    this.cells.put(coord, new Cell(coord, newContents, this));
   }
+
+//  @Override
+//  public boolean evaluateCells() {
+//    boolean valid = true;
+//    for (int i = 0; i < this.cells.size(); i++) {
+//      for (int j = 0; j < this.cells.get(i).size(); j++) {
+//        if (this.cells.get(i).get(j) == null) {
+//          valid = false;
+//        }
+//      }
+//    }
+//    return valid;
+//  }
 
   /**
    * Determines whether the given coordinate is not in the boundaries of this sheet.
@@ -123,11 +133,11 @@ public class Worksheet implements IWorksheet {
    * @param grid
    * @return
    */
-  public static List<Cell> flattenCells(ArrayList<ArrayList<Cell>> grid) {
+  public static List<Cell> flattenCells(HashMap<Coord, Cell> grid) {
     List<Cell> allCells = new ArrayList<>();
 
-    for (List<Cell> l : grid) {
-      allCells.addAll(l);
+    for (Cell c : grid.values()) {
+      allCells.add(c);
     }
     return allCells;
   }

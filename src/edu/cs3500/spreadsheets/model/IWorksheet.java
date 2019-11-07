@@ -12,7 +12,7 @@ public interface IWorksheet {
    *
    * @return all cells in this spreadsheet
    */
-  ArrayList<ArrayList<Cell>> getCells();
+  ArrayList<Cell> getCells();
 
   /**
    * Returns the cell at the specified coordinates.
@@ -38,11 +38,11 @@ public interface IWorksheet {
    */
   void editCellAt(Coord coord, String newContents);
 
-  /**
-   * Verifies that all cells were created in the {@code Worksheet}.
-   * @return true if all cells were evaluated correctly
-   */
-  boolean evaluateCells();
+//  /**
+//   * Verifies that all cells were created in the {@code Worksheet}.
+//   * @return true if all cells were evaluated correctly
+//   */
+//  boolean evaluateCells();
 
   /**
    * Evaluates the contents of the cell located at the given location

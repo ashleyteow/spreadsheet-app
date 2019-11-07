@@ -1,20 +1,22 @@
-//import static org.junit.Assert.assertEquals;
-//
-//import edu.cs3500.spreadsheets.model.Cell;
-//import edu.cs3500.spreadsheets.model.Coord;
-//import edu.cs3500.spreadsheets.model.Worksheet;
-//import edu.cs3500.spreadsheets.model.WorksheetReader;
-//import edu.cs3500.spreadsheets.sexp.SString;
-//import java.io.FileNotFoundException;
-//import java.io.FileReader;
-//import java.util.ArrayList;
-//import org.junit.Test;
-//
-///**
-// * Testing all public methods for a Worksheet class.
-// */
-//public class WorksheetTest {
-//
+import static org.junit.Assert.assertEquals;
+
+import edu.cs3500.spreadsheets.model.Cell;
+import edu.cs3500.spreadsheets.model.Coord;
+import edu.cs3500.spreadsheets.model.ValueDouble;
+import edu.cs3500.spreadsheets.model.Worksheet;
+import edu.cs3500.spreadsheets.model.Worksheet.Builder;
+import edu.cs3500.spreadsheets.model.WorksheetReader;
+import edu.cs3500.spreadsheets.sexp.SString;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+import org.junit.Test;
+
+/**
+ * Testing all public methods for a Worksheet class.
+ */
+public class WorksheetTest {
+
 //  @Test
 //  public void testReadingBlankWorksheet() throws FileNotFoundException {
 //    Worksheet testWorksheet = WorksheetReader.read(Worksheet.builder(),
@@ -54,5 +56,15 @@
 //        new FileReader("/Users/ashleyteow/IdeaProjects/BeyondGoodProject/testParse1"));
 //    assertEquals(a1, testWorksheet.getCellAt(0, 0));
 //  }
-//
-//}
+
+  @Test
+  public void testReference1() throws FileNotFoundException {
+    Worksheet testWorksheet = WorksheetReader.read(new Builder(),
+        new FileReader("/Users/ashleyteow/IdeaProjects/BeyondGoodProject/testParse1"));
+    Cell c = new Cell(new Coord(0, 4), "=(PRODUCT A1:B2)", testWorksheet);
+    System.out.println(c.toString());
+    System.out.println(testWorksheet.getCells());
+    assertEquals(new ValueDouble(24.000000), c.getCellValue());
+  }
+
+}

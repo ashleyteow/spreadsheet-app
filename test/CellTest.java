@@ -12,7 +12,7 @@ public class CellTest {
 
   @Before
   public void setup() {
-    testWorksheet = new Worksheet(200);
+    testWorksheet = new Worksheet();
   }
 
 /*

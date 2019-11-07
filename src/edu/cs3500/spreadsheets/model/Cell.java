@@ -32,7 +32,7 @@ public class Cell implements ICell {
     this.coord = coord;
     this.cellContents = new ValueBlank();
     this.rawContent = "";
-    this.worksheet = new Worksheet(200);
+    this.worksheet = new Worksheet();
   }
 
   /**
@@ -46,7 +46,7 @@ public class Cell implements ICell {
     }
     this.coord = coord;
     this.cellContents = cellContents;
-    this.worksheet = new Worksheet(200);
+    this.worksheet = new Worksheet();
   }
 
   @Override
@@ -83,6 +83,9 @@ public class Cell implements ICell {
 
   @Override
   public String toString() {
+    if (this.cellContents == null) {
+      return "";
+    }
     return getCellValue().toString();
   }
 

@@ -37,9 +37,9 @@ public class BeyondGood {
     }
 
     Worksheet worksheet = WorksheetReader.read(new Builder(), readFile);
-    if (!worksheet.evaluateCells()) {
-      System.out.println("Error");
-    }
+//    if (!worksheet.evaluateCells()) {
+//      System.out.println("Error");
+//    }
 
     Cell cell = worksheet.getCellAt(new Coord(args[3]));
     System.out.println(cell.toString());

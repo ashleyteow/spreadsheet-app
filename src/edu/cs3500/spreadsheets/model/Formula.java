@@ -17,23 +17,23 @@ public class Formula implements CellContents {
 
   @Override
   public Value getVal() {
-    return this.operation.apply(populateArgsHelp());
+    return this.operation.apply(populateArgs());
   }
 
   /**
    * Prepares the arraylist of values to pass to the apply method for the appropriate function.
    * @return args to execute the appropriate operation
    */
-  private ArrayList<Value> populateArgsHelp() {
+  private ArrayList<Value> populateArgs() {
     ArrayList<Value> vals = new ArrayList<>();
     for (CellContents c: this.args) {
-      c.populateArgs(vals);
+      c.populateArgsHelp(vals);
     }
     return vals;
   }
 
   @Override
-  public void populateArgs(ArrayList<Value> args) {
+  public void populateArgsHelp(ArrayList<Value> args) {
     args.add(getVal());
   }
 

@@ -1,5 +1,8 @@
 package edu.cs3500.spreadsheets.model;
 
+import edu.cs3500.spreadsheets.sexp.SList;
+import edu.cs3500.spreadsheets.sexp.SSymbol;
+import edu.cs3500.spreadsheets.sexp.Sexp;
 import java.util.ArrayList;
 
 /**
@@ -22,6 +25,22 @@ public class Reference implements CellContents {
     this.worksheet = worksheet;
 
     // TODO figure out the math to find all cells from firstCoord to secondCoord
+    // adding cell to referencedCells
+    int firstCoordRow = firstCoord.row;
+    int secondCoordRow = secondCoord.row;
+    int firstCoordCol = firstCoord.col;
+    int secondCoordCol = secondCoord.col;
+
+    for (int i = firstCoordCol; i <= secondCoordCol; i++) {
+      for (int j = firstCoordRow; j <= secondCoordRow; j++) {
+        if (!cyclePresent(new Coord(i, j))) {
+          this.referencedCells.add(new Coord(i, j));
+        } else {
+          throw new IllegalArgumentException("cycle detected");
+        }
+      }
+    }
+
   }
 
   /**
@@ -46,22 +65,36 @@ public class Reference implements CellContents {
    */
   private boolean cyclePresent(Coord coord) {
     // TODO: check if this works
-    String otherCellRawVal = worksheet.getCellAt(coord).getRawValue();
-    if (otherCellRawVal.charAt(0) == '=' && otherCellRawVal.contains(this.thisCellLoc.toString())) {
-      return true;
-    }
+//    String otherCellRawVal = worksheet.getCellAt(coord).getRawValue();
+//    if (otherCellRawVal.charAt(0) == '=' && otherCellRawVal.contains(this.thisCellLoc.toString())) {
+//      return true;
+//    }
+//    return false;
     return false;
   }
 
   @Override
   public Value getVal() {
-    return null;
+    if (referencedCells.size() == 1) {
+      return worksheet.getCellAt(referencedCells.get(0)).getCellValue();
+    }
+    else {
+      // iterate through referencedCells
+      // have arraylist<ssymbol> and add getCellAt(coord) to the list as an ssymbol
+      // the arraylist accepts a visitor
+      ArrayList<Sexp> coords = new ArrayList<>();
+      for (int i = 0; i < referencedCells.size(); i++) {
+        coords.add(new SSymbol(referencedCells.get(i).toString()));
+      }
+      SList list = new SList(coords);
+      return list.accept(new Evaluator(this.thisCellLoc, this.worksheet)).getVal();
+    }
   }
 
   @Override
-  public void populateArgs(ArrayList<Value> args) {
+  public void populateArgsHelp(ArrayList<Value> args) {
     for (Coord c: this.referencedCells) {
-      if (Worksheet.flattenCells(worksheet.getCells()).contains(worksheet.getCellAt(c))) {
+      if (worksheet.getCells().contains(worksheet.getCellAt(c))) {
         args.add(worksheet.getCellAt(c).getCellValue());
       }
     }
