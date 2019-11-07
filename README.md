@@ -11,7 +11,7 @@ Todo List:
     - update main() method to handle textual and jswing views
         - -in some-filename -eval some-cell
         - -in some-filename -save some-new-filename
-        - -in some-filename - gui
+        - -in some-filename -gui
         - -gui // opens an empty blank new spreadsheet
     - create a JAR file
     - README documenting model changes
