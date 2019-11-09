@@ -3,7 +3,6 @@ package edu.cs3500.spreadsheets.model;
 import edu.cs3500.spreadsheets.model.WorksheetReader.WorksheetBuilder;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Represents a single spreadsheet that contains a grid of cells. Uses composition to build a
@@ -34,7 +33,7 @@ public class Worksheet implements IWorksheet {
     @Override
     public Worksheet createWorksheet() {
       for (Cell c : workSheetCells) {
-        worksheet.addCellAt(c.getCoord(), c.getRawValue());
+        worksheet.editCellAt(c.getCoord(), c.getRawValue());
       }
       return worksheet;
     }
@@ -53,69 +52,19 @@ public class Worksheet implements IWorksheet {
   }
 
   @Override
-  public Cell getCellAt(Coord coord) throws IllegalArgumentException {
-    return this.cells.get(coord);
-  }
-
-  @Override
-  public String getCellRaw(Coord coord) {
+  public Cell getCellAt(Coord coord) {
     try {
-      return this.cells.get(coord).getRawValue();
+      return this.cells.get(coord);
     } catch (NullPointerException e) {
-      return new Cell(coord).getRawValue();
+      return new Cell(coord);
     }
-  }
-
-  @Override
-  public CellContents evaluateSingleCell(Coord coord) throws IllegalArgumentException {
-    return this.cells.get(coord).getCellValue();
   }
 
   @Override
   public void editCellAt(Coord coord, String newContents) throws IllegalArgumentException {
-    this.cells.get(coord).setCellContent(newContents, this);
-  }
-
-  @Override
-  public void addCellAt(Coord coord, String contents) throws IllegalArgumentException {
-    this.cells.put(coord, new Cell(coord, contents, this));
-  }
-
-//  @Override
-//  public boolean evaluateCells() {
-//    boolean valid = true;
-//    for (int i = 0; i < this.cells.size(); i++) {
-//      for (int j = 0; j < this.cells.get(i).size(); j++) {
-//        if (this.cells.get(i).get(j) == null) {
-//          valid = false;
-//        }
-//      }
-//    }
-//    return valid;
-//  }
-
-  /**
-   * Determines whether the given coordinate is not in the boundaries of this sheet.
-   *
-   * @param coord location of the cell
-   * @return true if coord is out of bounds/invalid, false otherwise
-   */
-  private boolean invalidCoord(Coord coord) {
-    return coord.col < 0 || coord.col > this.cells.size()
-        || coord.row < 0 || coord.row > this.cells.size();
-  }
-
-  /**
-   * TODO: javadoc
-   * @param grid
-   * @return
-   */
-  public static List<Cell> flattenCells(HashMap<Coord, Cell> grid) {
-    List<Cell> allCells = new ArrayList<>();
-
-    for (Cell c : grid.values()) {
-      allCells.add(c);
+    if (!this.cells.containsKey(coord)) {
+      this.cells.put(coord, new Cell(coord, newContents, this));
     }
-    return allCells;
+    this.cells.get(coord).setCellContent(newContents, this);
   }
 }
