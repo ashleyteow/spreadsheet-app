@@ -21,6 +21,7 @@ public class Reference implements CellContents {
    * @param worksheet worksheet model
    */
   public Reference(Coord firstCoord, Coord secondCoord, Coord thisCell, Worksheet worksheet) {
+    this.thisCellLoc = thisCell;
     this.referencedCells = new ArrayList<>();
     this.worksheet = worksheet;
 
@@ -33,14 +34,12 @@ public class Reference implements CellContents {
 
     for (int i = firstCoordCol; i <= secondCoordCol; i++) {
       for (int j = firstCoordRow; j <= secondCoordRow; j++) {
-        if (!cyclePresent(new Coord(i, j))) {
-          this.referencedCells.add(new Coord(i, j));
-        } else {
+        if (cyclePresent(new Coord(i, j))) {
           throw new IllegalArgumentException("cycle detected");
         }
+        this.referencedCells.add(new Coord(i, j));
       }
     }
-
   }
 
   /**
@@ -53,9 +52,10 @@ public class Reference implements CellContents {
     this.thisCellLoc = thisCell;
     this.worksheet = worksheet;
     this.referencedCells = new ArrayList<>();
-    if (!cyclePresent(referencedCell)) {
-      this.referencedCells.add(referencedCell);
+    if (cyclePresent(referencedCell)) {
+      throw new IllegalArgumentException("cycle detected");
     }
+    this.referencedCells.add(referencedCell);
   }
 
   /**
@@ -77,12 +77,9 @@ public class Reference implements CellContents {
       return worksheet.getCellAt(referencedCells.get(0)).getCellValue();
     }
     else {
-      // iterate through referencedCells
-      // have arraylist<ssymbol> and add getCellAt(coord) to the list as an ssymbol
-      // the arraylist accepts a visitor
       ArrayList<Sexp> coords = new ArrayList<>();
-      for (int i = 0; i < referencedCells.size(); i++) {
-        coords.add(new SSymbol(referencedCells.get(i).toString()));
+      for (Sexp s : coords) {
+        coords.add(new SSymbol(s.toString()));
       }
       SList list = new SList(coords);
       return list.accept(new Evaluator(this.thisCellLoc, this.worksheet)).getVal();

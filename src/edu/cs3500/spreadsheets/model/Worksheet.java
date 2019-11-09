@@ -23,7 +23,6 @@ public class Worksheet implements IWorksheet {
     private ArrayList<Cell> workSheetCells = new ArrayList<>();
       Worksheet worksheet = new Worksheet();
 
-
     @Override
     public WorksheetBuilder<Worksheet> createCell(int col, int row, String contents) {
       Coord coordinate = new Coord(col, row);
@@ -69,7 +68,6 @@ public class Worksheet implements IWorksheet {
     }
     this.cells.get(coord).setCellContent(newContents, this);
   }
-
   /**
    * TODO: javadoc
    * @param grid
