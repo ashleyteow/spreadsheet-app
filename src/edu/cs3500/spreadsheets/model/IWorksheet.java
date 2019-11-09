@@ -38,6 +38,13 @@ public interface IWorksheet {
    */
   void editCellAt(Coord coord, String newContents);
 
+  /**
+   * Adds a new cell with the given contents at the specified coordinates.
+   * @param coord location of the new cell
+   * @param contents contents of the new {@code Cell} as an unprocessed String
+   */
+  void addCellAt(Coord coord, String contents);
+
 //  /**
 //   * Verifies that all cells were created in the {@code Worksheet}.
 //   * @return true if all cells were evaluated correctly

@@ -29,15 +29,17 @@ public class WorksheetTest {
 
   @Test
   public void testIfCellContentsAreFilledInSpreadsheet() throws FileNotFoundException {
-    Worksheet testWorksheet1 = WorksheetReader.read(new Builder(),
+    Worksheet testWorksheet = WorksheetReader.read(new Builder(),
         new FileReader("testParse2"));
-      assertEquals("4", testWorksheet1.getCellAt(new Coord(0, 0)).getCellValue());
-//    assertEquals(a2, testWorksheet.getCellAt(new Coord(0, 1)));
-//    assertEquals(a3, testWorksheet.getCellAt(new Coord(0, 2)));
-//    assertEquals(a4, testWorksheet.getCellAt(new Coord(0, 3)));
-//    assertEquals(a5, testWorksheet.getCellAt(new Coord(0, 4)));
+    System.out.println(testWorksheet.getCells());
+    System.out.println(testWorksheet.getCellAt(new Coord(1, 1)));
+      assertEquals("4", testWorksheet.getCellAt(new Coord(1, 1)).getRawValue());
+//    assertEquals(a2, testWorksheet.getCellAt(new Coord(1, 2)));
+//    assertEquals(a3, testWorksheet.getCellAt(new Coord(1, 3)));
+//    assertEquals(a4, testWorksheet.getCellAt(new Coord(1, 4)));
+//    assertEquals(a5, testWorksheet.getCellAt(new Coord(1, 5)));
   }
-//
+
 //  @Test
 //  public void testGetCellAt() throws FileNotFoundException {
 //    Cell a1 = new Cell(new Coord(0, 0),
@@ -52,11 +54,23 @@ public class WorksheetTest {
     Worksheet testWorksheet = WorksheetReader.read(new Builder(),
         new FileReader("testParse1"));
     Cell c = new Cell(new Coord(3, 6), "=A1", testWorksheet);
-    assertEquals(new ValueDouble(24.000000), c.getCellValue());
+    assertEquals(new ValueDouble(24), c.getCellValue());
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testSingleCellReferenceWithDirectCycle() throws FileNotFoundException {
+    Worksheet testWorksheet = WorksheetReader.read(new Builder(),
+        new FileReader("testParseSingleCycle"));
+  }
+
+  @Test
+  public void testCellReferenceWithIndirectCycle() throws FileNotFoundException {
+    Worksheet testWorksheet = WorksheetReader.read(new Builder(),
+        new FileReader("testParse1"));
+    testWorksheet.addCellAt(new Coord(2, 6), "5");
+    testWorksheet.addCellAt(new Coord(1, 5), "=B6");
+    testWorksheet.editCellAt(new Coord(2, 6), "=A5");
   }
 
 }
 
-//  Cell b6 = new Cell(new Coord(1, 5), "5", testWorksheet);
-//  Cell a5 = new Cell(new Coord(0, 4), "=B6", testWorksheet);
-//  testWorksheet.editCellAt(b6.getCoord(), "=B6");
