@@ -22,6 +22,7 @@ public class WorksheetTextualView implements WorksheetView {
       result += c.getRawValue();
       result += "\n";
     }
+    System.out.println(result);
     return result;
   }
 
