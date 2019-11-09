@@ -4,39 +4,24 @@ import edu.cs3500.spreadsheets.model.WorksheetReader.WorksheetBuilder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Represents a single spreadsheet that contains a grid of cells. Uses composition to build a
  * worksheet.
  */
 public class Worksheet implements IWorksheet {
-//  private ArrayList<ArrayList<Cell>> cells;
     private HashMap<Coord, Cell> cells;
 
     public Worksheet() {
       this.cells  = new HashMap<>();
     }
-//  public Worksheet(int initialCapacity) {
-//    this.cells = new ArrayList<>(initialCapacity);
-//    for (int col = 0; col < initialCapacity; col++) {
-//      ArrayList<Cell> row = new ArrayList<>(initialCapacity);
-//      for (int rowNum = 0; rowNum < initialCapacity; rowNum++) {
-//        // intializes all cells with ValueBlank
-//        row.add(new Cell(new Coord(col + 1, rowNum + 1), "", this));
-//      }
-//      cells.add(row);
-//    }
-//  }
 
   /**
    * Helper class that builds a {@code Worksheet}.
    */
   public static final class Builder implements WorksheetBuilder<Worksheet> {
     private ArrayList<Cell> workSheetCells = new ArrayList<>();
-//    Worksheet worksheet = new Worksheet(200);
       Worksheet worksheet = new Worksheet();
-
 
     @Override
     public WorksheetBuilder<Worksheet> createCell(int col, int row, String contents) {
@@ -69,9 +54,6 @@ public class Worksheet implements IWorksheet {
 
   @Override
   public Cell getCellAt(Coord coord) throws IllegalArgumentException {
-//    if (invalidCoord(coord)) {
-//      throw new IllegalArgumentException("Coordinate is invalid!");
-//    }
     return this.cells.get(coord);
   }
 
@@ -86,22 +68,17 @@ public class Worksheet implements IWorksheet {
 
   @Override
   public CellContents evaluateSingleCell(Coord coord) throws IllegalArgumentException {
-//    if (invalidCoord(coord)) {
-//      throw new IllegalArgumentException("Coordinate is invalid!");
-//    }
     return this.cells.get(coord).getCellValue();
   }
 
   @Override
   public void editCellAt(Coord coord, String newContents) throws IllegalArgumentException {
-//    if (invalidCoord(coord)) {
-//      throw new IllegalArgumentException("Coordinate is invalid!");
-//    }
     this.cells.get(coord).setCellContent(newContents, this);
   }
 
-  public void addCellAt(Coord coord, String newContents) throws IllegalArgumentException {
-    this.cells.put(coord, new Cell(coord, newContents, this));
+  @Override
+  public void addCellAt(Coord coord, String contents) throws IllegalArgumentException {
+    this.cells.put(coord, new Cell(coord, contents, this));
   }
 
 //  @Override
