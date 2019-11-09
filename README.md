@@ -25,9 +25,17 @@ Todo List:
         - Override getPreferredSize and paintComponent in any custom JPanels
          
 Timeline:
-     - Model to be completely functioning (Friday) 
-     - Learn JSwing (Friday)
-     - Have both views done by Tuesday (11/12) 
+- Ashley
+    - Cycles 
+    - Finish textual view tests
+    - Reading up on JSwing
+
+- Gauri
+    - Referencing region (testing to see if you can get back the arraylist of cells from a region like A1:B3)
+    - JSwing
+    
+     - Model to be completely functioning (Sunday night) 
+     - Learn JSwing (Monday 5pm)
      - 11/13 and 11/14 should be to debug and pass JUnit tests
  
     
