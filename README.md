@@ -4,8 +4,6 @@ Gauri and Ashley
 Todo List:
 - Cleanup Model
     - Reference region A1: B2
-    - The ability for a formula to take in cells
-    - Less than function class
     - direct or indirect cyclic inferences
 - Assignment 6 things
     - update main() method to handle textual and jswing views
@@ -14,11 +12,7 @@ Todo List:
         - -in some-filename -gui
         - -gui // opens an empty blank new spreadsheet
     - create a JAR file
-    - README documenting model changes
-    - create IView interface
     - Textual View
-        - toString() method and render() method
-        - TextualView class
         - testing
     - Visual View
         - Grid of cells
