@@ -1,5 +1,6 @@
 package edu.cs3500.spreadsheets.view;
 
+import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Worksheet;
 import java.io.IOException;
 
@@ -14,7 +15,15 @@ public class WorksheetTextualView implements WorksheetView {
 
   @Override
   public String toString() {
-    return "";
+    String result = "";
+    for (Cell c : model.getCells()) {
+      result += c.getCoord();
+      result += "  ";
+      result += c.getRawValue();
+      result += "\n";
+    }
+    System.out.println(result);
+    return result;
   }
 
   @Override
