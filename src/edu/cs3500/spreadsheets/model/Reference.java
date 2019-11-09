@@ -65,11 +65,9 @@ public class Reference implements CellContents {
    */
   private boolean cyclePresent(Coord coord) {
     // TODO: check if this works
-//    String otherCellRawVal = worksheet.getCellAt(coord).getRawValue();
-//    if (otherCellRawVal.charAt(0) == '=' && otherCellRawVal.contains(this.thisCellLoc.toString())) {
-//      return true;
-//    }
-//    return false;
+    if (this.referencedCells.contains(coord) || coord.equals(this.thisCellLoc)) {
+      return true;
+    }
     return false;
   }
 

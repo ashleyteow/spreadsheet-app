@@ -1,15 +1,7 @@
 import static org.junit.Assert.assertEquals;
 
-import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
-import edu.cs3500.spreadsheets.model.ValueDouble;
 import edu.cs3500.spreadsheets.model.Worksheet;
-import edu.cs3500.spreadsheets.model.Worksheet.Builder;
-import edu.cs3500.spreadsheets.model.WorksheetReader;
-import edu.cs3500.spreadsheets.sexp.SString;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.ArrayList;
 import org.junit.Test;
 
 /**
@@ -17,54 +9,31 @@ import org.junit.Test;
  */
 public class WorksheetTest {
 
-//  @Test
-//  public void testReadingBlankWorksheet() throws FileNotFoundException {
-//    Worksheet testWorksheet = WorksheetReader.read(Worksheet.builder(),
-//        new FileReader("/Users/ashleyteow/IdeaProjects/BeyondGoodProject/testBlankParse"));
-//    ArrayList<ArrayList<Cell>> worksheet = testWorksheet.getCells();
-//    for (int i = 0; i < worksheet.size(); i++) {
-//      for (int j = 0; j < worksheet.get(i).size(); j++) {
-//        assertEquals(new SString(""), worksheet.get(i).get(j).getCellContents().evaluate());
-//      }
-//    }
-//  }
-//
-//  @Test
-//  public void testIfCellContentsAreFilledInSpreadsheet() throws FileNotFoundException {
-//    Cell a1 = new Cell(new Coord(0, 0),
-//        "=(PRODUCT 2 (SUM 3 4 5))");
-//    Cell b1 = new Cell(new Coord(1, 0), "=4");
-//    Cell c1 = new Cell(new Coord(2, 0), "9");
-//    Cell d1 = new Cell(new Coord(3, 0), "\"Hi\"");
-//    Cell e3 = new Cell(new Coord(4, 2), "3");
-//    Cell f1 = new Cell(new Coord(5, 0), "true");
-//    Worksheet testWorksheet = WorksheetReader.read(Worksheet.builder(),
-//        new FileReader("/Users/ashleyteow/IdeaProjects/BeyondGoodProject/testParse1"));
-//    assertEquals(a1, testWorksheet.getCellAt(0, 0));
-//    assertEquals(b1, testWorksheet.getCellAt(1, 0));
-//    assertEquals(c1, testWorksheet.getCellAt(2, 0));
-//    assertEquals(d1, testWorksheet.getCellAt(3, 0));
-//    assertEquals(e3, testWorksheet.getCellAt(4, 2));
-//    assertEquals(f1, testWorksheet.getCellAt(5, 0));
-//  }
-//
-//  @Test
-//  public void testGetCellAt() throws FileNotFoundException {
-//    Cell a1 = new Cell(new Coord(0, 0),
-//        "=(PRODUCT 2 (SUM 3 4 5))");
-//    Worksheet testWorksheet = WorksheetReader.read(Worksheet.builder(),
-//        new FileReader("/Users/ashleyteow/IdeaProjects/BeyondGoodProject/testParse1"));
-//    assertEquals(a1, testWorksheet.getCellAt(0, 0));
-//  }
-
   @Test
-  public void testReference1() throws FileNotFoundException {
-    Worksheet testWorksheet = WorksheetReader.read(new Builder(),
-        new FileReader("/Users/ashleyteow/IdeaProjects/BeyondGoodProject/testParse1"));
-    Cell c = new Cell(new Coord(0, 4), "=(PRODUCT A1:B2)", testWorksheet);
-    System.out.println(c.toString());
-    System.out.println(testWorksheet.getCells());
-    assertEquals(new ValueDouble(24.000000), c.getCellValue());
+  public void testBlankWorksheet() {
+    Worksheet w = new Worksheet();
+    assertEquals(0, w.getCells().size());
   }
 
+  @Test
+  public void testGetCellAt() {
+    Worksheet w = new Worksheet();
+
+    w.editCellAt(new Coord(1,1), "=2");
+    assertEquals("=2", w.getCellAt(new Coord(1,1)).getRawValue());
+    w.editCellAt(new Coord(1,1), "=4");
+    assertEquals("=4", w.getCellAt(new Coord(1,1)).getRawValue());
+  }
+
+  @Test
+  public void testCycles() {
+    Worksheet w = new Worksheet();
+    w.editCellAt(new Coord(1, 1), "=A2");
+    w.editCellAt(new Coord(1, 2), "=A1");
+    assertEquals(w.getCellAt(new Coord(1, 2)).toString(), "#NAME");
+//
+//    w.editCellAt(new Coord(2, 1), "=B1");
+//    assertEquals(w.getCellAt(new Coord(2, 1)).toString(), "#NAME");
+
+  }
 }
