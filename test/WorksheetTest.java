@@ -6,12 +6,9 @@ import edu.cs3500.spreadsheets.model.ValueDouble;
 import edu.cs3500.spreadsheets.model.Worksheet;
 import edu.cs3500.spreadsheets.model.Worksheet.Builder;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
-import edu.cs3500.spreadsheets.sexp.SString;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.HashMap;
-import javax.swing.JTextArea;
 import org.junit.Test;
 
 /**
@@ -66,10 +63,15 @@ public class WorksheetTest {
   @Test
   public void testCellReferenceWithIndirectCycle() throws FileNotFoundException {
     Worksheet testWorksheet = WorksheetReader.read(new Builder(),
-        new FileReader("testParse1"));
-    testWorksheet.addCellAt(new Coord(2, 6), "5");
-    testWorksheet.addCellAt(new Coord(1, 5), "=B6");
-    testWorksheet.editCellAt(new Coord(2, 6), "=A5");
+        new FileReader("testParseIndirectCycle"));
+  }
+
+  @Test
+  public void testReferenceBlock() throws FileNotFoundException {
+    Worksheet testWorksheet = WorksheetReader.read(new Builder(),
+        new FileReader("testParseReferenceBlock"));
+    assertEquals(new ValueDouble(19),
+        testWorksheet.getCellAt(new Coord(3, 4)).getCellValue());
   }
 
 }
