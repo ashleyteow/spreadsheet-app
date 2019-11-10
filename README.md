@@ -23,6 +23,17 @@ Todo List:
             - Consider whether we need to make a custom scroll-pane
         - Custom frame class that extends JFrame and View interface
         - Override getPreferredSize and paintComponent in any custom JPanels
+        - Steps to take (iterative process):
+            1. get something to show up in the view (literally anything)
+            2. render a blank worksheet
+            3. start populating cells
+        - Things to keep in mind:
+            1. don't make every cell a separate entity or else it will crash by 100x100
+            2. if you have buttons to add rows + cells then we can just use JScrollPane
+                - can't have infinite scroll on it, so we can add a buffer on the number of cells in the worksheet and then
+                  just have the user press the buttons to add the cells
+            3. they will not be checking for tests on this version of the view, because it will depend solely on how the user 
+                can interact with the view
          
 Timeline:
      - Model to be completely functioning (Friday) 
