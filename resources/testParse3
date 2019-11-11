@@ -1,0 +1,6 @@
+A1 8
+D100 5
+AA1 6
+B4 false
+C10 =(PRODUCT 1 5)
+C5 =SUM(AA1 D100)
