@@ -7,6 +7,8 @@ import edu.cs3500.spreadsheets.model.Formula;
 import edu.cs3500.spreadsheets.model.Worksheet;
 import edu.cs3500.spreadsheets.model.Worksheet.Builder;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
+import edu.cs3500.spreadsheets.view.WorksheetTextualView;
+import edu.cs3500.spreadsheets.view.WorksheetView;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
@@ -23,9 +25,11 @@ public class BeyondGood {
     String cellName = "";
     FileReader readFile;
 
-    if (args.length == 4 && args[0].equals("-in") && args[2].equals("-eval")) {
+    if (args.length == 4 && args[0].equals("-in")) {
       fileName = args[1];
-      cellName = args[3];
+      if (args[2].equals("-eval")) {
+        cellName = args[3];
+      }
     } else {
       throw new IllegalArgumentException("Invalid command line input");
     }
@@ -37,9 +41,6 @@ public class BeyondGood {
     }
 
     Worksheet worksheet = WorksheetReader.read(new Builder(), readFile);
-//    if (!worksheet.evaluateCells()) {
-//      System.out.println("Error");
-//    }
 
     Cell cell = worksheet.getCellAt(new Coord(args[3]));
     System.out.println(cell.toString());
