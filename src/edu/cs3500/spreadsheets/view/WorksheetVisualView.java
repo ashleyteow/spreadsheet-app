@@ -23,14 +23,14 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
   private JPanel colHeader;
   private static int SCREENWIDTH = 12;
   private static int SCREENHEIGHT = 20;
-  private int rowOffset;
-  private int colOffset;
+  private int topLeftRow;
+  private int topLeftCol;
 
 
   public WorksheetVisualView(Worksheet model) {
     this.model = model;
-    this.rowOffset = 0;
-    this.colOffset = 0;
+    this.topLeftRow = 0;
+    this.topLeftCol = 0;
     this.mainPanel = new JPanel(new GridLayout(SCREENHEIGHT, SCREENWIDTH));
     this.rowHeader = new JPanel(new GridLayout(SCREENHEIGHT, 0));
     this.colHeader = new JPanel(new GridLayout(0, SCREENWIDTH + 1));
@@ -78,7 +78,7 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
     rowPanel.removeAll();
 
     for (int i = 0; i < SCREENWIDTH + 1; i++) {
-      String columnName = Coord.colIndexToName(i + colOffset + 1);
+      String columnName = Coord.colIndexToName(i + topLeftCol + 1);
       JTextField columnField = new JTextField(columnName);
       columnField.setHorizontalAlignment(JTextField.CENTER);
       columnField.setFocusable(false);
@@ -87,7 +87,7 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
     }
 
     for (int j = 0; j < SCREENHEIGHT; j++) {
-      String rowNum = Integer.toString(j + rowOffset + 1);
+      String rowNum = Integer.toString(j + topLeftRow + 1);
       JTextField rowField = new JTextField(rowNum);
       rowField.setHorizontalAlignment(JTextField.CENTER);
       rowField.setEditable(false);
@@ -121,7 +121,7 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
 
     for (int i = 0; i < SCREENHEIGHT; i++) {
       for (int j = 0; j < SCREENWIDTH; j++) {
-        cell = model.getCellAt(new Coord(j + colOffset + 1, i + rowOffset + 1));
+        cell = model.getCellAt(new Coord(j + topLeftCol + 1, i + topLeftRow + 1));
         cellStr = cell == null ? "" : cell.getCellValue().toString();
         cells[i][j] = new JTextField(cellStr, 8);
         cells[i][j].setHorizontalAlignment(JTextField.RIGHT);
@@ -136,27 +136,22 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
    * @param scrollDirection either left, right, up, down
    */
   private void scroll(String scrollDirection) {
-    switch (scrollDirection) {
-      case "left":
-        if (colOffset - SCREENWIDTH >= 0) {
-          colOffset = colOffset - SCREENWIDTH;
-        }
-        break;
-      case "right":
-        colOffset += SCREENWIDTH;
-        break;
-      case "up":
-        if (rowOffset - SCREENHEIGHT >= 0) {
-          rowOffset = rowOffset - SCREENHEIGHT;
-        }
-        break;
-      case "down":
-        rowOffset += SCREENHEIGHT;
-        break;
-      default:
-        colOffset = 0;
-        rowOffset = 0;
-        break;
+    if (scrollDirection == "left") {
+      if (topLeftCol - SCREENWIDTH >= 0) {
+        topLeftCol = topLeftCol - SCREENWIDTH;
+      }
+    }
+    else if (scrollDirection == "right") {
+      topLeftCol += SCREENWIDTH;
+    }
+    else if (scrollDirection == "up") {
+      if (topLeftRow - SCREENHEIGHT >= 0) {
+        topLeftRow = topLeftRow - SCREENHEIGHT;
+      }
+    }
+    else {
+      // down scroll
+      topLeftRow += SCREENHEIGHT;
     }
     populateGrid(mainPanel);
     createHeaders(rowHeader, colHeader);
@@ -164,9 +159,9 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
   }
 
   public static void main(String[] args) throws IOException {
-    Worksheet testWorksheet = WorksheetReader.read(new Builder(),
-        new FileReader("testParse1"));
-    WorksheetView view = new WorksheetVisualView(testWorksheet);
+//    Worksheet testWorksheet = WorksheetReader.read(new Builder(),
+//        new FileReader("testParse3"));
+    WorksheetView view = new WorksheetVisualView(new Worksheet());
     view.render();
   }
 }
