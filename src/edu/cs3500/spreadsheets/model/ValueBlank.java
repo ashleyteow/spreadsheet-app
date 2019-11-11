@@ -2,6 +2,9 @@ package edu.cs3500.spreadsheets.model;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a blank cell in a worksheet and initiates the visitor pattern.
+ */
 public class ValueBlank extends Value {
   @Override
   public String toString() {

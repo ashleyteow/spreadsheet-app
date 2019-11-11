@@ -28,6 +28,10 @@ public class Cell implements ICell {
     this.cellContents = evaluate(worksheet);
   }
 
+  /**
+   * Constructs an empty cell at the specified coordinate.
+   * @param coord location of cell
+   */
   public Cell(Coord coord) {
     this.coord = coord;
     this.cellContents = new ValueBlank();
@@ -36,7 +40,7 @@ public class Cell implements ICell {
   }
 
   /**
-   * Copy constructor for testing / copy purposes
+   * Copy constructor for testing / copy purposes.
    * @param coord location of the cell
    * @param cellContents evaluated content of cell
    */

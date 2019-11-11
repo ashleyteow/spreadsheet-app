@@ -4,10 +4,18 @@ import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Worksheet;
 import java.io.IOException;
 
+/**
+ * Represents a textual view of a {@code Worksheet} and enables the user to save their edits.
+ */
 public class WorksheetTextualView implements WorksheetView {
   private Appendable writable;
   private Worksheet model;
 
+  /**
+   * Constructs a new textual view for a {@code Worksheet}.
+   * @param writable appendable object
+   * @param worksheet model
+   */
   public WorksheetTextualView(Appendable writable, Worksheet worksheet) {
     this.writable = writable;
     this.model = worksheet;
@@ -22,7 +30,6 @@ public class WorksheetTextualView implements WorksheetView {
       result += c.getRawValue();
       result += "\n";
     }
-    System.out.println(result);
     return result;
   }
 
@@ -30,4 +37,11 @@ public class WorksheetTextualView implements WorksheetView {
   public void render() throws IOException {
     writable.append(toString());
   }
+
+  @Override
+  public void refresh() {
+    // Not applicable for a textual view, used only in WorksheetVisualView
+  }
+
+
 }
