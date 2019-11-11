@@ -2,6 +2,9 @@ package edu.cs3500.spreadsheets.model;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a cell with a double in a worksheet and initiates the visitor pattern.
+ */
 public class ValueDouble extends Value {
   private final double doubleContent;
 

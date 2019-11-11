@@ -1,4 +1,4 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Worksheet;
@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import org.junit.Test;
 
+/**
+ * Tests all public methods and functionality for a {@code WorksheetTextualView}.
+ */
 public class WorksheetTextualViewTest {
 
   @Test

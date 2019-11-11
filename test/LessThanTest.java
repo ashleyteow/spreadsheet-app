@@ -45,25 +45,4 @@ public class LessThanTest {
     assertEquals(true, computedVal instanceof ValueBoolean);
     assertEquals(computedVal.toString(), "false");
   }
-
-//  @Test
-//  public void testLessThanNumbers() {
-//    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
-//    sexp.add(new SNumber(3));
-//    sexp.add(new SNumber(4));
-//    LessThan lt = new LessThan(sexp);
-//    lt.operate();
-//    assertEquals(false, lt.getResult());
-//  }
-//
-//  @Test
-//  public void testLessThanBooleans() {
-//    ArrayList<Sexp> sexp = new ArrayList<Sexp>();
-//    sexp.add(new SBoolean(true));
-//    sexp.add(new SBoolean(false));
-//    LessThan lt = new LessThan(sexp);
-//    lt.operate();
-//    assertEquals(false, lt.getResult());
-//  }
-
 }

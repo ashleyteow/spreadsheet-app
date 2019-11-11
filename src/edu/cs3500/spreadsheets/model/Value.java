@@ -10,7 +10,7 @@ public abstract class Value implements CellContents {
   /**
    * Initiates the visitor pattern.
    * @param visitor Cell Content's visitor
-   * @param <R>
+   * @param <R> generic return type
    * @return
    */
   public abstract <R> R accept(CellContentsVisitor<R> visitor);

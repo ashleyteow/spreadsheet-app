@@ -33,7 +33,7 @@ public class BeyondGood {
     else if (args.length == 4) {
       // -in some-filename -save some-new-filename
       // -in some-filename -eval some-cell
-      if (args[0] == "-in" && args[2] == "-eval") {
+      if (args[0].equals("-in") && args[2].equals("-eval")) {
         fileName = args[1];
 
         try {

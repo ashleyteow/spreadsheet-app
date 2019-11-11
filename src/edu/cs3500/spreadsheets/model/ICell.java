@@ -1,5 +1,8 @@
 package edu.cs3500.spreadsheets.model;
 
+/**
+ * Represents an interface for a {@code Cell} and performs operations on each of them.
+ */
 public interface ICell {
 
   /**

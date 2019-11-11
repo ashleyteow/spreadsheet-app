@@ -3,21 +3,20 @@ package edu.cs3500.spreadsheets.view;
 import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Worksheet;
-import edu.cs3500.spreadsheets.model.Worksheet.Builder;
-import edu.cs3500.spreadsheets.model.WorksheetReader;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * Represents a GUI view of a {@code Worksheet}.
+ */
 public class WorksheetVisualView extends JFrame implements WorksheetView {
   private Worksheet model;
   private JPanel mainPanel;
-  private JTextField[][] cells = new JTextField[SCREENHEIGHT][SCREENWIDTH];
   private JPanel scrollButtons;
   private JPanel rowHeader;
   private JPanel colHeader;
@@ -26,7 +25,10 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
   private int topLeftRow;
   private int topLeftCol;
 
-
+  /**
+   * Constructs a {@code WorksheetVisualView} object.
+   * @param model worksheet
+   */
   public WorksheetVisualView(Worksheet model) {
     this.model = model;
     this.topLeftRow = 0;
@@ -42,10 +44,6 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
     JButton right = new JButton("Right");
     JButton up = new JButton("Up");
     JButton down = new JButton("Down");
-    this.scrollButtons.add(left);
-    this.scrollButtons.add(right);
-    this.scrollButtons.add(up);
-    this.scrollButtons.add(down);
     addButtonListeners(left, right, up , down);
 
     this.add(mainPanel, BorderLayout.CENTER);
@@ -108,6 +106,11 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
     right.addActionListener(e -> scroll("right"));
     up.addActionListener(e -> scroll("up"));
     down.addActionListener(e -> scroll("down"));
+
+    this.scrollButtons.add(left);
+    this.scrollButtons.add(right);
+    this.scrollButtons.add(up);
+    this.scrollButtons.add(down);
   }
 
   /**
@@ -118,6 +121,7 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
     panel.removeAll();
     Cell cell;
     String cellStr;
+    JTextField[][] cells = new JTextField[SCREENHEIGHT][SCREENWIDTH];
 
     for (int i = 0; i < SCREENHEIGHT; i++) {
       for (int j = 0; j < SCREENWIDTH; j++) {
@@ -132,19 +136,19 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
   }
 
   /**
-   * Updates the screen based on the width and height scroll lengths
+   * Updates the screen based on the width and height scroll lengths.
    * @param scrollDirection either left, right, up, down
    */
   private void scroll(String scrollDirection) {
-    if (scrollDirection == "left") {
+    if (scrollDirection.equals("left")) {
       if (topLeftCol - SCREENWIDTH >= 0) {
         topLeftCol = topLeftCol - SCREENWIDTH;
       }
     }
-    else if (scrollDirection == "right") {
+    else if (scrollDirection.equals("right")) {
       topLeftCol += SCREENWIDTH;
     }
-    else if (scrollDirection == "up") {
+    else if (scrollDirection.equals("up")) {
       if (topLeftRow - SCREENHEIGHT >= 0) {
         topLeftRow = topLeftRow - SCREENHEIGHT;
       }
@@ -156,12 +160,5 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
     populateGrid(mainPanel);
     createHeaders(rowHeader, colHeader);
     this.refresh();
-  }
-
-  public static void main(String[] args) throws IOException {
-//    Worksheet testWorksheet = WorksheetReader.read(new Builder(),
-//        new FileReader("testParse3"));
-    WorksheetView view = new WorksheetVisualView(new Worksheet());
-    view.render();
   }
 }
