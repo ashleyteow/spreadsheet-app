@@ -10,4 +10,6 @@ public interface WorksheetView {
    */
   void render() throws IOException;
 
+  void refresh();
+
 }

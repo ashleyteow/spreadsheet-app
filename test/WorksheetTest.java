@@ -67,8 +67,8 @@ public class WorksheetTest {
   public void testCellReferenceWithIndirectCycle() throws FileNotFoundException {
     Worksheet testWorksheet = WorksheetReader.read(new Builder(),
         new FileReader("testParse1"));
-    testWorksheet.addCellAt(new Coord(2, 6), "5");
-    testWorksheet.addCellAt(new Coord(1, 5), "=B6");
+    testWorksheet.editCellAt(new Coord(2, 6), "5");
+    testWorksheet.editCellAt(new Coord(1, 5), "=B6");
     testWorksheet.editCellAt(new Coord(2, 6), "=A5");
   }
 

@@ -30,4 +30,11 @@ public class WorksheetTextualView implements WorksheetView {
   public void render() throws IOException {
     writable.append(toString());
   }
+
+  @Override
+  public void refresh() {
+
+  }
+
+
 }
