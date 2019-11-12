@@ -30,21 +30,8 @@ public class WorksheetTest {
         new FileReader("testParse2"));
     System.out.println(testWorksheet.getCells());
     System.out.println(testWorksheet.getCellAt(new Coord(1, 1)));
-      assertEquals("4", testWorksheet.getCellAt(new Coord(1, 1)).getRawValue());
-//    assertEquals(a2, testWorksheet.getCellAt(new Coord(1, 2)));
-//    assertEquals(a3, testWorksheet.getCellAt(new Coord(1, 3)));
-//    assertEquals(a4, testWorksheet.getCellAt(new Coord(1, 4)));
-//    assertEquals(a5, testWorksheet.getCellAt(new Coord(1, 5)));
+    assertEquals("4", testWorksheet.getCellAt(new Coord(1, 1)).getRawValue());
   }
-
-//  @Test
-//  public void testGetCellAt() throws FileNotFoundException {
-//    Cell a1 = new Cell(new Coord(0, 0),
-//        "=(PRODUCT 2 (SUM 3 4 5))");
-//    Worksheet testWorksheet = WorksheetReader.read(Worksheet.builder(),
-//        new FileReader("/Users/ashleyteow/IdeaProjects/BeyondGoodProject/testParse1"));
-//    assertEquals(a1, testWorksheet.getCellAt(0, 0));
-//  }
 
   @Test
   public void testSingleCellReferenceWithFormula() throws FileNotFoundException {
@@ -54,25 +41,10 @@ public class WorksheetTest {
     assertEquals(new ValueDouble(24), c.getCellValue());
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testSingleCellReferenceWithDirectCycle() throws FileNotFoundException {
     Worksheet testWorksheet = WorksheetReader.read(new Builder(),
         new FileReader("testParseSingleCycle"));
   }
-
-  @Test
-  public void testCellReferenceWithIndirectCycle() throws FileNotFoundException {
-    Worksheet testWorksheet = WorksheetReader.read(new Builder(),
-        new FileReader("testParseIndirectCycle"));
-  }
-
-  @Test
-  public void testReferenceBlock() throws FileNotFoundException {
-    Worksheet testWorksheet = WorksheetReader.read(new Builder(),
-        new FileReader("testParseReferenceBlock"));
-    assertEquals(new ValueDouble(19),
-        testWorksheet.getCellAt(new Coord(3, 4)).getCellValue());
-  }
-
 }
 

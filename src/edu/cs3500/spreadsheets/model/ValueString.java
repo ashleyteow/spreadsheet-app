@@ -2,6 +2,9 @@ package edu.cs3500.spreadsheets.model;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a cell with a String in a worksheet and initiates the visitor pattern.
+ */
 public class ValueString extends Value {
   private final String strContents;
 

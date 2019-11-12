@@ -1,4 +1,5 @@
 package edu.cs3500.spreadsheets.model;
+
 import java.util.ArrayList;
 
 /**
@@ -10,6 +11,11 @@ public class Formula implements CellContents {
   private ArrayList<CellContents> args;
   private final Operation operation;
 
+  /**
+   * Constructs a {@code Formula} object.
+   * @param o operation to be executed
+   * @param contents arguments to be used with operation
+   */
   public Formula(Operation o, ArrayList<CellContents> contents) {
     this.operation = o;
     this.args = contents;

@@ -2,6 +2,9 @@ package edu.cs3500.spreadsheets.model;
 
 import java.util.ArrayList;
 
+/**
+ * Represents an error cell in a worksheet and initiates the visitor pattern.
+ */
 public class ValueError extends Value {
 
   @Override

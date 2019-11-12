@@ -9,18 +9,20 @@ import java.util.HashMap;
  * worksheet.
  */
 public class Worksheet implements IWorksheet {
-    private HashMap<Coord, Cell> cells;
 
-    public Worksheet() {
-      this.cells  = new HashMap<>();
-    }
+  private HashMap<Coord, Cell> cells;
+
+  public Worksheet() {
+    this.cells = new HashMap<>();
+  }
 
   /**
    * Helper class that builds a {@code Worksheet}.
    */
   public static final class Builder implements WorksheetBuilder<Worksheet> {
+
     private ArrayList<Cell> workSheetCells = new ArrayList<>();
-      Worksheet worksheet = new Worksheet();
+    Worksheet worksheet = new Worksheet();
 
     @Override
     public WorksheetBuilder<Worksheet> createCell(int col, int row, String contents) {
