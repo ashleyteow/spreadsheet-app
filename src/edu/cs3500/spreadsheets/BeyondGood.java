@@ -7,8 +7,6 @@ import edu.cs3500.spreadsheets.model.Worksheet.Builder;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
 import edu.cs3500.spreadsheets.view.WorksheetTextualView;
 import edu.cs3500.spreadsheets.view.WorksheetView;
-import edu.cs3500.spreadsheets.view.WorksheetVisualView;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -66,14 +64,13 @@ public class BeyondGood {
         }
 
         WorksheetView textualView = new WorksheetTextualView(p, worksheet);
-
+        
         try {
           textualView.render();
         } catch (IOException ex) {
           throw new IllegalStateException("IOException");
         }
         p.close();
-
       }
     }
     else if (args.length == 3) {

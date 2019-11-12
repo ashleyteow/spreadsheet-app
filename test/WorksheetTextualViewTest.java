@@ -25,7 +25,7 @@ public class WorksheetTextualViewTest {
     try {
       worksheet = WorksheetReader
           .read(new Worksheet.Builder(),
-              new FileReader("/Users/ashleyteow/IdeaProjects/BeyondGoodProject/testParse1"));
+              new FileReader("testParse1"));
     } catch (FileNotFoundException ex) {
       throw new IllegalStateException("File read error");
     }

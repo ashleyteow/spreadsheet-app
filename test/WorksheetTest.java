@@ -9,7 +9,6 @@ import edu.cs3500.spreadsheets.model.WorksheetReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
-
 import org.junit.Test;
 
 /**
@@ -47,6 +46,5 @@ public class WorksheetTest {
     Worksheet testWorksheet = WorksheetReader.read(new Builder(),
         new FileReader("testParseSingleCycle"));
   }
-
 }
 
