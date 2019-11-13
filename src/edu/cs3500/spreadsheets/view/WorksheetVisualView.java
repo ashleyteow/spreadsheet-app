@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 /**
@@ -24,6 +25,7 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
   private static int SCREENHEIGHT = 20;
   private int topLeftRow;
   private int topLeftCol;
+  private JScrollPane sp;
 
   /**
    * Constructs a {@code WorksheetVisualView} object.
@@ -51,6 +53,9 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
     this.add(rowHeader, BorderLayout.WEST);
     this.add(scrollButtons, BorderLayout.SOUTH);
     this.pack();
+    this.sp = new JScrollPane(mainPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+        JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+    add(sp);
   }
 
   @Override
@@ -64,6 +69,33 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
   public void refresh() {
     this.pack();
     this.repaint();
+  }
+
+  /**
+   * Updates the screen based on the width and height scroll lengths.
+   * @param scrollDirection either left, right, up, down
+   */
+  private void scroll(String scrollDirection) {
+    if (scrollDirection.equals("left")) {
+      if (topLeftCol - SCREENWIDTH >= 0) {
+        topLeftCol = topLeftCol - SCREENWIDTH;
+      }
+    }
+    else if (scrollDirection.equals("right")) {
+      topLeftCol += SCREENWIDTH;
+    }
+    else if (scrollDirection.equals("up")) {
+      if (topLeftRow - SCREENHEIGHT >= 0) {
+        topLeftRow = topLeftRow - SCREENHEIGHT;
+      }
+    }
+    else {
+      // down scroll
+      topLeftRow += SCREENHEIGHT;
+    }
+    populateGrid(mainPanel);
+    createHeaders(rowHeader, colHeader);
+    this.refresh();
   }
 
   /**
@@ -133,32 +165,5 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
         panel.add(cells[i][j]);
       }
     }
-  }
-
-  /**
-   * Updates the screen based on the width and height scroll lengths.
-   * @param scrollDirection either left, right, up, down
-   */
-  private void scroll(String scrollDirection) {
-    if (scrollDirection.equals("left")) {
-      if (topLeftCol - SCREENWIDTH >= 0) {
-        topLeftCol = topLeftCol - SCREENWIDTH;
-      }
-    }
-    else if (scrollDirection.equals("right")) {
-      topLeftCol += SCREENWIDTH;
-    }
-    else if (scrollDirection.equals("up")) {
-      if (topLeftRow - SCREENHEIGHT >= 0) {
-        topLeftRow = topLeftRow - SCREENHEIGHT;
-      }
-    }
-    else {
-      // down scroll
-      topLeftRow += SCREENHEIGHT;
-    }
-    populateGrid(mainPanel);
-    createHeaders(rowHeader, colHeader);
-    this.refresh();
   }
 }
