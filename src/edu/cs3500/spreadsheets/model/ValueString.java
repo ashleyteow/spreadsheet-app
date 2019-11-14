@@ -41,11 +41,6 @@ public class ValueString extends Value {
   }
 
   @Override
-  public edu.cs3500.spreadsheets.model.Value getVal() {
-    return null;
-  }
-
-  @Override
   public void populateArgsHelp(ArrayList<Value> args) {
     args.add(this);
   }

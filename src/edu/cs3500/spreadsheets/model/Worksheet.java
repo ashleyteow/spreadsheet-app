@@ -55,11 +55,7 @@ public class Worksheet implements IWorksheet {
 
   @Override
   public Cell getCellAt(Coord coord) {
-    try {
-      return this.cells.get(coord);
-    } catch (NullPointerException e) {
-      return new Cell(coord);
-    }
+    return this.cells.getOrDefault(coord, new Cell(coord));
   }
 
   @Override
