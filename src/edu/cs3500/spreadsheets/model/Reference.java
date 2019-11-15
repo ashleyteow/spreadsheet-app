@@ -34,11 +34,12 @@ public class Reference implements CellContents {
 
     for (int i = firstCoordCol; i <= secondCoordCol; i++) {
       for (int j = firstCoordRow; j <= secondCoordRow; j++) {
-        if (cyclePresent(new Coord(i, j))) {
-          throw new IllegalArgumentException("cycle detected");
-        }
         this.referencedCells.add(new Coord(i, j));
       }
+    }
+
+    if (cyclePresent(this.referencedCells)) {
+      throw new IllegalArgumentException("no cycles can exist");
     }
   }
 
@@ -52,23 +53,32 @@ public class Reference implements CellContents {
     this.thisCellLoc = thisCell;
     this.worksheet = worksheet;
     this.referencedCells = new ArrayList<>();
-    if (cyclePresent(referencedCell)) {
-      throw new IllegalArgumentException("cycle detected");
-    }
     this.referencedCells.add(referencedCell);
+    //boolean cycleExists = this.cyclePresent(referencedCells);
+    if (cyclePresent(referencedCells)) {
+      throw new IllegalArgumentException("no cycles can exist");
+//      worksheet.editCellAt(thisCell, "ERROR");
+    }
   }
 
   /**
    * Determines whether a cell at the given coordinates initiates a cyclic reference.
-   * @param coord location of cell to check
+   * @param refCells list of referenced cells
    * @return true if there is a cyclic reference, false otherwise
    */
-  private boolean cyclePresent(Coord coord) {
+  private boolean cyclePresent(ArrayList<Coord> refCells) {
     // TODO: check if this works
-    if (this.referencedCells.contains(coord) || coord.equals(this.thisCellLoc)) {
-      throw new IllegalArgumentException("there cannot be cyclic references");
+    boolean cycle = false;
+    if (refCells.contains(this.thisCellLoc)) {
+      cycle = true;
     }
-    return false;
+//    for (Coord c : refCells) {
+//      if (c.equals(this.thisCellLoc)) {
+//        cycle = true;
+//        break;
+//      }
+//    }
+    return cycle;
   }
 
   @Override

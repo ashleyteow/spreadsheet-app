@@ -14,7 +14,6 @@ public class Evaluator implements SexpVisitor<CellContents> {
   Worksheet worksheet;
   HashMap<String, Operation> operations = new HashMap<>();
 
-
   /**
    * Default constructor for a {@code Evaluator} object.
    * @param coord location of cell
@@ -41,13 +40,24 @@ public class Evaluator implements SexpVisitor<CellContents> {
 
   @Override
   public CellContents visitSList(List<Sexp> l) {
-    ArrayList<CellContents> contents = new ArrayList<>();
-    String operationName = l.get(0).toString();
-    for (int i = 1; i < l.size(); i++) {
-      CellContents c = l.get(i).accept(this);
-      contents.add(c);
-    }
-    return new Formula(operations.get(operationName), contents);
+//    if (operations.containsKey(l.get(0).toString())) {
+      ArrayList<CellContents> contents = new ArrayList<>();
+      String operationName = l.get(0).toString();
+      for (int i = 1; i < l.size(); i++) {
+        CellContents c = l.get(i).accept(this);
+        contents.add(c);
+      }
+      return new Formula(operations.get(operationName), contents);
+//    }
+//    else {
+//      ArrayList<CellContents> contents = new ArrayList<>();
+//
+//      for (int i = 0; i < l.size(); i++) {
+//        CellContents c = l.get(i).accept(this);
+//        contents.add(c);
+//      }
+//      return new Formula(contents);
+//    }
   }
 
   @Override

@@ -66,14 +66,13 @@ public class BeyondGood {
         }
 
         WorksheetView textualView = new WorksheetTextualView(p, worksheet);
-
+        
         try {
           textualView.render();
         } catch (IOException ex) {
           throw new IllegalStateException("IOException");
         }
         p.close();
-
       }
     }
     else if (args.length == 3) {
