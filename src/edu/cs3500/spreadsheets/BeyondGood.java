@@ -79,7 +79,8 @@ public class BeyondGood {
       // -in some-filename -gui
       fileName = args[1];
       try {
-        readFile = new FileReader(fileName);
+        readFile = new FileReader("resources/" + fileName);
+
       } catch (FileNotFoundException e) {
         throw new IllegalArgumentException("file not found");
       }
