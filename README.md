@@ -7,8 +7,6 @@ Goal of HWK7: Complete spreadsheet application
 - ability to modify cell 
 
 Todo List:
-- Cleanup Model
-    - direct or indirect cyclic inferences
 - View
     - make view scrollable
 - HWK7
