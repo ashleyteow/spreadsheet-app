@@ -42,15 +42,19 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
     this.setTitle("Excel");
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.model = model;
-    this.topLeftCol = 0;
-    this.topLeftRow = 0;
+
+//    this.topLeftCol = 0;
+//    this.topLeftRow = 0;
+
     this.worksheetPanel = new WorksheetPanel(SCREENHEIGHT, SCREENWIDTH);
     populateGrid();
+
 //    this.rowHeader = new JPanel(new GridLayout(SCREENHEIGHT, 1));
     this.rowHeader = new RowHeaderPanel(SCREENHEIGHT, topLeftRow);
     this.colHeader = new ColumnHeaderPanel(SCREENWIDTH, topLeftCol);
 //    this.colHeader = new JPanel(new GridLayout(1, SCREENWIDTH + 1));
 //    createHeaders();
+
     this.navigateButtons = new JPanel(new GridLayout(2,2));
     JButton left = new JButton("⇦");
     JButton right = new JButton("⇨");
@@ -58,14 +62,17 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
     JButton down = new JButton("⇩");
     this.setButtonListener(left, right, up, down);
     this.navigateButtons.setPreferredSize(new Dimension(100, 100));
-    JScrollPane sp = new JScrollPane(worksheetPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-        JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-    sp.setPreferredSize(new Dimension(SCREENHEIGHT, SCREENWIDTH));
+
+
+//    JScrollPane sp = new JScrollPane(worksheetPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+//        JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+//    sp.setPreferredSize(new Dimension(SCREENHEIGHT, SCREENWIDTH));
+
     this.add(worksheetPanel, BorderLayout.CENTER);
     this.add(colHeader, BorderLayout.NORTH);
     this.add(rowHeader, BorderLayout.WEST);
     this.add(navigateButtons, BorderLayout.SOUTH);
-    this.add(sp, BorderLayout.EAST);
+//    this.add(sp, BorderLayout.EAST);
     this.pack();
   }
 
