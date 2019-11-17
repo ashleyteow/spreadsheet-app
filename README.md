@@ -42,11 +42,14 @@ Todo List:
                 - submit a screenshot of editor view, rendering this file (it should be displaying the cell containing T(10) with the formula for T(10) visible
             
         
-           
-    
-    
+            
          
 Timeline:
+    - Cleanup visual view by Wednesday
+    - 
+- Ashley
+    - 
+- Gauri
 
 
  
