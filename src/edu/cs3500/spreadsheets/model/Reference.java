@@ -9,23 +9,24 @@ import java.util.ArrayList;
  * Represents a region of cells in a {@code Worksheet}.
  */
 public class Reference implements CellContents {
+
   private final ArrayList<Coord> referencedCells;
   private final Worksheet worksheet;
   private Coord thisCellLoc;
 
   /**
    * Constructs a {@code Reference} object representing a referenced region of cells.
-   * @param firstCoord location of the cell referenced before colon
+   *
+   * @param firstCoord  location of the cell referenced before colon
    * @param secondCoord location of the cell referenced after colon
-   * @param thisCell location of cell that holds the reference (this cell)
-   * @param worksheet worksheet model
+   * @param thisCell    location of cell that holds the reference (this cell)
+   * @param worksheet   worksheet model
    */
   public Reference(Coord firstCoord, Coord secondCoord, Coord thisCell, Worksheet worksheet) {
     this.thisCellLoc = thisCell;
     this.referencedCells = new ArrayList<>();
     this.worksheet = worksheet;
 
-    // TODO figure out the math to find all cells from firstCoord to secondCoord
     // adding cell to referencedCells
     int firstCoordRow = firstCoord.row;
     int secondCoordRow = secondCoord.row;
@@ -45,39 +46,32 @@ public class Reference implements CellContents {
 
   /**
    * Constructs a {@code Reference} object representing a single referenced cell.
+   *
    * @param referencedCell cell that is being referenced
-   * @param thisCell location of cell that holds the reference (this cell)
-   * @param worksheet worksheet model
+   * @param thisCell       location of cell that holds the reference (this cell)
+   * @param worksheet      worksheet model
    */
   public Reference(Coord referencedCell, Coord thisCell, Worksheet worksheet) {
     this.thisCellLoc = thisCell;
     this.worksheet = worksheet;
     this.referencedCells = new ArrayList<>();
     this.referencedCells.add(referencedCell);
-    //boolean cycleExists = this.cyclePresent(referencedCells);
     if (cyclePresent(referencedCells)) {
       throw new IllegalArgumentException("no cycles can exist");
-//      worksheet.editCellAt(thisCell, "ERROR");
     }
   }
 
   /**
    * Determines whether a cell at the given coordinates initiates a cyclic reference.
+   *
    * @param refCells list of referenced cells
    * @return true if there is a cyclic reference, false otherwise
    */
   private boolean cyclePresent(ArrayList<Coord> refCells) {
-    // TODO: check if this works
     boolean cycle = false;
     if (refCells.contains(this.thisCellLoc)) {
       cycle = true;
     }
-//    for (Coord c : refCells) {
-//      if (c.equals(this.thisCellLoc)) {
-//        cycle = true;
-//        break;
-//      }
-//    }
     return cycle;
   }
 
@@ -85,8 +79,7 @@ public class Reference implements CellContents {
   public Value getVal() {
     if (referencedCells.size() == 1) {
       return worksheet.getCellAt(referencedCells.get(0)).getCellValue();
-    }
-    else {
+    } else {
       ArrayList<Sexp> coords = new ArrayList<>();
       for (Sexp s : coords) {
         coords.add(new SSymbol(s.toString()));
@@ -98,7 +91,7 @@ public class Reference implements CellContents {
 
   @Override
   public void populateArgsHelp(ArrayList<Value> args) {
-    for (Coord c: this.referencedCells) {
+    for (Coord c : this.referencedCells) {
       if (worksheet.getCells().contains(worksheet.getCellAt(c))) {
         args.add(worksheet.getCellAt(c).getCellValue());
       }

@@ -28,14 +28,11 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
   private ColumnHeaderPanel colHeader;
   public static int SCREENWIDTH = 12;
   public static int SCREENHEIGHT = 20;
+//  private JPanel rowHeader;
+//  private JPanel colHeader;
   private int topLeftRow;
   private int topLeftCol;
-  private JScrollPane sp;
   private JPanel navigateButtons;
-  private JButton left;
-  private JButton right;
-  private JButton up;
-  private JButton down;
 
   /**
    * Constructs a {@code WorksheetVisualView} object.
@@ -55,15 +52,15 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
 //    this.colHeader = new JPanel(new GridLayout(1, SCREENWIDTH + 1));
 //    createHeaders();
     this.navigateButtons = new JPanel(new GridLayout(2,2));
-    left = new JButton("⇦");
-    right = new JButton("⇨");
-    up = new JButton("⇧");
-    down = new JButton("⇩");
+    JButton left = new JButton("⇦");
+    JButton right = new JButton("⇨");
+    JButton up = new JButton("⇧");
+    JButton down = new JButton("⇩");
     this.setButtonListener(left, right, up, down);
     this.navigateButtons.setPreferredSize(new Dimension(100, 100));
-    this.sp = new JScrollPane(worksheetPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+    JScrollPane sp = new JScrollPane(worksheetPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
         JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-    this.sp.setPreferredSize(new Dimension(SCREENHEIGHT, SCREENWIDTH));
+    sp.setPreferredSize(new Dimension(SCREENHEIGHT, SCREENWIDTH));
     this.add(worksheetPanel, BorderLayout.CENTER);
     this.add(colHeader, BorderLayout.NORTH);
     this.add(rowHeader, BorderLayout.WEST);
@@ -116,13 +113,14 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
     this.navigateButtons.add(up);
     this.navigateButtons.add(down);
   }
+
   /**
    * Updates the screen based on the width and height scroll lengths.
    * @param direction either left, right, up, down
    */
   private void navigate(String direction) {
     if (direction.equals("left")) {
-      if (topLeftCol - SCREENHEIGHT >= 0) {
+      if (topLeftCol - SCREENWIDTH >= 0) {
         topLeftCol = topLeftCol - SCREENWIDTH;
       }
     }

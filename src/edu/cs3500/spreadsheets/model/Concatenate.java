@@ -36,7 +36,7 @@ public class Concatenate implements Operation, CellContentsVisitor<String> {
   @Override
   public Value apply(List<Value> vals) {
     String result = "";
-    for (Value v: vals) {
+    for (Value v : vals) {
       result += v.accept(this);
     }
     return new ValueString(result);

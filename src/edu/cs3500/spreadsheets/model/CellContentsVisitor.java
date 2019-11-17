@@ -2,12 +2,14 @@ package edu.cs3500.spreadsheets.model;
 
 /**
  * Visitor interface for {@code CellContents}.
+ *
  * @param <R> generic type
  */
 public interface CellContentsVisitor<R> {
 
   /**
    * Process a {@code ValueError}.
+   *
    * @param v the value
    * @return the desired result
    */
@@ -15,6 +17,7 @@ public interface CellContentsVisitor<R> {
 
   /**
    * Process a {@code ValueString}.
+   *
    * @param v the value
    * @return the desired result
    */
@@ -22,6 +25,7 @@ public interface CellContentsVisitor<R> {
 
   /**
    * Process a {@code ValueBlank}.
+   *
    * @param v the value
    * @return the desired result
    */
@@ -29,6 +33,7 @@ public interface CellContentsVisitor<R> {
 
   /**
    * Process a {@code ValueDouble}.
+   *
    * @param v the value
    * @return the desired result
    */
@@ -36,6 +41,7 @@ public interface CellContentsVisitor<R> {
 
   /**
    * Process a {@code ValueBoolean}.
+   *
    * @param v the value
    * @return the desired result
    */

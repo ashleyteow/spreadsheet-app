@@ -10,13 +10,15 @@ import java.util.List;
  * Helper class that transforms S-expressions into Cells with evaluated contents.
  */
 public class Evaluator implements SexpVisitor<CellContents> {
+
   Coord coord;
   Worksheet worksheet;
   HashMap<String, Operation> operations = new HashMap<>();
 
   /**
    * Default constructor for a {@code Evaluator} object.
-   * @param coord location of cell
+   *
+   * @param coord     location of cell
    * @param worksheet worksheet model
    */
   public Evaluator(Coord coord, Worksheet worksheet) {
@@ -40,24 +42,13 @@ public class Evaluator implements SexpVisitor<CellContents> {
 
   @Override
   public CellContents visitSList(List<Sexp> l) {
-//    if (operations.containsKey(l.get(0).toString())) {
-      ArrayList<CellContents> contents = new ArrayList<>();
-      String operationName = l.get(0).toString();
-      for (int i = 1; i < l.size(); i++) {
-        CellContents c = l.get(i).accept(this);
-        contents.add(c);
-      }
-      return new Formula(operations.get(operationName), contents);
-//    }
-//    else {
-//      ArrayList<CellContents> contents = new ArrayList<>();
-//
-//      for (int i = 0; i < l.size(); i++) {
-//        CellContents c = l.get(i).accept(this);
-//        contents.add(c);
-//      }
-//      return new Formula(contents);
-//    }
+    ArrayList<CellContents> contents = new ArrayList<>();
+    String operationName = l.get(0).toString();
+    for (int i = 1; i < l.size(); i++) {
+      CellContents c = l.get(i).accept(this);
+      contents.add(c);
+    }
+    return new Formula(operations.get(operationName), contents);
   }
 
   @Override

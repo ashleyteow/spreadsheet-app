@@ -64,12 +64,4 @@ public class WorksheetTest {
     System.out.println(testWorksheet.getCellAt(new Coord(4, 1))
         .getCellValue().toString());
   }
-
-  @Test (expected = IllegalArgumentException.class)
-  public void testSingleCellReferenceWithIndirectCycle() throws FileNotFoundException {
-    Worksheet testWorksheet = WorksheetReader.read(new Builder(),
-        new FileReader("testParseIndirectCycle"));
-//    assertEquals(new ValueBlank(), testWorksheet.getCellAt(new Coord(2, 6)));
-    System.out.println(testWorksheet.getCellAt(new Coord(2, 6)).toString());
-  }
 }

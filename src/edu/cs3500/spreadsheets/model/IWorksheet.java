@@ -25,7 +25,8 @@ public interface IWorksheet {
 
   /**
    * Edits the contents of the cell at the specified coordinates.
-   * @param coord location of the cell
+   *
+   * @param coord       location of the cell
    * @param newContents the new contents of the {@code Cell} as an unprocessed String
    */
   void editCellAt(Coord coord, String newContents);
