@@ -2,6 +2,9 @@ BeyondgOOD Project
 Gauri and Ashley
 
 Goal of HWK7: Complete spreadsheet application
+- ability to add cell
+- ability to remove cell
+- ability to modify cell 
 
 Todo List:
 - Cleanup Model
@@ -10,9 +13,6 @@ Todo List:
     - make view scrollable
 - HWK7
     - Step 0: Cleanup design
-        - ability to add cell
-        - ability to remove cell
-        - ability to modify cell 
         - ensure interface methods are able to be used in both textual and visual views (otherwise throwing UnsupportedOperationException will suffice)
         - implement a single controller
     - Step 1: Adding editing controls to a new view
