@@ -40,7 +40,7 @@ public class Sum implements Operation, CellContentsVisitor<Double> {
   @Override
   public Value apply(List<Value> vals) {
     Double result = 0.0;
-    for (Value v: vals) {
+    for (Value v : vals) {
       result += v.accept(this);
     }
     return new ValueDouble(result);

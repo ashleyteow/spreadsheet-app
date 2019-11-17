@@ -3,11 +3,11 @@ package edu.cs3500.spreadsheets.model;
 import edu.cs3500.spreadsheets.sexp.Parser;
 
 /**
- * Represents a single cell in a {@code Worksheet}. A cell has a coordinate
- * that locates where it is in the grid of cells and it has cell contents:
- * either a Blank, Value, or Formula.
+ * Represents a single cell in a {@code Worksheet}. A cell has a coordinate that locates where it is
+ * in the grid of cells and it has cell contents: either a Blank, Value, or Formula.
  */
 public class Cell implements ICell {
+
   private final Coord coord;
   private CellContents cellContents;
   private String rawContent;
@@ -15,7 +15,8 @@ public class Cell implements ICell {
 
   /**
    * Constructs a {@code Cell} object.
-   * @param coord {@code Coordinate} object representing location of cell
+   *
+   * @param coord           {@code Coordinate} object representing location of cell
    * @param unprocessedText raw, unprocessed String input
    */
   public Cell(Coord coord, String unprocessedText, Worksheet worksheet) {
@@ -30,6 +31,7 @@ public class Cell implements ICell {
 
   /**
    * Constructs an empty cell at the specified coordinate.
+   *
    * @param coord location of cell
    */
   public Cell(Coord coord) {
@@ -41,7 +43,8 @@ public class Cell implements ICell {
 
   /**
    * Copy constructor for testing / copy purposes.
-   * @param coord location of the cell
+   *
+   * @param coord        location of the cell
    * @param cellContents evaluated content of cell
    */
   public Cell(Coord coord, CellContents cellContents) {

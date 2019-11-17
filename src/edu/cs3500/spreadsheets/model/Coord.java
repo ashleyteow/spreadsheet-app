@@ -6,11 +6,13 @@ import java.util.Objects;
  * A value type representing coordinates in a {@link Worksheet}.
  */
 public class Coord {
+
   public final int row;
   public final int col;
 
   /**
    * Constructs a coordinate for a {@code Cell}.
+   *
    * @param col column number
    * @param row row number
    */
@@ -24,6 +26,7 @@ public class Coord {
 
   /**
    * Constructs a coordinate for a {@code Cell}, to be used in main method for user input.
+   *
    * @param coord user-inputted coordinate
    */
   public Coord(String coord) {
@@ -35,11 +38,9 @@ public class Coord {
       if (Character.isDigit(coord.charAt(i))) {
         isDigit = true;
         rowNum += String.valueOf(coord.charAt(i));
-      }
-      else if (isDigit && Character.isAlphabetic(coord.charAt(i))) {
+      } else if (isDigit && Character.isAlphabetic(coord.charAt(i))) {
         throw new IllegalArgumentException("Invalid coordinate!");
-      }
-      else {
+      } else {
         // only column names
         columnName += coord.charAt(i);
       }
@@ -49,8 +50,9 @@ public class Coord {
   }
 
   /**
-   * Determines whether this coord is valid based on the worksheet's max row index and
-   * max column index.
+   * Determines whether this coord is valid based on the worksheet's max row index and max column
+   * index.
+   *
    * @param maxRow maximum row of a {@code Worksheet}
    * @param maxCol maximum column of a {@code Worksheet}
    * @return true if this is valid, false otherwise
@@ -61,6 +63,7 @@ public class Coord {
 
   /**
    * Converts from the A-Z column naming system to a 1-indexed numeric value.
+   *
    * @param name the column name
    * @return the corresponding column index
    */
@@ -76,6 +79,7 @@ public class Coord {
 
   /**
    * Converts a 1-based column index into the A-Z column naming system.
+   *
    * @param index the column index
    * @return the corresponding column name
    */
