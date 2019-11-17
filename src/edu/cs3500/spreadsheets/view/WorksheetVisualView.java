@@ -24,8 +24,8 @@ import javax.swing.border.EmptyBorder;
 public class WorksheetVisualView extends JFrame implements WorksheetView {
   private Worksheet model;
   private WorksheetPanel worksheetPanel;
-  private JPanel rowHeader;
-  private JPanel colHeader;
+  private RowHeaderPanel rowHeader;
+  private ColumnHeaderPanel colHeader;
   public static int SCREENWIDTH = 12;
   public static int SCREENHEIGHT = 20;
   private int topLeftRow;
@@ -49,9 +49,11 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
     this.topLeftRow = 0;
     this.worksheetPanel = new WorksheetPanel(SCREENHEIGHT, SCREENWIDTH);
     populateGrid();
-    this.rowHeader = new JPanel(new GridLayout(SCREENHEIGHT, 1));
-    this.colHeader = new JPanel(new GridLayout(1, SCREENWIDTH + 1));
-    createHeaders();
+//    this.rowHeader = new JPanel(new GridLayout(SCREENHEIGHT, 1));
+    this.rowHeader = new RowHeaderPanel(SCREENHEIGHT, topLeftRow);
+    this.colHeader = new ColumnHeaderPanel(SCREENWIDTH, topLeftCol);
+//    this.colHeader = new JPanel(new GridLayout(1, SCREENWIDTH + 1));
+//    createHeaders();
     this.navigateButtons = new JPanel(new GridLayout(2,2));
     left = new JButton("⇦");
     right = new JButton("⇨");
@@ -158,31 +160,35 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
    * Fills the Coordinate headers with the row and column values.
    */
   public void createHeaders() {
-    rowHeader.removeAll();
-    colHeader.removeAll();
+//    this.rowHeader.removeAll();
+//    this.colHeader.removeAll();
+    this.rowHeader.createRowHeader();
+    this.colHeader.createColHeader();
+//    rowHeader.removeAll();
+//    colHeader.removeAll();
 
-    for (int i = 0; i < SCREENWIDTH + 1; i++) {
-      String columnName = Coord.colIndexToName(i + topLeftCol + 1);
-      JLabel column = new JLabel(columnName);
-      column.setHorizontalAlignment(JTextField.CENTER);
-      column.setBackground(Color.darkGray);
-      column.setOpaque(true);
-      column.setForeground(Color.white);
-      column.setFocusable(false);
-      column.setBorder(new EmptyBorder(0,0,0,0));
-      colHeader.add(column);
-    }
-
-    for (int j = 0; j < SCREENHEIGHT; j++) {
-      String rowNum = Integer.toString(j + topLeftRow + 1);
-      JLabel row = new JLabel(rowNum);
-      row.setHorizontalAlignment(JTextField.CENTER);
-      row.setBackground(Color.darkGray);
-      row.setOpaque(true);
-      row.setForeground(Color.white);
-      row.setFocusable(false);
-      row.setBorder(new EmptyBorder(0,5,0,5));
-      rowHeader.add(row);
-    }
+//    for (int i = 0; i < SCREENWIDTH + 1; i++) {
+//      String columnName = Coord.colIndexToName(i + topLeftCol + 1);
+//      JLabel column = new JLabel(columnName);
+//      column.setHorizontalAlignment(JTextField.CENTER);
+//      column.setBackground(Color.darkGray);
+//      column.setOpaque(true);
+//      column.setForeground(Color.white);
+//      column.setFocusable(false);
+//      column.setBorder(new EmptyBorder(0,0,0,0));
+//      colHeader.add(column);
+//    }
+//
+//    for (int j = 0; j < SCREENHEIGHT; j++) {
+//      String rowNum = Integer.toString(j + topLeftRow + 1);
+//      JLabel row = new JLabel(rowNum);
+//      row.setHorizontalAlignment(JTextField.CENTER);
+//      row.setBackground(Color.darkGray);
+//      row.setOpaque(true);
+//      row.setForeground(Color.white);
+//      row.setFocusable(false);
+//      row.setBorder(new EmptyBorder(0,5,0,5));
+//      rowHeader.add(row);
+//    }
   }
 }
