@@ -36,7 +36,7 @@ public class Multiply implements Operation, CellContentsVisitor<Double> {
   @Override
   public Value apply(List<Value> vals) {
     Double result = 1.0;
-    for (Value v: vals) {
+    for (Value v : vals) {
       result *= v.accept(this);
     }
     return new ValueDouble(result);

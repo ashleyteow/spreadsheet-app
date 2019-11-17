@@ -43,7 +43,6 @@ public class Worksheet implements IWorksheet {
 
   @Override
   public ArrayList<Cell> getCells() {
-    // TODO: test to see if this returns a copy
     ArrayList<Cell> copy = new ArrayList<>();
 
     for (Cell c : cells.values()) {

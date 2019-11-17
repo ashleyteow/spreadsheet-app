@@ -4,21 +4,24 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * Custom JPanel for the GUI view of a {@code Worksheet}.
+ */
 public class WorksheetPanel extends JPanel {
-  private JPanel mainPanel;
-  private int screenHeight;
-  private int screenWidth;
 
+  /**
+   * Intializes a WorksheetPanel.
+   * @param screenHeight height of the panel
+   * @param screenWidth width of the panel
+   */
   public WorksheetPanel(int screenHeight, int screenWidth) {
-    this.screenHeight = screenHeight;
-    this.screenWidth = screenWidth;
-    this.mainPanel = new JPanel();
-    JTextField[][] worksheetCells = new JTextField[this.screenHeight][this.screenWidth];
+    JPanel mainPanel = new JPanel();
+    JTextField[][] worksheetCells = new JTextField[screenHeight][screenWidth];
     for (int i = 0; i < screenHeight; i++) {
       for (int j = 0; j < screenWidth; j++) {
         worksheetCells[i][j] = new JTextField("", 8);
         worksheetCells[i][j].setHorizontalAlignment(JTextField.RIGHT);
-        this.mainPanel.add(worksheetCells[i][j]);
+        mainPanel.add(worksheetCells[i][j]);
       }
     }
     this.setLayout(new GridLayout(screenHeight, screenWidth));
