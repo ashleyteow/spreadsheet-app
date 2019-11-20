@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 
@@ -43,17 +44,24 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.model = model;
 
-//    this.topLeftCol = 0;
-//    this.topLeftRow = 0;
+    this.topLeftCol = 0;
+    this.topLeftRow = 0;
 
-    this.worksheetPanel = new WorksheetPanel(SCREENHEIGHT, SCREENWIDTH);
-    populateGrid();
-
-//    this.rowHeader = new JPanel(new GridLayout(SCREENHEIGHT, 1));
+    //    this.rowHeader = new JPanel(new GridLayout(SCREENHEIGHT, 1));
     this.rowHeader = new RowHeaderPanel(SCREENHEIGHT, topLeftRow);
     this.colHeader = new ColumnHeaderPanel(SCREENWIDTH, topLeftCol);
 //    this.colHeader = new JPanel(new GridLayout(1, SCREENWIDTH + 1));
-//    createHeaders();
+//    this.createHeaders();
+//    this.rowHeader.createRowHeader();
+//    this.colHeader.createColHeader();
+//    this.createHeaders();
+
+    this.worksheetPanel = new WorksheetPanel(SCREENHEIGHT, SCREENWIDTH);
+    this.createHeaders();
+    this.add(this.rowHeader, BorderLayout.NORTH);
+    this.add(this.colHeader, BorderLayout.WEST);
+//    this.worksheetPanel.setVisible(true);
+    this.worksheetPanel.populateGrid(SCREENHEIGHT, SCREENWIDTH, topLeftCol, topLeftRow, this.model);
 
     this.navigateButtons = new JPanel(new GridLayout(2,2));
     JButton left = new JButton("⇦");
@@ -62,7 +70,6 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
     JButton down = new JButton("⇩");
     this.setButtonListener(left, right, up, down);
     this.navigateButtons.setPreferredSize(new Dimension(100, 100));
-
 
 //    JScrollPane sp = new JScrollPane(worksheetPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 //        JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -74,28 +81,29 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
     this.add(navigateButtons, BorderLayout.SOUTH);
 //    this.add(sp, BorderLayout.EAST);
     this.pack();
+    this.setVisible(true);
   }
 
-  /**
-   * Fills main panel grid with cells read in from the model.
-   */
-  public void populateGrid() {
-    this.worksheetPanel.removeAll();
-    Cell cell;
-    String cellStr;
-    JTextField[][] worksheetCells = new JTextField[SCREENHEIGHT][SCREENWIDTH];
-
-    for (int i = 0; i < SCREENHEIGHT; i++) {
-      for (int j = 0; j < SCREENWIDTH; j++) {
-        cell = model.getCellAt(new Coord(j + topLeftCol + 1, i + topLeftRow + 1));
-        cellStr = cell == null ? "" : cell.getCellValue().toString();
-        worksheetCells[i][j] = new JTextField(cellStr, 8);
-        worksheetCells[i][j].setHorizontalAlignment(JTextField.RIGHT);
-
-        this.worksheetPanel.add(worksheetCells[i][j]);
-      }
-    }
-  }
+//  /**
+//   * Fills main panel grid with cells read in from the model.
+//   */
+//  public void populateGrid() {
+//    this.worksheetPanel.removeAll();
+//    Cell cell;
+//    String cellStr;
+//    JTextField[][] worksheetCells = new JTextField[SCREENHEIGHT][SCREENWIDTH];
+//
+//    for (int i = 0; i < SCREENHEIGHT; i++) {
+//      for (int j = 0; j < SCREENWIDTH; j++) {
+//        cell = model.getCellAt(new Coord(j + topLeftCol + 1, i + topLeftRow + 1));
+//        cellStr = cell == null ? "" : cell.getCellValue().toString();
+//        worksheetCells[i][j] = new JTextField(cellStr, 8);
+//        worksheetCells[i][j].setHorizontalAlignment(JTextField.RIGHT);
+//
+//        this.worksheetPanel.add(worksheetCells[i][j]);
+//      }
+//    }
+//  }
 
   /**
    * Creates and adds action listeners for the appropriate scroll mechanisms.
@@ -143,7 +151,7 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
       // down scroll
       topLeftRow += SCREENHEIGHT;
     }
-    this.populateGrid();
+    this.worksheetPanel.populateGrid(SCREENHEIGHT, SCREENWIDTH, topLeftCol, topLeftRow, this.model);
     this.createHeaders();
     this.refresh();
   }

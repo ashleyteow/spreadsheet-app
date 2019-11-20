@@ -20,6 +20,7 @@ public class RowHeaderPanel extends JPanel {
     this.rowPanel = new JPanel();
     createRowHeader();
     this.setLayout(new GridLayout(screenHeight, 1));
+    this.setVisible(true);
   }
 
   public void createRowHeader() {
@@ -37,10 +38,23 @@ public class RowHeaderPanel extends JPanel {
       rowPanel.add(row);
     }
   }
-
-  @Override
-  protected void paintComponent(Graphics g) {
-    super.paintComponent(g);
-  }
+//
+//  @Override
+//  protected void paintComponent(Graphics g) {
+//    super.paintComponent(g);
+//
+//    this.rowPanel.removeAll();
+//
+//    for (int j = 0; j < screenHeight; j++) {
+//      String rowNum = Integer.toString(j + topLeftRow + 1);
+//      JLabel row = new JLabel(rowNum);
+//      row.setHorizontalAlignment(JTextField.CENTER);
+//      row.setBackground(Color.darkGray);
+//      row.setOpaque(true);
+//      row.setForeground(Color.white);
+//      row.setFocusable(false);
+//      row.setBorder(new EmptyBorder(0,5,0,5));
+//      rowPanel.add(row);
+//  }
 
 }
