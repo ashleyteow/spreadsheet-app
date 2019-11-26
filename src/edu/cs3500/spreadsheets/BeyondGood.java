@@ -1,5 +1,7 @@
 package edu.cs3500.spreadsheets;
 
+import edu.cs3500.spreadsheets.controller.WorksheetController;
+import edu.cs3500.spreadsheets.controller.WorksheetGUIController;
 import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Worksheet;
@@ -100,6 +102,16 @@ public class BeyondGood {
           view.render();
         } catch (IOException io) {
           throw new IllegalStateException("IO exception found");
+        }
+      }
+      else if (args[0].equals("-edit")) {
+        // EDIT FUNCTIONALITY
+        Worksheet model = new Worksheet();
+        try {
+          WorksheetController controller = new WorksheetGUIController(model);
+          controller.go();
+        } catch(IOException io) {
+          throw new IllegalStateException("Erorr");
         }
       }
     }

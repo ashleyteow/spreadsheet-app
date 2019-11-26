@@ -39,8 +39,9 @@ public class WorksheetTextualView implements WorksheetView {
   }
 
   @Override
-  public void refresh() {
+  public void refresh()throws IOException {
     // Not applicable for a textual view, used only in WorksheetVisualView
+    writable.append(toString());
   }
 
 

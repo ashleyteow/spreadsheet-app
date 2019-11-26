@@ -25,7 +25,7 @@ public class WorksheetPanel extends JPanel {
   private JPanel mainPanel;
   private JPanel rowHeader;
   private JPanel colHeader;
-  private JTextField[][] worksheetCells;
+  JTextField[][] worksheetCells;
   private static int screenHeight = WorksheetVisualView.SCREENHEIGHT;
   private static int screenWidth = WorksheetVisualView.SCREENWIDTH;
   private JPanel navigateButtons;
