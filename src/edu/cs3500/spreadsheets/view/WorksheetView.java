@@ -13,6 +13,10 @@ public interface WorksheetView {
    */
   void render() throws IOException;
 
-  void refresh();
+  /**
+   * Updates the view when the user makes a change.
+   * @throws IOException if appendable is unable to write
+   */
+  void refresh() throws IOException;
 
 }
