@@ -1,8 +1,10 @@
 package edu.cs3500.spreadsheets.view;
 
-import edu.cs3500.spreadsheets.model.Cell;
+
 import edu.cs3500.spreadsheets.model.Coord;
-import edu.cs3500.spreadsheets.model.Worksheet;
+import edu.cs3500.spreadsheets.model.ICell;
+import edu.cs3500.spreadsheets.model.IWorksheet;
+import edu.cs3500.spreadsheets.model.ReadWorksheet;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,23 +21,23 @@ import javax.swing.border.EmptyBorder;
  */
 public class WorksheetPanel extends JPanel {
 
-  private Worksheet worksheet;
-  private int topLeftRow;
-  private int topLeftCol;
+  private static int screenHeight = WorksheetVisualView.SCREENHEIGHT;
+  private static int screenWidth = WorksheetVisualView.SCREENWIDTH;
+  private IWorksheet worksheet;
+  int topLeftRow;
+  int topLeftCol;
   private JPanel mainPanel;
   private JPanel rowHeader;
   private JPanel colHeader;
   JTextField[][] worksheetCells;
-  private static int screenHeight = WorksheetVisualView.SCREENHEIGHT;
-  private static int screenWidth = WorksheetVisualView.SCREENWIDTH;
   private JPanel navigateButtons;
 
   /**
    * Intializes a WorksheetPanel.
    */
-  public WorksheetPanel(Worksheet worksheet) {
+  public WorksheetPanel(IWorksheet worksheet) {
     super(new BorderLayout());
-    this.worksheet = worksheet;
+    this.worksheet = new ReadWorksheet(worksheet);
     this.topLeftCol = 0;
     this.topLeftRow = 0;
 
@@ -46,14 +48,15 @@ public class WorksheetPanel extends JPanel {
     this.rowHeader = new JPanel(new GridLayout(screenHeight, 1));
     this.colHeader = new JPanel(new GridLayout(1, screenWidth + 1));
     this.navigateButtons = new JPanel(new GridLayout(2,2));
+
+    this.populateGrid(mainPanel);
     this.build();
   }
 
   /**
-   * Builds the GUI.
+   * Sets the configurations and add the buttons to build this GUI.
    */
   private void build() {
-    populateGrid();
     createHeaders();
 
     JButton left = new JButton("⇦");
@@ -74,20 +77,25 @@ public class WorksheetPanel extends JPanel {
   /**
    * Fills main panel grid with cells read in from the model.
    */
-  public void populateGrid() {
-    this.mainPanel.removeAll();
-    Cell cell;
+  public void populateGrid(JPanel panel) {
+    panel.removeAll();
+
+    ICell cell;
     String cellStr;
-    JTextField[][] worksheetCells = new JTextField[screenHeight][screenWidth];
+    JTextField field;
 
     for (int i = 0; i < screenHeight; i++) {
       for (int j = 0; j < screenWidth; j++) {
-        cell = worksheet.getCellAt(new Coord(j + topLeftCol + 1, i + topLeftRow + 1));
-        cellStr = cell == null ? "" : cell.getCellValue().toString();
-        worksheetCells[i][j] = new JTextField(cellStr, 8);
-        worksheetCells[i][j].setHorizontalAlignment(JTextField.RIGHT);
 
-        this.mainPanel.add(worksheetCells[i][j]);
+        cell = worksheet.getCellAt(new Coord(j + topLeftCol + 1, i + topLeftRow + 1));
+        cellStr = cell.getCellValue().toString();
+
+        field = new JTextField(cellStr, 6);
+        field.setEditable(false);
+        field.setFocusable(true);
+        field.setBackground(Color.WHITE);
+        worksheetCells[i][j] = field;
+        panel.add(worksheetCells[i][j]);
       }
     }
   }
@@ -138,7 +146,7 @@ public class WorksheetPanel extends JPanel {
       // down scroll
       topLeftRow += screenHeight;
     }
-    this.populateGrid();
+
     this.createHeaders();
     this.refresh();
   }
@@ -176,8 +184,26 @@ public class WorksheetPanel extends JPanel {
     }
   }
 
+  /**
+   * Fills the Grid with its Cells.
+   *
+   * @return JPanel the panel of Cells.
+   */
+  private void updateGrid(JPanel panel) {
+    ICell cell;
+    String cellStr;
+    for (int i = 0; i < screenHeight; i++) {
+      for (int j = 0; j < screenWidth; j++) {
+        cell = worksheet.getCellAt(new Coord(j + topLeftCol + 1, i + topLeftRow + 1));
+        cellStr = cell.getCellValue().toString();
+        worksheetCells[i][j].setText(cellStr);
+      }
+    }
+  }
+
   public void refresh() {
     this.revalidate();
     this.repaint();
+    updateGrid(mainPanel);
   }
 }

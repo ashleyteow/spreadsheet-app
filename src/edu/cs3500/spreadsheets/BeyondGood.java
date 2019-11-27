@@ -4,9 +4,11 @@ import edu.cs3500.spreadsheets.controller.WorksheetController;
 import edu.cs3500.spreadsheets.controller.WorksheetGUIController;
 import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
+import edu.cs3500.spreadsheets.model.ReadWorksheet;
 import edu.cs3500.spreadsheets.model.Worksheet;
 import edu.cs3500.spreadsheets.model.Worksheet.Builder;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
+import edu.cs3500.spreadsheets.view.WorksheetEditableView;
 import edu.cs3500.spreadsheets.view.WorksheetTextualView;
 import edu.cs3500.spreadsheets.view.WorksheetView;
 import edu.cs3500.spreadsheets.view.WorksheetVisualView;
@@ -87,36 +89,72 @@ public class BeyondGood {
         throw new IllegalArgumentException("file not found");
       }
       Worksheet worksheet = WorksheetReader.read(new Builder(), readFile);
-      WorksheetView view = new WorksheetVisualView(worksheet);
-      try {
-        view.render();
-      } catch (IOException io) {
-        throw new IllegalStateException("IO exception found");
+      WorksheetView view;
+
+      if (args[2].equals("-edit")) {
+        try {
+          WorksheetController control = new WorksheetGUIController(worksheet);
+          control.start();
+        } catch (IOException io) {
+          throw new IllegalStateException();
+        }
+
       }
+      else {
+        view = new WorksheetVisualView(new ReadWorksheet(worksheet));
+        try {
+          view.render();
+        } catch (IOException io) {
+          throw new IllegalStateException("IO exception found");
+        }
+      }
+
     }
     else if (args.length == 1) {
       // -gui
       if (args[0].equals("-gui")) {
         try {
-          WorksheetView view = new WorksheetVisualView(new Worksheet());
+          WorksheetView view = new WorksheetVisualView(new ReadWorksheet(new Worksheet()));
           view.render();
         } catch (IOException io) {
           throw new IllegalStateException("IO exception found");
         }
       }
       else if (args[0].equals("-edit")) {
-        // EDIT FUNCTIONALITY
-        Worksheet model = new Worksheet();
-        try {
-          WorksheetController controller = new WorksheetGUIController(model);
-          controller.go();
-        } catch(IOException io) {
-          throw new IllegalStateException("Erorr");
-        }
+        displayEditView(null);
       }
     }
     else {
       throw new IllegalArgumentException("Invalid commandline input");
+    }
+  }
+
+  /**
+   * <p>Helper that runs a {@link edu.cs3500.spreadsheets.view.WorksheetEditableView} from the
+   * file.</p>
+   *
+   * @param fileName the file being viewed.
+   */
+  private static void displayEditView(String fileName) {
+    Worksheet model;
+    WorksheetGUIController controller;
+
+    if (fileName == null) {
+      model = new Worksheet();
+    } else {
+      try {
+        model = WorksheetReader
+            .read(new Builder(), new FileReader(fileName));
+      } catch (FileNotFoundException ex) {
+        System.out.println("File not found.");
+        model = new Worksheet();
+      }
+    }
+    try {
+      controller = new WorksheetGUIController(model);
+      controller.start();
+    } catch (IOException ex) {
+      throw new IllegalStateException("Error");
     }
   }
 }
