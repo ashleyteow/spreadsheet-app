@@ -8,5 +8,5 @@ public interface WorksheetController {
    * Starts the program and runs the worksheet.
    * @throws IOException
    */
-  void go() throws IOException;
+  void start() throws IOException;
 }

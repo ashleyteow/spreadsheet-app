@@ -1,32 +1,39 @@
 package edu.cs3500.spreadsheets.view;
 
-import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
 
 
 /**
- * Listens for events / actions a user could be doing when
- * interacting with the {@code WorksheetEditableView}.
+ * Listens for events / actions a user could be doing when interacting with the {@code
+ * WorksheetEditableView}.
  */
 public interface FeaturesListener {
 
   /**
-   * Confirms and updates the new cell's edited value and passes it to the model.
+   * User confirms and updates the new cell's edited value and passes it to the model.
+   *
    * @param newVal new raw value
-   * @return
    */
   void confirmEdits(String newVal);
 
-
   /**
-   * Sets the coordinates of the cell being edited.
-   * @param coord the coordinate of the cell being edited.
-   */
-  void setEditableCoord(Coord coord);
-
-  /**
-   * Gets the cell to be edited
+   * User clicks on the cell on GUI.
+   *
    * @return the editable cell
    */
-  Cell getCellToEdit();
+  void getCellToEdit();
+
+  /**
+   * User wants to cancel the edits made in the {@code FormulaBarPanel}.
+   *
+   * @param text text edited in formula bar panel
+   */
+  void rejectEdits(String text);
+
+  /**
+   * Updates the focused cell in {@code WorksheetGUIController}.
+   *
+   * @param coord
+   */
+  void setCoordToEdit(Coord coord);
 }

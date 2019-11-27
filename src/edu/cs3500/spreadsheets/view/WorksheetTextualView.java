@@ -44,5 +44,15 @@ public class WorksheetTextualView implements WorksheetView {
     writable.append(toString());
   }
 
+  @Override
+  public void addFeatures(FeaturesListener features) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void displayRawCellValue(String rawVal) {
+
+  }
+
 
 }

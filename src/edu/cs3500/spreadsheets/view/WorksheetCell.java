@@ -7,9 +7,9 @@ import javax.swing.JTextField;
  */
 public class WorksheetCell {
 
-  private final int row;
-  private final int col;
-  private final JTextField cellPanel;
+  final int row;
+  final int col;
+  JTextField cellPanel;
 
   public WorksheetCell(JTextField field, int row, int col) {
     this.row = row;

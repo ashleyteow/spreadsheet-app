@@ -1,40 +1,55 @@
 package edu.cs3500.spreadsheets.controller;
 
-import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
-import edu.cs3500.spreadsheets.model.Worksheet;
+import edu.cs3500.spreadsheets.model.ICell;
+import edu.cs3500.spreadsheets.model.IWorksheet;
 import edu.cs3500.spreadsheets.view.FeaturesListener;
 import edu.cs3500.spreadsheets.view.WorksheetEditableView;
 import java.io.IOException;
 
+
 public class WorksheetGUIController implements WorksheetController, FeaturesListener {
   WorksheetEditableView gui;
-  Worksheet model;
+  IWorksheet model;
   Coord coordToEdit;
 
-  public WorksheetGUIController(Worksheet model) throws IOException {
+  public WorksheetGUIController(IWorksheet model) throws IOException {
     this.model = model;
     this.gui = new WorksheetEditableView(model, this);
+    // default
+    this.coordToEdit = new Coord(1,1);
+    this.gui.addFeatures(this);
   }
 
 
   @Override
-  public void go() throws IOException {
+  public void start() throws IOException {
     gui.render();
   }
+
 
   @Override
   public void confirmEdits(String newVal) {
     model.editCellAt(coordToEdit, newVal);
+    gui.displayRawCellValue(newVal);
+    gui.refresh();
+  }
+
+
+  @Override
+  public void getCellToEdit() {
+    ICell cell = model.getCellAt(this.coordToEdit);
+    gui.displayRawCellValue(cell.getRawValue());
   }
 
   @Override
-  public void setEditableCoord(Coord coord) {
+  public void rejectEdits(String text) {
+
+  }
+
+  @Override
+  public void setCoordToEdit(Coord coord) {
     this.coordToEdit = coord;
   }
 
-  @Override
-  public Cell getCellToEdit() {
-    return model.getCellAt(this.coordToEdit);
-  }
 }

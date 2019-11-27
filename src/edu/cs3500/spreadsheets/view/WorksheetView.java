@@ -19,4 +19,11 @@ public interface WorksheetView {
    */
   void refresh() throws IOException;
 
+  /**
+   * Adds listeners onto GUI components so that the controller is able execute command.
+   */
+  void addFeatures(FeaturesListener features);
+
+  void displayRawCellValue(String rawVal);
+
 }
