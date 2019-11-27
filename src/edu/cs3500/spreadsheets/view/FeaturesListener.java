@@ -13,7 +13,6 @@ public interface FeaturesListener {
   /**
    * Confirms and updates the new cell's edited value and passes it to the model.
    * @param newVal new raw value
-   * @return
    */
   void confirmEdits(String newVal);
 
