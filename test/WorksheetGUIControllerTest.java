@@ -12,6 +12,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import org.junit.Test;
 
+/**
+ * Tests that the editable view of a worksheet renders properly.
+ */
 public class WorksheetGUIControllerTest {
   @Test
   public void confirmEdits() throws IOException {

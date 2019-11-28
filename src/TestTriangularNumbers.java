@@ -7,6 +7,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Tests that the triangular numbers file is properly read in and rendered in the editable view.
+ */
 public class TestTriangularNumbers {
 
   /**
