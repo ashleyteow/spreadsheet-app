@@ -44,7 +44,8 @@ public class WorksheetGUIController implements WorksheetController, FeaturesList
 
   @Override
   public void rejectEdits(String text) {
-
+    ICell cell = model.getCellAt(this.coordToEdit);
+    gui.displayRawCellValue(cell.getRawValue());
   }
 
   @Override

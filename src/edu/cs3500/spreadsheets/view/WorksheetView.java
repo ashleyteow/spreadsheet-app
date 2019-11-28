@@ -24,6 +24,10 @@ public interface WorksheetView {
    */
   void addFeatures(FeaturesListener features);
 
+  /**
+   * Updates the view and displays the selected cell's raw value in the formula bar panel.
+   * @param rawVal raw value to be displayed
+   */
   void displayRawCellValue(String rawVal);
 
 }

@@ -1,14 +1,11 @@
 package edu.cs3500.spreadsheets.view;
 
 import edu.cs3500.spreadsheets.model.Coord;
-import edu.cs3500.spreadsheets.model.ICell;
 import edu.cs3500.spreadsheets.model.IWorksheet;
-import edu.cs3500.spreadsheets.model.Worksheet;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Taskbar.Feature;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.IOException;
@@ -33,7 +30,6 @@ public class WorksheetEditableView extends JFrame implements WorksheetView, Focu
   private JTextField formulaTextPanel;
   private JPanel formulaBarPanel;
   private FeaturesListener listener;
-  private Coord selectedCell;
 
   /**
    * Constructs an editable view of a {@code Worksheet}.
@@ -57,16 +53,14 @@ public class WorksheetEditableView extends JFrame implements WorksheetView, Focu
     // create confirm button for edits
     confirmBtn = new JButton("✔");
     confirmBtn.setPreferredSize(new Dimension(80, 32));
-    //    formConfirm.setActionCommand("confirm input");
+
     // create reject button for edits
     cancelBtn = new JButton("X");
     cancelBtn.setPreferredSize(new Dimension(80, 32));
-    //  formCancel.setActionCommand("clear input");
 
     // creates edit text bar panel
     formulaTextPanel = new JTextField("", 90);
     formulaTextPanel.setEditable(true);
-//    formText.setActionCommand("");
 
     formulaBarPanel.add(confirmBtn);
     formulaBarPanel.add(cancelBtn);
@@ -122,7 +116,6 @@ public class WorksheetEditableView extends JFrame implements WorksheetView, Focu
     field.setBorder(new JTextField().getBorder());
   }
 
-
   /**
    * Gets the coordinate of the cell from the given textfield.
    * @param field the textfield in the grid of cells
@@ -131,19 +124,20 @@ public class WorksheetEditableView extends JFrame implements WorksheetView, Focu
   private Coord getCoord(JTextField field) {
     int row = -1;
     int col = -1;
-    boolean found = false;
+    boolean match = false;
     for (int i = 0; i < screenHeight; i++) {
-      if (!found) {
-        for (int k = 0; k < screenWidth; k++) {
-          if (worksheetCells[i][k].cellPanel.equals(field)) {
+      if (match) {
+        break;
+      }
+      else {
+        for (int j = 0; j < screenWidth; j++) {
+          if (worksheetCells[i][j].cellPanel.equals(field)) {
             row = i;
-            col = k;
-            found = true;
+            col = j;
+            match = true;
             break;
           }
         }
-      } else {
-        break;
       }
     }
     if (row == -1 || col == -1) {
@@ -153,9 +147,9 @@ public class WorksheetEditableView extends JFrame implements WorksheetView, Focu
   }
 
   /**
-   * Helper method to fill the grid of text fields.
+   * Populate the 2d grid of cells from {@code WorksheetPanel}.
    *
-   * @return A 2d array of text fields.
+   * @return 2D grid of cells
    */
   private WorksheetCell[][] fillGrid() {
     WorksheetCell[][] grid = new WorksheetCell[screenHeight][screenWidth];
@@ -168,7 +162,7 @@ public class WorksheetEditableView extends JFrame implements WorksheetView, Focu
   }
 
   /**
-   * Adds the {@link FocusListener} as a listener for the textgrid.
+   * Adds the {@link FocusListener} as a listener for the worksheet cells.
    */
   private void addCellListeners() {
     for (int i = 0; i < screenHeight; i++) {

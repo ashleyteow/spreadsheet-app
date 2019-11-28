@@ -1,5 +1,3 @@
-package edu.cs3500.spreadsheets;
-
 import edu.cs3500.spreadsheets.controller.WorksheetController;
 import edu.cs3500.spreadsheets.controller.WorksheetGUIController;
 import edu.cs3500.spreadsheets.model.Cell;
@@ -8,7 +6,6 @@ import edu.cs3500.spreadsheets.model.ReadWorksheet;
 import edu.cs3500.spreadsheets.model.Worksheet;
 import edu.cs3500.spreadsheets.model.Worksheet.Builder;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
-import edu.cs3500.spreadsheets.view.WorksheetEditableView;
 import edu.cs3500.spreadsheets.view.WorksheetTextualView;
 import edu.cs3500.spreadsheets.view.WorksheetView;
 import edu.cs3500.spreadsheets.view.WorksheetVisualView;

@@ -1,13 +1,9 @@
 package edu.cs3500.spreadsheets.view;
 
-import edu.cs3500.spreadsheets.model.IWorksheet;
 import edu.cs3500.spreadsheets.model.ReadWorksheet;
-import edu.cs3500.spreadsheets.model.Worksheet;
 import java.awt.BorderLayout;
 import java.io.IOException;
 import javax.swing.JFrame;
-
-
 
 /**
  * Represents a GUI view of a {@code Worksheet}.
@@ -16,7 +12,6 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
   private WorksheetPanel worksheetPanel;
   public static int SCREENWIDTH = 12;
   public static int SCREENHEIGHT = 20;
-
 
   /**
    * Constructs a {@code WorksheetVisualView} object.
@@ -48,12 +43,12 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
 
   @Override
   public void addFeatures(FeaturesListener features) {
-
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public void displayRawCellValue(String rawVal) {
-
+    throw new UnsupportedOperationException();
   }
 
 }
