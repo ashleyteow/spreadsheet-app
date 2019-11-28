@@ -3,7 +3,7 @@ package edu.cs3500.spreadsheets.model;
 import java.util.ArrayList;
 
 /**
- * Represents a Worksheet interface including methods that
+ * Represents a Worksheet interface including methods that create a worksheet.
  */
 public interface IWorksheet {
 

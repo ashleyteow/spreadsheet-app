@@ -102,10 +102,6 @@ public class WorksheetTextualViewTest {
         worksheet.getCells().equals(worksheet2.getCells()));
   }
 
-  /*
-  checks whether formula and reference cells render as their raw values rather than the values to which they evaluate.
-   */
-
   @Test
   public void testParseFormulaWithReference() {
     Worksheet worksheet;

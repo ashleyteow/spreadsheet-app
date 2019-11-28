@@ -20,6 +20,7 @@ import javax.swing.JTextField;
  * they see on the GUI interface.
  */
 public class WorksheetEditableView extends JFrame implements WorksheetView, FocusListener {
+
   private static int screenWidth = WorksheetVisualView.SCREENWIDTH;
   private static int screenHeight = WorksheetVisualView.SCREENHEIGHT;
   private WorksheetPanel worksheetPanel;
@@ -33,8 +34,9 @@ public class WorksheetEditableView extends JFrame implements WorksheetView, Focu
 
   /**
    * Constructs an editable view of a {@code Worksheet}.
+   *
    * @param worksheet mutable worksheet
-   * @param listener listener
+   * @param listener  listener
    */
   public WorksheetEditableView(IWorksheet worksheet, FeaturesListener listener) {
     super();
@@ -118,6 +120,7 @@ public class WorksheetEditableView extends JFrame implements WorksheetView, Focu
 
   /**
    * Gets the coordinate of the cell from the given textfield.
+   *
    * @param field the textfield in the grid of cells
    * @return the coordinate of the cell
    */
@@ -128,8 +131,7 @@ public class WorksheetEditableView extends JFrame implements WorksheetView, Focu
     for (int i = 0; i < screenHeight; i++) {
       if (match) {
         break;
-      }
-      else {
+      } else {
         for (int j = 0; j < screenWidth; j++) {
           if (worksheetCells[i][j].cellPanel.equals(field)) {
             row = i;
@@ -143,7 +145,7 @@ public class WorksheetEditableView extends JFrame implements WorksheetView, Focu
     if (row == -1 || col == -1) {
       throw new IllegalStateException("Invalid text field");
     }
-    return new Coord(col + worksheetPanel.topLeftCol + 1,row + worksheetPanel.topLeftRow + 1);
+    return new Coord(col + worksheetPanel.topLeftCol + 1, row + worksheetPanel.topLeftRow + 1);
   }
 
   /**

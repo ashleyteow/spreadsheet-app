@@ -201,6 +201,9 @@ public class WorksheetPanel extends JPanel {
     }
   }
 
+  /**
+   * Refreshes the view of this panel with updated values.
+   */
   public void refresh() {
     this.revalidate();
     this.repaint();

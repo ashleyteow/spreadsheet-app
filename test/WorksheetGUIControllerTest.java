@@ -1,4 +1,4 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import edu.cs3500.spreadsheets.controller.WorksheetController;
 import edu.cs3500.spreadsheets.controller.WorksheetGUIController;

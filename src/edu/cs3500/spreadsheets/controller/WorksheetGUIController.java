@@ -7,12 +7,19 @@ import edu.cs3500.spreadsheets.view.FeaturesListener;
 import edu.cs3500.spreadsheets.view.WorksheetEditableView;
 import java.io.IOException;
 
-
+/**
+ * Represents the controller of a worksheet that allows a user to update their spreadsheet.
+ */
 public class WorksheetGUIController implements WorksheetController, FeaturesListener {
   WorksheetEditableView gui;
   IWorksheet model;
   Coord coordToEdit;
 
+  /**
+   * Initializes the ability to edit a worksheet.
+   * @param model a representation of the worksheet's model
+   * @throws IOException when an input/output exception occurs
+   */
   public WorksheetGUIController(IWorksheet model) throws IOException {
     this.model = model;
     this.gui = new WorksheetEditableView(model, this);

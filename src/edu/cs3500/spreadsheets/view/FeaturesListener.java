@@ -18,8 +18,6 @@ public interface FeaturesListener {
 
   /**
    * User clicks on the cell on GUI.
-   *
-   * @return the editable cell
    */
   void getCellToEdit();
 
@@ -33,7 +31,7 @@ public interface FeaturesListener {
   /**
    * Updates the focused cell in {@code WorksheetGUIController}.
    *
-   * @param coord
+   * @param coord the coordinate to be edited
    */
   void setCoordToEdit(Coord coord);
 }

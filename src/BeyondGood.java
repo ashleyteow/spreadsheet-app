@@ -77,11 +77,10 @@ public class BeyondGood {
       }
     }
     else if (args.length == 3) {
-      // -in some-filename -gui
+      // -in some-filename -gui OR -in some-filename -edit
       fileName = args[1];
       try {
-        readFile = new FileReader("resources/" + fileName);
-
+        readFile = new FileReader(fileName);
       } catch (FileNotFoundException e) {
         throw new IllegalArgumentException("file not found");
       }
@@ -93,7 +92,7 @@ public class BeyondGood {
           WorksheetController control = new WorksheetGUIController(worksheet);
           control.start();
         } catch (IOException io) {
-          throw new IllegalStateException();
+          throw new IllegalStateException("IO exception found");
         }
 
       }
