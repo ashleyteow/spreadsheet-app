@@ -120,6 +120,7 @@ public class BeyondGood {
       else if (args[0].equals("-edit")) {
         displayEditView(null);
       }
+      
     }
     else {
       throw new IllegalArgumentException("Invalid commandline input");
