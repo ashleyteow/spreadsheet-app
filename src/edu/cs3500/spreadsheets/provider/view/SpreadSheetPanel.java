@@ -70,8 +70,7 @@ public class SpreadSheetPanel extends JPanel implements MouseListener {
       for (int j = 1; j <= colMax; j++) {
         CellLabel jl = new CellLabel(new Coord(j, i), "", SwingConstants.CENTER);
         if (model.getSheet().containsKey(new Coord(j, i))) {
-          jl.setText(model.getSheet().get(new Coord(j, i)).eval
-                  (model.getSheet(), false).getString());
+          jl.setText(model.getSheet().get(new Coord(j, i)).eval((model.getSheet(), false).getString());
         }
         jl.setPreferredSize(new Dimension(Cell_Width, Cell_Heighth));
         jl.setBorder(BLACK_BOARDER);
