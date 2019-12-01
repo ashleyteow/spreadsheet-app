@@ -81,7 +81,7 @@ public class BeyondGood {
       fileName = args[1];
       try {
         readFile = new FileReader("resources/" + fileName);
-
+        System.out.println(fileName);
       } catch (FileNotFoundException e) {
         throw new IllegalArgumentException("file not found");
       }

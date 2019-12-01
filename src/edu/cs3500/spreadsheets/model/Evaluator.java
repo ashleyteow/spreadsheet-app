@@ -10,7 +10,6 @@ import java.util.List;
  * Helper class that transforms S-expressions into Cells with evaluated contents.
  */
 public class Evaluator implements SexpVisitor<CellContents> {
-
   Coord coord;
   Worksheet worksheet;
   HashMap<String, Operation> operations = new HashMap<>();
