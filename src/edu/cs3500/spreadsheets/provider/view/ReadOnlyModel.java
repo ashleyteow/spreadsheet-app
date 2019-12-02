@@ -41,6 +41,6 @@ public class ReadOnlyModel implements SpreadSheetViewModel {
 
   @Override
   public String evaluate(int col, int row) {
-    return null;
+    return model.evaluate(col, row);
   }
 }

@@ -23,7 +23,7 @@ public class WorksheetEditableView extends JFrame implements WorksheetView, Focu
   private static int screenWidth = WorksheetVisualView.SCREENWIDTH;
   private static int screenHeight = WorksheetVisualView.SCREENHEIGHT;
   private WorksheetPanel worksheetPanel;
-  private IWorksheet worksheet;
+  private WorksheetViewModel worksheet;
   private final WorksheetCell[][] worksheetCells;
   private JButton confirmBtn;
   private JButton cancelBtn;
@@ -36,7 +36,7 @@ public class WorksheetEditableView extends JFrame implements WorksheetView, Focu
    * @param worksheet mutable worksheet
    * @param listener listener
    */
-  public WorksheetEditableView(IWorksheet worksheet, FeaturesListener listener) {
+  public WorksheetEditableView(WorksheetViewModel worksheet, FeaturesListener listener) {
     super();
     this.listener = listener;
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

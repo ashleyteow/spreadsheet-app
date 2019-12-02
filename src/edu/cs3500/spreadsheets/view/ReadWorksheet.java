@@ -1,11 +1,14 @@
-package edu.cs3500.spreadsheets.model;
+package edu.cs3500.spreadsheets.view;
 
+import edu.cs3500.spreadsheets.model.Coord;
+import edu.cs3500.spreadsheets.model.ICell;
+import edu.cs3500.spreadsheets.model.IWorksheet;
 import java.util.ArrayList;
 
 /**
  * Read-only access implementation of the {@link IWorksheet} interface.
  */
-public class ReadWorksheet implements IWorksheet {
+public class ReadWorksheet implements WorksheetViewModel {
   private final IWorksheet model;
 
   /**
@@ -18,7 +21,7 @@ public class ReadWorksheet implements IWorksheet {
   }
 
   @Override
-  public ArrayList<Cell> getCells() {
+  public ArrayList<ICell> getCells() {
     return model.getCells();
   }
 

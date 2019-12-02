@@ -42,10 +42,10 @@ public class Worksheet implements IWorksheet {
   }
 
   @Override
-  public ArrayList<Cell> getCells() {
-    ArrayList<Cell> copy = new ArrayList<>();
+  public ArrayList<ICell> getCells() {
+    ArrayList<ICell> copy = new ArrayList<>();
 
-    for (Cell c : cells.values()) {
+    for (ICell c : cells.values()) {
       copy.add(c);
     }
 

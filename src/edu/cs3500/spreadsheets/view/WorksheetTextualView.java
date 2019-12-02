@@ -1,6 +1,7 @@
 package edu.cs3500.spreadsheets.view;
 
 import edu.cs3500.spreadsheets.model.Cell;
+import edu.cs3500.spreadsheets.model.ICell;
 import edu.cs3500.spreadsheets.model.Worksheet;
 import java.io.IOException;
 
@@ -9,14 +10,14 @@ import java.io.IOException;
  */
 public class WorksheetTextualView implements WorksheetView {
   private Appendable writable;
-  private Worksheet model;
+  private WorksheetViewModel model;
 
   /**
    * Constructs a new textual view for a {@code Worksheet}.
    * @param writable appendable object
    * @param worksheet model
    */
-  public WorksheetTextualView(Appendable writable, Worksheet worksheet) {
+  public WorksheetTextualView(Appendable writable, WorksheetViewModel worksheet) {
     this.writable = writable;
     this.model = worksheet;
   }
@@ -24,7 +25,7 @@ public class WorksheetTextualView implements WorksheetView {
   @Override
   public String toString() {
     String result = "";
-    for (Cell c : model.getCells()) {
+    for (ICell c : model.getCells()) {
       result += c.getCoord();
       result += "  ";
       result += c.getRawValue();

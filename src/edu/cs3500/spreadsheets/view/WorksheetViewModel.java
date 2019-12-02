@@ -1,12 +1,13 @@
-package edu.cs3500.spreadsheets.model;
+package edu.cs3500.spreadsheets.view;
 
-import edu.cs3500.spreadsheets.view.WorksheetViewModel;
+import edu.cs3500.spreadsheets.model.Coord;
+import edu.cs3500.spreadsheets.model.ICell;
 import java.util.ArrayList;
 
 /**
- * Represents a Worksheet interface including methods that
+ * an immutable read-only model for view.
  */
-public interface IWorksheet extends WorksheetViewModel {
+public interface WorksheetViewModel {
 
   /**
    * Getter method to access this worksheet's grid of cells.
@@ -31,4 +32,5 @@ public interface IWorksheet extends WorksheetViewModel {
    * @param newContents the new contents of the {@code Cell} as an unprocessed String
    */
   void editCellAt(Coord coord, String newContents);
+
 }
