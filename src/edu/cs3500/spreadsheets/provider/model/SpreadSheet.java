@@ -2,7 +2,6 @@ package edu.cs3500.spreadsheets.provider.model;
 
 import edu.cs3500.spreadsheets.model.Coord;
 import java.util.List;
-import java.util.Map;
 
 import edu.cs3500.spreadsheets.provider.view.SpreadSheetViewModel;
 
