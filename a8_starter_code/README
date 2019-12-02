@@ -1,0 +1,58 @@
+MODEL DESIGN: Please see worksheetModelDesignpart3.jpg
+                         worksheetModelDesignpart2.jpg
+                         worksheetModelDesignpart1.jpg
+                         for more information about how we structured our model interfaces and
+                         classes.
+
+
+CONTROLLER DESIGN:
+  - WorksheetController: represents the interface for a controller that
+                         controls a worksheet implementation.
+  - WorksheetGUIController: represents an implementation of a WorksheetController and by default,
+                            it creates an editable implementation of a worksheet view.
+                            In addition to implementing the WorksheetController, it also implements
+                            FeaturesListener interface which holds all of the commands that a user
+                            would do when manipulating the GUI interface.
+
+  - FeaturesListener: represents what commands to callback when the user interacts with the program.
+                      It is responsible for interacting with the view and making the necessary
+                      updates so that the user gets some kind of feedback after their interaction.
+
+VIEW DESIGN:
+  - WorksheetView: represents the interface for any kind of view implementation of the Worksheet. It
+                    contains the methods that the view would need to render and refresh its view for
+                    the user.
+  - WorksheetTextualView: represents a textual implementation of a Worksheet. As values are read in
+                          from a file, the coordinate followed by its value is printed on its own
+                          line.
+  - WorksheetEditableView: represents an editable version of a worksheet where a user is able
+                            to interact with the program and make changes as they wish. It contains
+                            a worksheet panel which acts as a container for -just- the grid portion
+                            of the view. It also creates additional JPanels to handle the formula
+                            bar positioned at the top of the grame.
+  - WorksheetVisualView: represents a read-only interface of the worksheet where the user is able to
+                         view the values from a text file that has been read in, but is not able to
+                         make any changes on the interface, nor are they allowed to save their work.
+  - WorksheetPanel: main container panel for -just- the grid of cells. It creates the row and header
+                    panels as well. In addition, there is a panel at the bottom of the frame
+                    to navigate / scroll through the worksheet.
+  - WorksheetCell: It was getting too messy to have JTextField[][] everywhere so we abstracted this
+                  textfield out onto its own class. It represents a singular cell in the textfield
+                  grid.
+
+UI FOR EDITABLE DESIGN:
+- When a user clicks on a cell in the spreadsheet, its raw value is shown at the top of the screen. The user can click on the bar at the top of the screen and change the value of the cell. Before any changes are reflected in the spreadsheet, they must confirm their change by clicking the button with a check mark in it or reject their changes by clicking on the button with an "x" in it.
+- In order to enter in a string value (i.e. "Hello"), the user must enter it in double quotes in the top bar.
+
+
+
+
+
+
+
+
+
+
+
+
+
