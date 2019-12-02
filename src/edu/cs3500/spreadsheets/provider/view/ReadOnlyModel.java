@@ -38,12 +38,9 @@ public class ReadOnlyModel implements SpreadSheetViewModel {
   public Map<Coord, String> getAllRawContents() {
     return model.getAllRawContents();
   }
-<<<<<<< HEAD
 
   @Override
   public String evaluate(int col, int row) {
     return null;
   }
-=======
->>>>>>> b0a2ae786a038cc48052ccaa4ef133cf81752f18
 }
