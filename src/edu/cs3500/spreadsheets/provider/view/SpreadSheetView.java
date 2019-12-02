@@ -1,7 +1,7 @@
 package edu.cs3500.spreadsheets.provider.view;
 
 
-import edu.cs3500.spreadsheets.controller.Features;
+import edu.cs3500.spreadsheets.provider.controller.Features;
 import edu.cs3500.spreadsheets.model.Coord;
 
 /**
@@ -15,7 +15,7 @@ public interface SpreadSheetView {
   void render();
 
   /**
-   * get the selected cell of the view in its coordinates.
+   * get the selected cell of txhe view in its coordinates.
    *
    * @return the selected cell of the view in its coordinates
    * @throws UnsupportedOperationException when the textual view call this method

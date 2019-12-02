@@ -3,6 +3,7 @@ package edu.cs3500.spreadsheets.model;
 import edu.cs3500.spreadsheets.provider.model.IFormula;
 import edu.cs3500.spreadsheets.provider.view.SpreadSheetViewModel;
 import java.util.HashMap;
+
 import java.util.Map;
 
 public class WorksheetAdapter implements SpreadSheetViewModel {

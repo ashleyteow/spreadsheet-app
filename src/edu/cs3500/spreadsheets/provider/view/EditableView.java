@@ -1,6 +1,6 @@
 package edu.cs3500.spreadsheets.provider.view;
 
-import edu.cs3500.spreadsheets.controller.Features;
+import edu.cs3500.spreadsheets.provider.controller.Features;
 import edu.cs3500.spreadsheets.model.Coord;
 
 import java.awt.BorderLayout;

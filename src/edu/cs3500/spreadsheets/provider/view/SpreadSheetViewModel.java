@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import edu.cs3500.spreadsheets.model.Coord;
-import edu.cs3500.spreadsheets.model.IFormula;
+import edu.cs3500.spreadsheets.provider.model.IFormula;
 
 /**
  * an immutable read-only model for view.
@@ -38,4 +38,7 @@ public interface SpreadSheetViewModel {
    * @return a raw content collection
    */
   Map<Coord,String> getAllRawContents();
+
+
+  String evaluate(int col, int row);
 }
