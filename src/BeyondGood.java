@@ -1,3 +1,4 @@
+import edu.cs3500.spreadsheets.controller.ProviderController;
 import edu.cs3500.spreadsheets.controller.WorksheetController;
 import edu.cs3500.spreadsheets.controller.WorksheetGUIController;
 import edu.cs3500.spreadsheets.model.Cell;
@@ -136,9 +137,8 @@ public class BeyondGood {
   private static void displayProviderView() throws IOException {
     SpreadSheetViewModel model = new WorksheetAdapter(new Worksheet());
     SpreadSheetView view = new EditableView(model);
-    view.render();
-//    WorksheetGUIController controller = new WorksheetGUIController(model);
-//    controller.start();
+    ProviderController controller = new ProviderController(view,model);
+    controller.start();
   }
 
   /**
