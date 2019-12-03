@@ -29,7 +29,7 @@ public class WorksheetAdapter implements SpreadSheetViewModel {
   public Coord getMaxCoord() {
     // call ourModel.getCells() which will return ArrayList<ICell>
     // iterate through cells to get the maximum coord
-    return null;
+    return new Coord(1,1);
   }
 
   @Override
