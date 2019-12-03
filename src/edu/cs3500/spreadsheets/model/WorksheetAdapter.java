@@ -21,11 +21,14 @@ public class WorksheetAdapter implements SpreadSheetViewModel {
 
   @Override
   public HashMap<Coord, IFormula> getSheet() {
+    // this is probably where we have to turn our values into their formula
     return null;
   }
 
   @Override
   public Coord getMaxCoord() {
+    // call ourModel.getCells() which will return ArrayList<ICell>
+    // iterate through cells to get the maximum coord
     return null;
   }
 
@@ -46,6 +49,6 @@ public class WorksheetAdapter implements SpreadSheetViewModel {
 
   @Override
   public String evaluate(int col, int row) {
-    return null;
+    return ourModel.getCellAt(new Coord(col, row)).getCellValue().toString();
   }
 }
