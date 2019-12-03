@@ -6,6 +6,8 @@ import edu.cs3500.spreadsheets.model.Worksheet;
 import edu.cs3500.spreadsheets.model.Worksheet.Builder;
 import edu.cs3500.spreadsheets.model.WorksheetAdapter;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
+import edu.cs3500.spreadsheets.provider.view.EditableView;
+import edu.cs3500.spreadsheets.provider.view.SpreadSheetView;
 import edu.cs3500.spreadsheets.provider.view.SpreadSheetViewModel;
 import edu.cs3500.spreadsheets.view.ReadWorksheet;
 import edu.cs3500.spreadsheets.view.WorksheetTextualView;
@@ -26,7 +28,7 @@ public class BeyondGood {
    * The main entry point.
    * @param args any command-line arguments
    */
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
     String fileName;
     FileReader readFile;
 
@@ -123,7 +125,7 @@ public class BeyondGood {
         displayEditView(null);
       }
       else if (args[0].equals("-provider")) {
-
+        displayProviderView();
       }
     }
     else {
@@ -133,6 +135,8 @@ public class BeyondGood {
 
   private static void displayProviderView() throws IOException {
     SpreadSheetViewModel model = new WorksheetAdapter(new Worksheet());
+    SpreadSheetView view = new EditableView(model);
+    view.render();
 //    WorksheetGUIController controller = new WorksheetGUIController(model);
 //    controller.start();
   }
