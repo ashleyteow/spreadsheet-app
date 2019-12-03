@@ -3,8 +3,6 @@ package edu.cs3500.spreadsheets.view;
 
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.ICell;
-import edu.cs3500.spreadsheets.model.IWorksheet;
-import edu.cs3500.spreadsheets.model.ReadWorksheet;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -23,7 +21,7 @@ public class WorksheetPanel extends JPanel {
 
   private static int screenHeight = WorksheetVisualView.SCREENHEIGHT;
   private static int screenWidth = WorksheetVisualView.SCREENWIDTH;
-  private IWorksheet worksheet;
+  private WorksheetViewModel worksheet;
   int topLeftRow;
   int topLeftCol;
   private JPanel mainPanel;
@@ -35,9 +33,9 @@ public class WorksheetPanel extends JPanel {
   /**
    * Intializes a WorksheetPanel.
    */
-  public WorksheetPanel(IWorksheet worksheet) {
+  public WorksheetPanel(WorksheetViewModel worksheet) {
     super(new BorderLayout());
-    this.worksheet = new ReadWorksheet(worksheet);
+    this.worksheet = worksheet;
     this.topLeftCol = 0;
     this.topLeftRow = 0;
 

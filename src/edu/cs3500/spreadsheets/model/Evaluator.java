@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Evaluator implements SexpVisitor<CellContents> {
   Coord coord;
-  Worksheet worksheet;
+  IWorksheet worksheet;
   HashMap<String, Operation> operations = new HashMap<>();
 
   /**
@@ -20,7 +20,7 @@ public class Evaluator implements SexpVisitor<CellContents> {
    * @param coord     location of cell
    * @param worksheet worksheet model
    */
-  public Evaluator(Coord coord, Worksheet worksheet) {
+  public Evaluator(Coord coord, IWorksheet worksheet) {
     this.worksheet = worksheet;
     this.coord = coord;
     operations.put("SUM", new Sum());

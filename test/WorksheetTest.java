@@ -2,6 +2,7 @@ import static org.junit.Assert.assertEquals;
 
 import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
+import edu.cs3500.spreadsheets.model.ICell;
 import edu.cs3500.spreadsheets.model.ValueDouble;
 import edu.cs3500.spreadsheets.model.Worksheet;
 import edu.cs3500.spreadsheets.model.Worksheet.Builder;
@@ -20,7 +21,7 @@ public class WorksheetTest {
   public void testReadingBlankWorksheet() throws FileNotFoundException {
     Worksheet testWorksheet = WorksheetReader.read(new Builder(),
         new FileReader("resources/testBlankParse"));
-    ArrayList<Cell> worksheet = testWorksheet.getCells();
+    ArrayList<ICell> worksheet = testWorksheet.getCells();
     assertEquals(0, worksheet.size());
   }
 

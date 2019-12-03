@@ -1,7 +1,7 @@
 package edu.cs3500.spreadsheets.provider.model;
 
 import edu.cs3500.spreadsheets.model.Coord;
-import edu.cs3500.spreadsheets.model.IData;
+import edu.cs3500.spreadsheets.provider.model.IData;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Function;

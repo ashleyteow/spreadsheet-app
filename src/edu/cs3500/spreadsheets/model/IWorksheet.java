@@ -1,18 +1,19 @@
 package edu.cs3500.spreadsheets.model;
 
+import edu.cs3500.spreadsheets.view.WorksheetViewModel;
 import java.util.ArrayList;
 
 /**
  * Represents a Worksheet interface including methods that
  */
-public interface IWorksheet {
+public interface IWorksheet extends WorksheetViewModel {
 
   /**
    * Getter method to access this worksheet's grid of cells.
    *
    * @return all cells in this spreadsheet
    */
-  ArrayList<Cell> getCells();
+  ArrayList<ICell> getCells();
 
   /**
    * Returns the cell at the specified coordinates.

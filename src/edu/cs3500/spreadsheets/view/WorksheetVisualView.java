@@ -1,6 +1,5 @@
 package edu.cs3500.spreadsheets.view;
 
-import edu.cs3500.spreadsheets.model.ReadWorksheet;
 import java.awt.BorderLayout;
 import java.io.IOException;
 import javax.swing.JFrame;
@@ -17,7 +16,7 @@ public class WorksheetVisualView extends JFrame implements WorksheetView {
    * Constructs a {@code WorksheetVisualView} object.
    * @param model worksheet
    */
-  public WorksheetVisualView(ReadWorksheet model) {
+  public WorksheetVisualView(WorksheetViewModel model) {
     this.setTitle("Excel");
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(new BorderLayout());

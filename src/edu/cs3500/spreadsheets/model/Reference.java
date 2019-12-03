@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Reference implements CellContents {
 
   private final ArrayList<Coord> referencedCells;
-  private final Worksheet worksheet;
+  private final IWorksheet worksheet;
   private Coord thisCellLoc;
 
   /**
@@ -22,7 +22,7 @@ public class Reference implements CellContents {
    * @param thisCell    location of cell that holds the reference (this cell)
    * @param worksheet   worksheet model
    */
-  public Reference(Coord firstCoord, Coord secondCoord, Coord thisCell, Worksheet worksheet) {
+  public Reference(Coord firstCoord, Coord secondCoord, Coord thisCell, IWorksheet worksheet) {
     this.thisCellLoc = thisCell;
     this.referencedCells = new ArrayList<>();
     this.worksheet = worksheet;
@@ -51,7 +51,7 @@ public class Reference implements CellContents {
    * @param thisCell       location of cell that holds the reference (this cell)
    * @param worksheet      worksheet model
    */
-  public Reference(Coord referencedCell, Coord thisCell, Worksheet worksheet) {
+  public Reference(Coord referencedCell, Coord thisCell, IWorksheet worksheet) {
     this.thisCellLoc = thisCell;
     this.worksheet = worksheet;
     this.referencedCells = new ArrayList<>();
