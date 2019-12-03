@@ -11,7 +11,7 @@ public class Cell implements ICell {
   private final Coord coord;
   private CellContents cellContents;
   private String rawContent;
-  private final Worksheet worksheet;
+  private final IWorksheet worksheet;
 
   /**
    * Constructs a {@code Cell} object.
@@ -72,12 +72,12 @@ public class Cell implements ICell {
   }
 
   @Override
-  public void setCellContent(String contents, Worksheet worksheet) {
+  public void setCellContent(String contents, IWorksheet worksheet) {
     this.rawContent = contents;
     this.cellContents = evaluate(worksheet);
   }
 
-  private CellContents evaluate(Worksheet worksheet) {
+  private CellContents evaluate(IWorksheet worksheet) {
     if (rawContent.length() == 0) {
       return new ValueBlank();
     }

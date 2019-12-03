@@ -25,7 +25,7 @@ public interface ICell {
    *
    * @param contents unprocessed String content to be evaluated as the new content of this cell
    */
-  void setCellContent(String contents, Worksheet worksheet);
+  void setCellContent(String contents, IWorksheet worksheet);
 
   /**
    * Getter method for the raw, unevaluated String input of this cell.
