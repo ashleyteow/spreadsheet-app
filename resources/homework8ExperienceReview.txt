@@ -1,0 +1,11 @@
+QUESTIONS TO CONSIDER FOR REVIEW:
+	- What do you wish you had done differently in your design/implementation? Did you learn any lessons from the code given to you, or the updates you had to make for your customers?
+	- What was your experience like with your providers?
+
+Ashley Teow review:
+	Overall, this process was able to teach me the importance of encapsulation and relying on interface types as opposed to concrete class implementations as return types of methods. Additionally, I was able to understand the adapter pattern more and how powerful it can be when trying to make your code work with someone else's or legacy code. We were also interested in our providers' use of a ViewModel interface and how each of their views held an instance of a ViewModel instead of directly holding the SpreadSheet instance. 
+
+	Our providers were able to respond to us in a timely manner and were also able to answer some of our questions regarding their IData and IFormula interfaces. Despite their in-depth explanation about those interfaces, we would have to rework a lot of our cell representation classes and interfaces, making it quite difficult to make their views work successfully with our code. 
+
+	
+Gauri Dandi review: 
