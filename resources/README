@@ -40,6 +40,11 @@ VIEW DESIGN:
                   textfield out onto its own class. It represents a singular cell in the textfield
                   grid.
 
+TEXT FILES:
+  - ProviderCodeREADME.txt : summarizing which features you were able to get working successfully and which features do not work in your final submission
+  - CustomerCodeREADME.txt : explaining which files you changed for your customers, and why the changes were needed.
+  - homework8ExperienceReview.txt : our personal review of this homework 8 experience
+  - providerCodeReview.txt : code review of our provider's code
 
 
 
