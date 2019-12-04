@@ -1,8 +1,6 @@
 package edu.cs3500.spreadsheets.controller;
 
 import edu.cs3500.spreadsheets.provider.controller.Features;
-import edu.cs3500.spreadsheets.provider.model.SpreadSheet;
-import edu.cs3500.spreadsheets.provider.view.EditableView;
 import edu.cs3500.spreadsheets.provider.view.SpreadSheetView;
 import edu.cs3500.spreadsheets.provider.view.SpreadSheetViewModel;
 import java.io.File;
@@ -30,7 +28,7 @@ public class ProviderController implements Features {
 
   @Override
   public void start() {
-
+    view.render();
   }
 
   @Override

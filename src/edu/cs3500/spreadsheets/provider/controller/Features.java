@@ -2,8 +2,6 @@ package edu.cs3500.spreadsheets.provider.controller;
 
 import java.io.File;
 
-import edu.cs3500.spreadsheets.model.Coord;
-
 /**
  * different provided features for users to make edit with spreadsheet.
  */
