@@ -88,7 +88,7 @@ public class WorksheetEditableView extends JFrame implements WorksheetView, Focu
   @Override
   public void addFeatures(FeaturesListener features) {
     confirmBtn.addActionListener(evt -> features.confirmEdits(formulaTextPanel.getText()));
-    cancelBtn.addActionListener(evt -> features.rejectEdits(formulaTextPanel.getText()));
+    cancelBtn.addActionListener(evt -> features.rejectEdits());
     for (int i = 0; i < screenHeight; i++) {
       for (int j = 0; j < screenWidth; j++) {
         worksheetCells[i][j].cellPanel.addActionListener(evt -> features.getCellToEdit());

@@ -26,9 +26,8 @@ public interface FeaturesListener {
   /**
    * User wants to cancel the edits made in the {@code FormulaBarPanel}.
    *
-   * @param text text edited in formula bar panel
    */
-  void rejectEdits(String text);
+  void rejectEdits();
 
   /**
    * Updates the focused cell in {@code WorksheetGUIController}.
