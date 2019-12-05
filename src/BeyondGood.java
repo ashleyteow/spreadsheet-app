@@ -83,7 +83,7 @@ public class BeyondGood {
     try {
       model = WorksheetReader
           .read(new Worksheet.Builder(),
-              new FileReader(fileName));
+              new FileReader("resources/" + fileName));
     } catch (FileNotFoundException ex) {
       throw new IllegalStateException("File not found");
     }
@@ -107,7 +107,7 @@ public class BeyondGood {
     try {
       model = WorksheetReader
           .read(new Worksheet.Builder(),
-              new FileReader(file1));
+              new FileReader("resources/" + file1));
     } catch (FileNotFoundException ex) {
       throw new IllegalStateException("File not found");
     }
@@ -139,7 +139,7 @@ public class BeyondGood {
     else {
       FileReader readFile;
       try {
-        readFile = new FileReader(fileName);
+        readFile = new FileReader("resources/" + fileName);
       } catch (FileNotFoundException e) {
         throw new IllegalArgumentException("Error: File not found.");
       }
@@ -166,7 +166,7 @@ public class BeyondGood {
     else {
       FileReader readFile;
       try {
-        readFile = new FileReader(fileName);
+        readFile = new FileReader("resources/" + fileName);
       } catch (FileNotFoundException e) {
         throw new IllegalArgumentException("Error: File not found.");
       }
@@ -196,7 +196,7 @@ public class BeyondGood {
     else {
       FileReader readFile;
       try {
-        readFile = new FileReader(fileName);
+        readFile = new FileReader("resources/" +fileName);
       } catch (FileNotFoundException e) {
         throw new IllegalArgumentException("Error: File not found.");
       }
