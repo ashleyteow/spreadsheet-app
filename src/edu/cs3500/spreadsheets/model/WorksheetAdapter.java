@@ -21,7 +21,7 @@ public class WorksheetAdapter implements SpreadSheetViewModel {
 
   @Override
   public HashMap<Coord, IFormula> getSheet() {
-    // this is probably where we have to turn our values into their formula
+    // transform our CellContents into IFormula
     return null;
   }
 
