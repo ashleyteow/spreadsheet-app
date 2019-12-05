@@ -8,4 +8,7 @@ Ashley Teow review:
 	Our providers were able to respond to us in a timely manner and were also able to answer some of our questions regarding their IData and IFormula interfaces. Despite their in-depth explanation about those interfaces, we would have to rework a lot of our cell representation classes and interfaces, making it quite difficult to make their views work successfully with our code. 
 
 	
-Gauri Dandi review: 
+Gauri Dandi review:
+  During our design process, we hit some bumps because we initially started out with a poor design that exposed our worksheet, but once we realized the importance of encapsulation, the functionality of the design improved drastically. Through assignment 8, we were able to explore the adapter pattern in much more depth and were able to realize its value.
+
+  Our experience with our providers was good, as they responded to our questions and requests in a timely fashion. Their explanations to answer our questions were comprehensive enough without completely giving away implementation and they sent us the code we requested in an appropriate amount of time.

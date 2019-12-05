@@ -139,7 +139,7 @@ public class BeyondGood {
     else {
       FileReader readFile;
       try {
-        readFile = new FileReader("resources/" + fileName);
+        readFile = new FileReader(fileName);
       } catch (FileNotFoundException e) {
         throw new IllegalArgumentException("Error: File not found.");
       }
