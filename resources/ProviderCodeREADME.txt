@@ -1,3 +1,8 @@
-We were able to create a WorksheetAdapter class that implemented their SpreadSheetViewModel. Using composition, this adapter held an instance of our Worksheet class that was responsible for executing our model interface methods within the body of the methods the adapter is required to implement from the SpreadSheetViewModel interface. 
+We were able to create a WorksheetAdapter class that implemented their SpreadSheetViewModel. Using composition,
+this adapter held an instance of our Worksheet class that was responsible for executing our model interface methods within the
+body of the methods the adapter is required to implement from the SpreadSheetViewModel interface.
 
-However, we had some trouble taking our classes and interfaces associated with our cell's representation and converting them into their cell representation, which was IFormula and IData. We found that our structures were very different in design, eg. we used a visitor pattern with our CellContentsVisitor interface, while they relied on atomic data types and methods to return these values.
+However, we had some trouble taking our classes and interfaces associated with our cell's representation and
+converting them into their cell representation, which was IFormula and IData. We found that our structures were
+very different in design, eg. we used a visitor pattern with our CellContentsVisitor interface, while they relied on
+atomic data types and methods to return these values.

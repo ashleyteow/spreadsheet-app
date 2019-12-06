@@ -1,6 +1,30 @@
 
-When looking at the view package we received from our Providers, it was easy to understand their structure in how they allowed their model and view to talk to each other. Through loose coupling, we were able to easily create a WorksheetAdapter that implemented their SpreadSheetViewModel. By having a SpreadSheetViewModel that their SpreadSheet interface extended, they were able to hold an instance of a SpreadSheetViewModel in each of their views (GUI, editable and textual). In addition, their use of JSwing components was similar to the way we structured our views - having a spreadsheet panel that was reused in the visual and editable view, making it easier for us to understand where the layout of their GUI. Their SpreadSheetPanel class' constructor was very long and initialized multiple different components, this could potentially have been cleaned up into a 'build' method that set each of their components configurations up in one contained method. 
+When looking at the view package we received from our Providers, it was easy to understand their
+structure in how they allowed their model and view to talk to each other. Through loose coupling,
+we were able to easily create a WorksheetAdapter that implemented their SpreadSheetViewModel.
+By having a SpreadSheetViewModel that their SpreadSheet interface extended, they were able to hold
+an instance of a SpreadSheetViewModel in each of their views (GUI, editable and textual).
+In addition, their use of JSwing components was similar to the way we structured our views - having
+a spreadsheet panel that was reused in the visual and editable view, making it easier for us to
+understand where the layout of their GUI. Their SpreadSheetPanel class' constructor was very long
+and initialized multiple different components, this could potentially have been cleaned up into a
+'build' method that set each of their components configurations up in one contained method.
 
-So, in our main method, we were able to create an instance of our WorksheetAdapter that is-a SpreadSheetViewModel, which meant that we were able to create an EditableView with the adapter as the model to get information from. However, what we had the most trouble with was how to merge our cell contents classes. On our end, we have an ICell interface with the Cell class implementing it. We also have a CellContents interface with Reference, Value, and Formula classes implementing it. In addition, we have 5 classes (ValueBlank, ValueBoolean, ValueDouble, ValueString, ValueError) that extend Value. Our provider only provided us with an IFormula class that represents their cells that contain references to IData, which contains information about the cell's atomic data. 
+So, in our main method, we were able to create an instance of our WorksheetAdapter that is-a
+SpreadSheetViewModel, which meant that we were able to create an EditableView with the adapter
+as the model to get information from. However, what we had the most trouble with was how to merge
+our cell contents classes. On our end, we have an ICell interface with the Cell class implementing
+it. We also have a CellContents interface with Reference, Value, and Formula classes implementing
+it. In addition, we have 5 classes (ValueBlank, ValueBoolean, ValueDouble, ValueString, ValueError)
+that extend Value. Our provider only provided us with an IFormula class that represents their cells
+that contain references to IData, which contains information about the cell's atomic data.
 
-Even though it was simple to create a WorksheetAdapter to make our application work with their views, it was difficult to make our cell representation choices to work well together. We came to a conclusion that the reasons for this might be twofold. One, we might have too many types of interfaces and classes that is associated with our cell's representation, making it difficult to work with our provider's code, which has less classes and interfaces but with more complex methods like their different eval methods in the IFormula interface that take in Function objects as arguments. The actual implementation of these functions might be quite elegant but with just going off their javadoc, we were not able to visualize how their IFormula classes contain objects of the IData interface.
+Even though it was simple to create a WorksheetAdapter to make our application work with their
+views, it was difficult to make our cell representation choices to work well together.
+We came to a conclusion that the reasons for this might be twofold. One, we might have too many
+types of interfaces and classes that are associated with our cell representation, making it
+difficult to work with our provider's code, which has less classes and interfaces but with more
+complex methods like their different eval methods in the IFormula interface that take in
+IFunction objects as arguments. The actual implementation of these functions might be quite
+elegant but because we were only going off their javadoc, we were not able to visualize how their
+IFormula classes contain objects of the IData interface.

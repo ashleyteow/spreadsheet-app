@@ -11,4 +11,4 @@ Ashley Teow review:
 Gauri Dandi review:
   During our design process, we hit some bumps because we initially started out with a poor design that exposed our worksheet, but once we realized the importance of encapsulation, the functionality of the design improved drastically. Through assignment 8, we were able to explore the adapter pattern in much more depth and were able to realize its value.
 
-  Our experience with our providers was good, as they responded to our questions and requests in a timely fashion. Their explanations to answer our questions were comprehensive enough without completely giving away implementation and they sent us the code we requested in an appropriate amount of time.
+  Our experience with our providers was good, as they responded to our questions and requests in a timely fashion. Their explanations to answer our questions were comprehensive enough without completely giving away implementation and they sent us the code we requested in an appropriate amount of time. Unfortunately, we found deeper issues with their design that made it difficult to adapt their code to work with ours.

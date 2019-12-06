@@ -21,14 +21,18 @@ public class WorksheetAdapter implements SpreadSheetViewModel {
 
   @Override
   public HashMap<Coord, IFormula> getSheet() {
-    // transform our CellContents into IFormula
+    /* In order for this method to function properly, we would have to find some way
+    to convert the HashMap representing filled in cells in our model into the HashMap
+    that this method returns. We would have to figure out how to change from our CellContents
+    to their IFormula.
+     */
     return null;
   }
 
   @Override
   public Coord getMaxCoord() {
-    // call ourModel.getCells() which will return ArrayList<ICell>
-    // iterate through cells to get the maximum coord
+    // We would need to call ourModel.getCells() which will return ArrayList<ICell>
+    // iterate through cells to get the maximum coord.
     return new Coord(1,1);
   }
 
