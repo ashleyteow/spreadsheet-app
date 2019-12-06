@@ -4,7 +4,7 @@ import edu.cs3500.spreadsheets.view.WorksheetViewModel;
 import java.util.ArrayList;
 
 /**
- * Represents a Worksheet interface including methods that
+ * Represents a Worksheet interface including methods that initialize a worksheet.
  */
 public interface IWorksheet extends WorksheetViewModel {
 

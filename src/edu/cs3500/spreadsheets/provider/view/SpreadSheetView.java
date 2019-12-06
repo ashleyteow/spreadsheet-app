@@ -33,7 +33,7 @@ public interface SpreadSheetView {
    * Reset the focus on the appropriate part of the view that has the keyboard listener attached
    * to it, so that keyboard events will still flow through.
    *
-   * attribute: purpose statement from MVC Code
+   * @attribute purpose statement from MVC Code
    */
   void resetFocus();
 

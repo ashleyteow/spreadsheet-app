@@ -5,8 +5,7 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Color;
-import java.awt.Dimension;;
-
+import java.awt.Dimension;
 
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
@@ -63,7 +62,6 @@ public class SpreadSheetPanel extends JPanel implements MouseListener {
     this.content = new JPanel();
     configureKeyBoardListener();
 
-
     content.setLayout(new GridBagLayout());
 
     for (int i = 1; i <= rowMax; i++) {
@@ -89,15 +87,15 @@ public class SpreadSheetPanel extends JPanel implements MouseListener {
     jsp.setRowHeaderView(westHeader);
     jsp.setColumnHeaderView(headerPanel);
     jsp.setPreferredSize(new Dimension(Cell_Width * DEFAULT_SIZE,
-            Cell_Heighth * DEFAULT_SIZE + Cell_Heighth / 2));
+        Cell_Heighth * DEFAULT_SIZE + Cell_Heighth / 2));
     JLabel sign = new JLabel("row\uD83E\uDC13 col\uD83E\uDC12", SwingConstants.CENTER);
     sign.setPreferredSize(new Dimension(Cell_Width,
-            Cell_Heighth));
+        Cell_Heighth));
     sign.setOpaque(true);
     sign.setBackground(Color.GREEN);
     sign.setBorder(BorderFactory.createLineBorder(Color.black));
     jsp.setCorner(JScrollPane.UPPER_LEFT_CORNER,
-            sign);
+        sign);
 
     //panel resizes when resize window
     this.addComponentListener(new ComponentAdapter() {
@@ -115,21 +113,19 @@ public class SpreadSheetPanel extends JPanel implements MouseListener {
       }
     });
 
-
     this.selectedLabel = (CellLabel) content.getComponent(0);
     selectedLabel.setBorder(RED_BOARDER);
 
     this.add(jsp);
-
 
     //enable infinite scrolling
     jsp.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
 
       @Override
       public void adjustmentValueChanged(AdjustmentEvent event) {
-        if ((float) jsp.getVerticalScrollBar().getValue() / (jsp.getVerticalScrollBar().getMaximum()
-                -
-                jsp.getVerticalScrollBar().getVisibleAmount()) > 0.95) {
+        if ((float) jsp.getVerticalScrollBar().getValue()
+            / (jsp.getVerticalScrollBar().getMaximum()
+            - jsp.getVerticalScrollBar().getVisibleAmount()) > 0.95) {
           addRow();
         }
       }
@@ -140,9 +136,9 @@ public class SpreadSheetPanel extends JPanel implements MouseListener {
 
       @Override
       public void adjustmentValueChanged(AdjustmentEvent event) {
-        if ((float) jsp.getHorizontalScrollBar().getValue() /
-                (jsp.getHorizontalScrollBar().getMaximum() -
-                        jsp.getHorizontalScrollBar().getVisibleAmount()) > 0.95) {
+        if ((float) jsp.getHorizontalScrollBar().getValue()
+            / (jsp.getHorizontalScrollBar().getMaximum()
+            - jsp.getHorizontalScrollBar().getVisibleAmount()) > 0.95) {
           addColumn();
         }
       }
@@ -173,28 +169,27 @@ public class SpreadSheetPanel extends JPanel implements MouseListener {
     headerPanel.addOneUnit();
   }
 
-
-//  private void enableInfiniteScroll(JScrollBar bar, int headerLength1,
-//                                    int headerLength2, HeaderPanel panel,boolean isVertical) {
-//    if ((float) bar.getValue() / (bar.getMaximum()
-//            -
-//            bar.getVisibleAmount()) > 0.95) {
-//      for (int i = 1; i <= headerLength1; i++) {
-//        GridBagConstraints c = new GridBagConstraints();
-//        c.gridx = i - 1;
-//        c.gridy = headerLength2 - 1;
-//        if (isVertical) {
-//          CellLabel jl = new CellLabel(new Coord(headerLength2, i), "", SwingConstants.CENTER);
-//          addLabel(jl, c);
-//        } else {
-//          CellLabel j2 = new CellLabel(new Coord(i, headerLength2), "", SwingConstants.CENTER);
-//          addLabel(j2, c);
-//        }
-//      }
-//    }
-//    headerLength2++;
-//    panel.addOneUnit();
-//  }
+  //  private void enableInfiniteScroll(JScrollBar bar, int headerLength1,
+  //                                    int headerLength2, HeaderPanel panel,boolean isVertical) {
+  //    if ((float) bar.getValue() / (bar.getMaximum()
+  //            -
+  //            bar.getVisibleAmount()) > 0.95) {
+  //      for (int i = 1; i <= headerLength1; i++) {
+  //        GridBagConstraints c = new GridBagConstraints();
+  //        c.gridx = i - 1;
+  //        c.gridy = headerLength2 - 1;
+  //        if (isVertical) {
+  //          CellLabel jl = new CellLabel(new Coord(headerLength2, i), "", SwingConstants.CENTER);
+  //          addLabel(jl, c);
+  //        } else {
+  //          CellLabel j2 = new CellLabel(new Coord(i, headerLength2), "", SwingConstants.CENTER);
+  //          addLabel(j2, c);
+  //        }
+  //      }
+  //    }
+  //    headerLength2++;
+  //    panel.addOneUnit();
+  //  }
 
   private void configureKeyBoardListener() {
     Map<Character, Runnable> keyTypes = new HashMap<Character, Runnable>();
@@ -202,20 +197,20 @@ public class SpreadSheetPanel extends JPanel implements MouseListener {
     Map<Integer, Runnable> keyReleases = new HashMap<Integer, Runnable>();
 
     keyPresses.put(KeyEvent.VK_UP, () -> {
-              if (selectedLabel.cord.row != 1) {
-                selectedLabel.setBorder(BLACK_BOARDER);
-                selectedLabel =
-                        getCellLabel(new Coord(selectedLabel.cord.col, selectedLabel.cord.row - 1));
-                selectedLabel.setBorder(RED_BOARDER);
-              }
-            }
+          if (selectedLabel.cord.row != 1) {
+            selectedLabel.setBorder(BLACK_BOARDER);
+            selectedLabel =
+                getCellLabel(new Coord(selectedLabel.cord.col, selectedLabel.cord.row - 1));
+            selectedLabel.setBorder(RED_BOARDER);
+          }
+        }
     );
 
     keyPresses.put(KeyEvent.VK_DOWN, () -> {
       if (selectedLabel.cord.row < rowMax - 1) {
         selectedLabel.setBorder(BLACK_BOARDER);
         selectedLabel =
-                getCellLabel(new Coord(selectedLabel.cord.col, selectedLabel.cord.row + 1));
+            getCellLabel(new Coord(selectedLabel.cord.col, selectedLabel.cord.row + 1));
         selectedLabel.setBorder(RED_BOARDER);
       }
     });
@@ -224,7 +219,7 @@ public class SpreadSheetPanel extends JPanel implements MouseListener {
       if (selectedLabel.cord.col != 1) {
         selectedLabel.setBorder(BLACK_BOARDER);
         selectedLabel =
-                getCellLabel(new Coord(selectedLabel.cord.col - 1, selectedLabel.cord.row));
+            getCellLabel(new Coord(selectedLabel.cord.col - 1, selectedLabel.cord.row));
         selectedLabel.setBorder(RED_BOARDER);
       }
     });
@@ -233,11 +228,10 @@ public class SpreadSheetPanel extends JPanel implements MouseListener {
       if (selectedLabel.cord.col < colMax - 1) {
         selectedLabel.setBorder(BLACK_BOARDER);
         selectedLabel =
-                getCellLabel(new Coord(selectedLabel.cord.col + 1, selectedLabel.cord.row));
+            getCellLabel(new Coord(selectedLabel.cord.col + 1, selectedLabel.cord.row));
         selectedLabel.setBorder(RED_BOARDER);
       }
     });
-
 
     KeyboardListener kbd = new KeyboardListener(keyTypes, keyPresses, keyReleases);
 
@@ -268,7 +262,6 @@ public class SpreadSheetPanel extends JPanel implements MouseListener {
       selectedLabel.setBorder(BLACK_BOARDER);
       this.selectedLabel = jb;
       selectedLabel.setBorder(RED_BOARDER);
-
 
       this.requestFocus();
     }
@@ -304,8 +297,8 @@ public class SpreadSheetPanel extends JPanel implements MouseListener {
 
   private CellLabel getCellLabel(Coord cord) {
     return (CellLabel) content
-            .getComponentAt((int) (cord.col - 0.5) * SpreadSheetPanel.Cell_Width,
-                    (int) (cord.row - 0.5) * SpreadSheetPanel.Cell_Heighth);
+        .getComponentAt((int) (cord.col - 0.5) * SpreadSheetPanel.Cell_Width,
+            (int) (cord.row - 0.5) * SpreadSheetPanel.Cell_Heighth);
   }
 
   /**

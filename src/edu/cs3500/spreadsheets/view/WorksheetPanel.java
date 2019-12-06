@@ -199,6 +199,9 @@ public class WorksheetPanel extends JPanel {
     }
   }
 
+  /**
+   * Redraws this WorksheetPanel on update.
+   */
   public void refresh() {
     this.revalidate();
     this.repaint();

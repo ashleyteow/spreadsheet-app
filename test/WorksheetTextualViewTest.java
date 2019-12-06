@@ -103,7 +103,8 @@ public class WorksheetTextualViewTest {
   }
 
   /*
-  checks whether formula and reference cells render as their raw values rather than the values to which they evaluate.
+  checks whether formula and reference cells render as their raw values rather than the values
+  to which they evaluate.
    */
 
   @Test

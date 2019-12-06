@@ -8,11 +8,20 @@ import edu.cs3500.spreadsheets.view.WorksheetEditableView;
 import java.io.IOException;
 
 
+/**
+ * An implementation of a {@code WorksheetController} that allows the user to edit the visual
+ * view of the worksheet.
+ */
 public class WorksheetGUIController implements WorksheetController, FeaturesListener {
   WorksheetEditableView gui;
   IWorksheet model;
   Coord coordToEdit;
 
+  /**
+   * Initializes the model to work accept changes.
+   * @param model the worksheet's model
+   * @throws IOException when an IOException is detected
+   */
   public WorksheetGUIController(IWorksheet model) throws IOException {
     this.model = model;
     this.gui = new WorksheetEditableView(model, this);

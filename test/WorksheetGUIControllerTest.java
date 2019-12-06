@@ -1,4 +1,4 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import edu.cs3500.spreadsheets.controller.WorksheetController;
 import edu.cs3500.spreadsheets.controller.WorksheetGUIController;
@@ -12,7 +12,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import org.junit.Test;
 
+/**
+ * Test class to test the editable visual view of the worksheet.
+ */
 public class WorksheetGUIControllerTest {
+
   @Test
   public void confirmEdits() throws IOException {
     FileReader readFile = new FileReader("resources/" + "testParse1");

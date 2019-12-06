@@ -34,7 +34,7 @@ public class BeyondGood {
       throw new IllegalArgumentException("Too many arguments!");
     }
 
-    switch(args[0]) {
+    switch (args[0]) {
       case "-in":
         if (args[2].equals("-save")) {
           saveHelp(args[1], args[3]);
@@ -196,7 +196,7 @@ public class BeyondGood {
     else {
       FileReader readFile;
       try {
-        readFile = new FileReader("resources/" +fileName);
+        readFile = new FileReader("resources/" + fileName);
       } catch (FileNotFoundException e) {
         throw new IllegalArgumentException("Error: File not found.");
       }

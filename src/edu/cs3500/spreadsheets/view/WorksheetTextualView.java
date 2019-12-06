@@ -50,7 +50,7 @@ public class WorksheetTextualView implements WorksheetView {
 
   @Override
   public void displayRawCellValue(String rawVal) {
-
+    throw new UnsupportedOperationException();
   }
 
 

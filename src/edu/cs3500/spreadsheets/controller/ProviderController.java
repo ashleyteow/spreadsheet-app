@@ -5,17 +5,23 @@ import edu.cs3500.spreadsheets.provider.view.SpreadSheetView;
 import edu.cs3500.spreadsheets.provider.view.SpreadSheetViewModel;
 import java.io.File;
 
+/**
+ * A controller that works with our provider's view classes.
+ */
 public class ProviderController implements Features {
   private SpreadSheetView view;
   private SpreadSheetViewModel providerModel;
 
-  public ProviderController(SpreadSheetView view,
-      SpreadSheetViewModel providerModel) {
+  /**
+   * Initializes the provider's view and model to work with our view.
+   * @param view the provider's view
+   * @param providerModel the provider's model
+   */
+  public ProviderController(SpreadSheetView view, SpreadSheetViewModel providerModel) {
     this.view = view;
     this.providerModel = providerModel;
     this.view.addFeatures(this);
   }
-
 
   @Override
   public void editCell(String str, int col, int row) {
@@ -35,7 +41,6 @@ public class ProviderController implements Features {
   public void restore() {
     // get Cell
     // set formula text panel to be the original cell before edits
-
   }
 
   @Override

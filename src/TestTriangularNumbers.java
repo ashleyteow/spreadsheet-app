@@ -7,6 +7,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Tests that the triangular numbers pattern is properly read in to the program.
+ */
 public class TestTriangularNumbers {
 
   /**
