@@ -1,12 +1,5 @@
-BeyondgOOD Project
-Gauri and Ashley
+## Spreadsheet Application (Java)
+### By Ashley Teow and Gauri Dandi
 
-Goal of HWK8: make our spreadsheet application work with the editable view we were provided from our Provider group.
-
-
-    Todo List:
-        * Implement getMaxCoord() and getSheet() in WorksheetAdapter class
-        * Get ProviderController to work
-        * JAR file working with -provider
-    
+Spreadsheet-like application that accomodates basic spreadsheet functions like SUM, CONCAT, SUBTRACT. The model contains rules and 'state' of any given spreadsheet. The controller handles user interaction, like clicking on a cell or arrowing into the next cell, executing formulas `=SUM(1+2)`. The view is built using JPanel and JFrames with individual panels for the headers, the rows and the cells. 
     
